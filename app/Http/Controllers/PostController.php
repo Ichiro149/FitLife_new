@@ -18,17 +18,36 @@ class PostController extends Controller
         try {
             $perPage = 10;
             $page = $request->input('page', 1);
-            $cacheKey = "posts_page_{$page}";
-            $posts = Cache::remember($cacheKey, 60, function () use ($perPage) {
-                return Post::with(['user', 'comments' => function ($query) {
-                    $query->whereNull('parent_id')->with(['replies.user', 'user', 'replies.replies.user', 'parent.user']);
+            $sort = $request->input('sort', 'newest');
+            $cacheKey = "posts_page_{$page}_sort_{$sort}";
+            
+            $posts = Cache::remember($cacheKey, 60, function () use ($perPage, $sort) {
+                $query = Post::with(['user', 'comments' => function ($q) {
+                    $q->whereNull('parent_id')->with(['replies.user', 'user', 'replies.replies.user', 'parent.user']);
                 }, 'likes'])
                 ->withCount([
                     'likes as like_count' => fn($q) => $q->where('type', 'like'),
                     'likes as dislike_count' => fn($q) => $q->where('type', 'dislike'),
                     'allComments as comment_count'
-                ])
-                ->latest()->paginate($perPage);
+                ]);
+                
+                switch ($sort) {
+                    case 'top':
+                        // Sort by likes - dislikes
+                        $query->orderByRaw('(SELECT COUNT(*) FROM likes WHERE likes.likeable_id = posts.id AND likes.likeable_type = ? AND likes.type = ?) - (SELECT COUNT(*) FROM likes WHERE likes.likeable_id = posts.id AND likes.likeable_type = ? AND likes.type = ?) DESC', [Post::class, 'like', Post::class, 'dislike']);
+                        break;
+                    case 'hot':
+                        // Hot = recent + popular (posts from last 24h with most engagement)
+                        $query->where('created_at', '>=', now()->subDay())
+                              ->orderByRaw('(SELECT COUNT(*) FROM likes WHERE likes.likeable_id = posts.id AND likes.likeable_type = ?) + (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) DESC', [Post::class]);
+                        break;
+                    case 'newest':
+                    default:
+                        $query->latest();
+                        break;
+                }
+                
+                return $query->paginate($perPage);
             });
 
             if ($request->wantsJson()) {
@@ -68,30 +87,44 @@ class PostController extends Controller
 
             Cache::forget('posts_page_1');
 
-            return response()->json([
-                'success' => true,
-                'post' => $this->formatPostResponse($post),
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'post' => $this->formatPostResponse($post),
+                ], 200);
+            }
+
+            return redirect()->route('posts.index')->with('success', __('toast.post_created'));
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Post creation validation failed: ' . json_encode($e->errors()));
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed: ' . implode(', ', $e->errors()['photo'] ?? $e->errors()['video'] ?? ['Unknown error']),
-            ], 422);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed: ' . implode(', ', $e->errors()['photo'] ?? $e->errors()['video'] ?? ['Unknown error']),
+                ], 422);
+            }
+            return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             \Log::error('Post creation failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to create post: ' . $e->getMessage(),
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to create post: ' . $e->getMessage(),
+                ], 500);
+            }
+            return back()->with('error', __('toast.post_create_error'))->withInput();
         }
     }
 
     public function update(Request $request, Post $post)
     {
         try {
-            if (Auth::id() !== $post->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            // Use Policy for authorization (allows admin or owner)
+            if (!Auth::user()->can('update', $post)) {
+                if ($request->expectsJson()) {
+                    return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                }
+                return back()->with('error', 'Unauthorized');
             }
 
             $request->validate([
@@ -123,48 +156,69 @@ class PostController extends Controller
 
             Cache::forget('posts_page_1');
 
-            return response()->json([
-                'success' => true,
-                'post' => [
-                    'id' => $post->id,
-                    'content' => $post->content,
-                    'media_path' => $post->media_path,
-                    'media_type' => $post->media_type,
-                ],
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'post' => [
+                        'id' => $post->id,
+                        'content' => $post->content,
+                        'media_path' => $post->media_path,
+                        'media_type' => $post->media_type,
+                    ],
+                ], 200);
+            }
+
+            return redirect()->route('posts.index')->with('success', __('toast.post_updated'));
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Post update validation failed: ' . json_encode($e->errors()));
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed: ' . implode(', ', $e->errors()['photo'] ?? $e->errors()['video'] ?? ['Unknown error']),
-            ], 422);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed: ' . implode(', ', $e->errors()['photo'] ?? $e->errors()['video'] ?? ['Unknown error']),
+                ], 422);
+            }
+            return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             \Log::error('Post update failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update post: ' . $e->getMessage(),
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update post: ' . $e->getMessage(),
+                ], 500);
+            }
+            return back()->with('error', __('toast.post_update_error'))->withInput();
         }
     }
 
-    public function destroy(Post $post)
+    public function destroy(Request $request, Post $post)
     {
         try {
-            if (Auth::id() !== $post->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            // Use Policy for authorization (allows admin or owner)
+            if (!Auth::user()->can('delete', $post)) {
+                if ($request->expectsJson()) {
+                    return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                }
+                return back()->with('error', 'Unauthorized');
             }
 
             $this->deleteMedia($post->media_path);
             $post->delete();
             Cache::forget('posts_page_1');
 
-            return response()->json(['success' => true, 'message' => 'Post deleted successfully'], 200);
+            if ($request->expectsJson()) {
+                return response()->json(['success' => true, 'message' => 'Post deleted successfully'], 200);
+            }
+            
+            return redirect()->route('posts.index')->with('success', __('toast.post_deleted'));
         } catch (\Exception $e) {
             \Log::error('Post deletion failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to delete post: ' . $e->getMessage(),
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to delete post: ' . $e->getMessage(),
+                ], 500);
+            }
+            return back()->with('error', __('toast.post_delete_error'));
         }
     }
 
@@ -230,10 +284,13 @@ class PostController extends Controller
             ])->first();
 
             if ($existingComment) {
-                return response()->json([
-                    'success' => true,
-                    'comment' => $this->formatCommentForJson($existingComment),
-                ], 200);
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'success' => true,
+                        'comment' => $this->formatCommentForJson($existingComment),
+                    ], 200);
+                }
+                return back()->with('success', __('toast.comment_added'));
             }
 
             $comment = Comment::create([
@@ -247,16 +304,23 @@ class PostController extends Controller
 
             Cache::forget('posts_page_1');
 
-            return response()->json([
-                'success' => true,
-                'comment' => $this->formatCommentForJson($comment),
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'comment' => $this->formatCommentForJson($comment),
+                ], 200);
+            }
+
+            return back()->with('success', __('toast.comment_added'));
         } catch (\Exception $e) {
             \Log::error('Comment creation failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to add comment: ' . $e->getMessage(),
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to add comment: ' . $e->getMessage(),
+                ], 500);
+            }
+            return back()->with('error', __('toast.comment_add_error'));
         }
     }
 

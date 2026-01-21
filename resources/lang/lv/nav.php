@@ -34,4 +34,6 @@ return [
     'biography' => 'Biogrāfija',
     'social' => 'Sociālais',
     'profile' => 'Profils',
+    'my_profile' => 'Mans profils',
+    'food' => 'Ēdiens',
 ];

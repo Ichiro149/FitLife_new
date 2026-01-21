@@ -2,584 +2,201 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>FitLife - Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ __('auth.register') }} - FitLife</title>
     <link rel="icon" href="{{ asset('favicon.PNG') }}" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <style>
-        :root {
-            --bg: #121212;
-            --text: #e5e5e5;
-            --accent: #00ff00;
-            --muted: #a0a0a0;
-            --card-bg: #1f1f1f;
-            --border: #333333;
-            --radius: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            --transition: 0.3s ease;
-            --highlight: #00cc00;
-            --danger: #ff5555;
-            --success: #00ff00;
-            --focus: #33ff33;
-            --hover-bg: #000000;
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg: #f4faff;
-                --text: #2c3e50;
-                --card-bg: #ffffff;
-                --border: #e0e0e0;
-                --muted: #7f8c8d;
-                --hover-bg: #f0f0f0;
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body {
-            flex: 1 0 auto;
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--border);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--highlight);
-        }
-
-        header {
-            background: var(--card-bg);
-            padding: 1.5rem 4rem;
-            border-bottom: 1px solid var(--border);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo img {
-            width: 50px;
-            height: auto;
-        }
-
-        .menu-toggle {
-            font-size: 1.5rem;
-            color: var(--accent);
-            cursor: pointer;
-            background: none;
-            border: none;
-            display: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .button {
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .button.login {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        .button.signup {
-            background: var(--highlight);
-            color: var(--bg);
-        }
-
-        .button:focus {
-            outline: 2px solid var(--focus);
-            outline-offset: 2px;
-        }
-
-        main {
-            flex: 1 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 5rem;
-        }
-
-        .register-wrapper {
-            width: 100%;
-            max-width: 450px;
-            padding: 1.5rem;
-        }
-
-        .register-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            text-align: center;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        /* Логотип в форме — по центру */
-        .register-card .logo {
-            width: 80px;
-            margin: 0 auto 1rem auto;
-            display: block;
-            border-radius: var(--radius);
-        }
-
-        .register-card h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .register-card .subtitle {
-            font-size: 1rem;
-            color: var(--muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .register-card .subtitle span {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .register-card label {
-            display: block;
-            text-align: left;
-            font-size: 0.9rem;
-            color: var(--muted);
-            margin: 0.5rem 0 0.25rem;
-        }
-
-        .register-card input[type="text"],
-        .register-card input[type="email"],
-        .register-card input[type="password"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            color: var(--text);
-            background: var(--card-bg);
-            transition: var(--transition);
-        }
-
-        .register-card input:focus {
-            outline: 2px solid var(--focus);
-            border-color: var(--accent);
-        }
-
-        .register-card input::placeholder {
-            color: var(--muted);
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 0.25rem;
-            text-align: left;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .footer a {
-            color: var(--accent);
-            font-size: 0.9rem;
-            text-decoration: none;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
-
-        .btn i {
-            font-size: 1rem;
-        }
-
-        .btn:focus {
-            outline: 2px solid var(--focus);
-            outline-offset: 2px;
-        }
-
-        footer {
-            background: var(--card-bg);
-            padding: 1rem 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            color: var(--muted);
-            margin-bottom: 0.5rem;
-        }
-
-        footer .links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        footer .links a {
-            color: var(--accent);
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        a:focus, button:focus, input:focus {
-            outline: 2px solid var(--focus);
-            outline-offset: 2px;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-
-        @media (prefers-contrast: high) {
-            :root {
-                --accent: #33ff33;
-                --highlight: #66ff66;
-                --border: #000000;
-                --muted: #cccccc;
-            }
-
-            .register-card, .error {
-                border: 2px solid var(--accent);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .register-card, .btn, .button {
-                animation: none;
-            }
-        }
-
-        @media print {
-            header, footer, .menu-toggle {
-                display: none;
-            }
-
-            .register-card {
-                background: none;
-                box-shadow: none;
-                border: 1px solid #000;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .logo img {
-                width: 40px;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--card-bg);
-                flex-direction: column;
-                padding: 1rem;
-                border-bottom: 1px solid var(--border);
-                box-shadow: var(--shadow);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                padding: 0.75rem;
-                font-size: 1rem;
-            }
-
-            .auth-buttons {
-                flex-direction: row;
-                gap: 0.5rem;
-            }
-
-            .button {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .register-wrapper {
-                padding: 1rem;
-            }
-
-            .register-card {
-                padding: 1.5rem;
-            }
-
-            .register-card h2 {
-                font-size: 1.8rem;
-            }
-
-            .register-card .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .register-card label, .register-card input, .footer a, .btn {
-                font-size: 0.9rem;
-            }
-
-            footer {
-                padding: 1rem;
-            }
-
-            footer p {
-                font-size: 0.8rem;
-            }
-
-            footer .links a {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .register-card h2 {
-                font-size: 1.6rem;
-            }
-
-            .register-card .subtitle {
-                font-size: 0.85rem;
-            }
-
-            .register-card label, .register-card input, .footer a, .btn {
-                font-size: 0.8rem;
-            }
-
-            .register-card .logo {
-                width: 60px;
-            }
-        }
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile menu toggle
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-
-            // Close mobile menu on link click
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                });
-            });
-
-            // Prevent pinch zoom on iOS
-            document.addEventListener('gesturestart', (e) => {
-                e.preventDefault();
-            });
-        });
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css'])
 </head>
-
-<body>
-    <header>
-        <div class="logo">
-            <img src="{{ asset('favicon.PNG') }}" alt="FitLife Logo">
-        </div>
-        <button class="menu-toggle"><i class="fas fa-bars"></i></button>
-        <div class="nav-links">
-            <a href="{{ route('welcome') }}">{{ __('auth.home') }}</a>
-            <a href="#features">{{ __('auth.features') }}</a>
-            <a href="#testimonials">{{ __('auth.testimonials') }}</a>
-            <a href="#about">{{ __('auth.about') }}</a>
-        </div>
-        <div class="auth-buttons">
-            @if(Route::has('login'))
-                @auth
-                    <a href="{{ route('dashboard') }}" class="button login">
-                        <i class="fas fa-tachometer-alt"></i> {{ __('auth.dashboard') }}
-                    </a>
-                @else
-                    <a href="{{ route('login') }}" class="button login">
-                        <i class="fas fa-sign-in-alt"></i> {{ __('auth.log_in') }}
-                    </a>
-                    @if(Route::has('register'))
-                        <a href="{{ route('register') }}" class="button signup">
-                            <i class="fas fa-user-plus"></i> {{ __('auth.sign_up') }}
-                        </a>
-                    @endif
-                @endauth
-            @endif
+<body class="auth-layout">
+    <!-- Header -->
+    <header class="auth-navbar">
+        <a href="{{ url('/') }}" class="auth-navbar-brand">
+            <div class="auth-navbar-brand-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+                </svg>
+            </div>
+            <span class="auth-navbar-brand-text">FitLife</span>
+        </a>
+        <div class="auth-navbar-links">
+            <span>{{ __('auth.have_account') }}</span>
+            <a href="{{ route('login') }}" class="auth-navbar-link">{{ __('auth.login') }}</a>
         </div>
     </header>
 
-    <main>
-        <div class="register-wrapper" role="main" aria-label="FitLife Register">
-            <div class="register-card">
-                <!-- Логотип по центру -->
-                <img src="{{ asset('favicon.PNG') }}" alt="FitLife Logo" class="logo">
-                <h2>{{ __('auth.create_account') }}</h2>
-                <p class="subtitle">{{ __('auth.register_subtitle') }} <span>FitLife</span> {{ __('auth.start_journey') }}</p>
+    <!-- Main Content -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Header -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="auth-title">{{ __('auth.create_account') }}</h1>
+                <p class="auth-subtitle">{{ __('auth.register_subtitle') }}</p>
+            </div>
 
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
+            <!-- Errors -->
+            @if ($errors->any())
+                <div class="auth-errors">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                    <label for="name">{{ __('auth.name') }}</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
-                    @error('name')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
+            <!-- Form -->
+            <form method="POST" action="{{ route('register') }}" class="auth-form">
+                @csrf
 
-                    <label for="username">{{ __('auth.username') }}</label>
-                    <input id="username" type="text" name="username" value="{{ old('username') }}" required autocomplete="username">
-                    @error('username')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name" class="form-label">{{ __('auth.name') }}</label>
+                    <div class="auth-input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            value="{{ old('name') }}" 
+                            class="form-input @error('name') is-error @enderror" 
+                            placeholder="{{ __('auth.name') }}"
+                            required 
+                            autofocus
+                        >
+                    </div>
+                </div>
 
-                    <label for="email">{{ __('auth.email') }}</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
-                    @error('email')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username" class="form-label">{{ __('auth.username') }}</label>
+                    <div class="auth-input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <line x1="20" y1="8" x2="20" y2="14"/>
+                            <line x1="23" y1="11" x2="17" y2="11"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            value="{{ old('username') }}" 
+                            class="form-input @error('username') is-error @enderror" 
+                            placeholder="{{ __('auth.username') }}"
+                            required
+                        >
+                    </div>
+                </div>
 
-                    <label for="password">{{ __('auth.password') }}</label>
-                    <input id="password" type="password" name="password" required autocomplete="new-password">
-                    @error('password')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                    <div class="auth-input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            value="{{ old('email') }}" 
+                            class="form-input @error('email') is-error @enderror" 
+                            placeholder="{{ __('auth.email') }}"
+                            required
+                        >
+                    </div>
+                </div>
 
-                    <label for="password_confirmation">{{ __('auth.confirm_password') }}</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
-                    @error('password_confirmation')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
-
-                    <div class="footer">
-                        <a href="{{ route('login') }}">{{ __('auth.already_registered') }}</a>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-user-plus"></i> {{ __('auth.register') }}
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="form-label">{{ __('auth.password') }}</label>
+                    <div class="auth-input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input @error('password') is-error @enderror" 
+                            placeholder="{{ __('auth.password') }}"
+                            required
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
                         </button>
                     </div>
-                </form>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-label">{{ __('auth.confirm_password') }}</label>
+                    <div class="auth-input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <input 
+                            type="password" 
+                            id="password_confirmation" 
+                            name="password_confirmation" 
+                            class="form-input" 
+                            placeholder="{{ __('auth.confirm_password') }}"
+                            required
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
+                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" class="checkbox-input" required>
+                        <span class="checkbox-text">{{ __('auth.agree_terms') }}</span>
+                    </label>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="auth-submit">
+                    {{ __('auth.register') }}
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="auth-footer">
+                <span>{{ __('auth.have_account') }}</span>
+                <a href="{{ route('login') }}">{{ __('auth.login') }}</a>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <p>© {{ date('Y') }} FitLife. {{ __('auth.all_rights_reserved') }}</p>
-        <div class="links">
-            <a href="{{ route('privacy-policy') }}">{{ __('auth.privacy_policy') }}</a>
-            <a href="{{ route('terms-of-service') }}">{{ __('auth.terms_of_service') }}</a>
-            <a href="mailto:support@fitlife.com">{{ __('auth.contact_us') }}</a>
-        </div>
-    </footer>
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+    </script>
 </body>
 </html>

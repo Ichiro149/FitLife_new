@@ -2,8 +2,10 @@
 
 return [
     'title' => 'Settings',
+    'subtitle' => 'Manage your account preferences',
+    'back_to_profile' => 'Back to Profile',
     'language' => 'Language',
-    'select_language' => 'Select Language',
+    'select_language' => 'Select your preferred language',
     'english' => 'English',
     'russian' => 'Russian',
     'latvian' => 'Latvian',
@@ -15,4 +17,6 @@ return [
     'notifications' => 'Notifications',
     'privacy' => 'Privacy',
     'account' => 'Account',
+    'security' => 'Security',
+    'password' => 'Password',
 ];

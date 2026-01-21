@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/progress.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div id="fitlife-container" role="application" aria-label="{{ __('progress.title') }}">
     <main>

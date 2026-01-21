@@ -3,6 +3,7 @@
 return [
     'title' => 'Dashboard',
     'welcome' => 'Welcome back, :name!',
+    'welcome_back' => 'Welcome back,',
     'subtitle' => 'Here\'s your fitness overview for today',
     'overview' => 'Overview',
     'today' => 'Today',

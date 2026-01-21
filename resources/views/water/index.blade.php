@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/water.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div id="fitlife-container" role="application" aria-label="{{ __('water.title') }}">
     <main>

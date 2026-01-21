@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <!-- Include profile-specific CSS -->
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div id="fitlife-container" role="application" aria-label="FitLife Profile Settings">
     <main id="main-content">

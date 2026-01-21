@@ -10,32 +10,23 @@
 
     <style>
         :root {
-            --bg: #121212;
-            --text: #e5e5e5;
-            --accent: #00ff00;
-            --muted: #a0a0a0;
-            --card-bg: #1f1f1f;
-            --border: #333333;
+            --bg: #0a0a0a;
+            --text: #f8fafc;
+            --accent: #22c55e;
+            --muted: #94a3b8;
+            --card-bg: #141414;
+            --border: #2a2a2a;
             --radius: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             --transition: 0.3s ease;
-            --highlight: #00cc00;
-            --danger: #ff5555;
-            --success: #00ff00;
-            --focus: #33ff33;
-            --hover-bg: #000000;
+            --highlight: #16a34a;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --focus: #4ade80;
+            --hover-bg: #1f1f1f;
         }
 
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg: #f4faff;
-                --text: #2c3e50;
-                --card-bg: #ffffff;
-                --border: #e0e0e0;
-                --muted: #7f8c8d;
-                --hover-bg: #f0f0f0;
-            }
-        }
+        /* Remove light theme - dark only */
 
         * {
             margin: 0;

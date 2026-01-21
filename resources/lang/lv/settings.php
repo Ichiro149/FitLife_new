@@ -2,8 +2,10 @@
 
 return [
     'title' => 'Iestatījumi',
+    'subtitle' => 'Pārvaldīt konta preferences',
+    'back_to_profile' => 'Atpakaļ uz profilu',
     'language' => 'Valoda',
-    'select_language' => 'Izvēlieties valodu',
+    'select_language' => 'Izvēlieties vēlamo valodu',
     'english' => 'Angļu',
     'russian' => 'Krievu',
     'latvian' => 'Latviešu',
@@ -15,4 +17,6 @@ return [
     'notifications' => 'Paziņojumi',
     'privacy' => 'Privātums',
     'account' => 'Konts',
+    'security' => 'Drošība',
+    'password' => 'Parole',
 ];

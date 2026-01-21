@@ -15,46 +15,66 @@ class CommentController extends Controller
     {
         try {
             if (Auth::id() !== $comment->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                if ($request->expectsJson()) {
+                    return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                }
+                return back()->with('error', 'Unauthorized');
             }
 
             $request->validate(['content' => 'required|string|max:500']);
             $comment->update(['content' => $request->input('content')]);
             Cache::forget('posts_page_1');
 
-            return response()->json([
-                'success' => true,
-                'comment' => ['id' => $comment->id, 'content' => $comment->content]
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'comment' => ['id' => $comment->id, 'content' => $comment->content]
+                ], 200);
+            }
+
+            return back()->with('success', __('toast.comment_updated'));
 
         } catch (\Exception $e) {
             \Log::error('Comment update failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update comment, but it may have been saved.',
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update comment, but it may have been saved.',
+                ], 200);
+            }
+            return back()->with('error', __('toast.comment_update_error'));
         }
     }
 
     // Delete comment
-    public function destroy(Comment $comment)
+    public function destroy(Request $request, Comment $comment)
     {
         try {
             if (Auth::id() !== $comment->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                if ($request->expectsJson()) {
+                    return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+                }
+                return back()->with('error', 'Unauthorized');
             }
 
             $comment->delete();
             Cache::forget('posts_page_1');
 
-            return response()->json(['success' => true], 200);
+            if ($request->expectsJson()) {
+                return response()->json(['success' => true], 200);
+            }
+            
+            return back()->with('success', __('toast.comment_deleted'));
 
         } catch (\Exception $e) {
             \Log::error('Comment deletion failed: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to delete comment, but it may have been removed.',
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to delete comment, but it may have been removed.',
+                ], 200);
+            }
+            return back()->with('error', __('toast.comment_delete_error'));
         }
     }
 

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector('#main-content');
+    const main = document.querySelector('#main-content') || document.querySelector('.main-content');
     if (!main) return;
 
     // DOM elements
@@ -27,7 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    // Helper to get translated message
+    const t = (key, fallback) => window.toastMessages?.[key] || fallback || key;
+
     const showAlert = (message, type) => {
+        // Use toast notifications if available
+        if (window.toast) {
+            if (type === 'success') window.toast.success(message);
+            else if (type === 'error') window.toast.error(message);
+            else if (type === 'warning') window.toast.warning(message);
+            else window.toast.info(message);
+            return;
+        }
+        // Fallback to old alert system
         if (!els.alert) return;
         els.alert.innerHTML = `<div class="alert alert--${type}">${message}</div>`;
         els.alert.style.display = 'block';
@@ -57,6 +69,43 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === 'Escape' && els.sidebar.classList.contains('active')) {
                 els.sidebar.classList.remove('active');
                 els.mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    };
+
+    // Emoji Picker
+    const setupEmojiPicker = () => {
+        const emojiTrigger = document.querySelector('.emoji-trigger');
+        const emojiPanel = document.querySelector('.emoji-panel');
+        const textarea = els.postTextarea;
+        
+        if (!emojiTrigger || !emojiPanel || !textarea) return;
+        
+        emojiTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            emojiPanel.style.display = emojiPanel.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        document.querySelectorAll('.emoji-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const emoji = btn.textContent;
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start) + emoji + textarea.value.substring(end);
+                textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+                textarea.focus();
+                // Update char counter
+                if (els.postCharCount) {
+                    els.postCharCount.textContent = `${textarea.value.length}/1000`;
+                }
+            });
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!emojiTrigger.contains(e.target) && !emojiPanel.contains(e.target)) {
+                emojiPanel.style.display = 'none';
             }
         });
     };
@@ -124,11 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setupCommentToggle = (scope = main) => {
         scope.querySelectorAll('.comment-toggle').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const comments = document.getElementById(`comments-${btn.dataset.postId}`);
-                comments.style.display = comments.style.display === 'none' ? 'block' : 'none';
-            });
+            btn.removeEventListener('click', toggleComments);
+            btn.addEventListener('click', toggleComments);
         });
+    };
+
+    const toggleComments = (e) => {
+        const btn = e.currentTarget;
+        const comments = document.getElementById(`comments-${btn.dataset.postId}`);
+        if (!comments) return;
+        // Get computed style to handle initial state
+        const isHidden = window.getComputedStyle(comments).display === 'none';
+        comments.style.display = isHidden ? 'block' : 'none';
     };
 
     const setupShowRepliesButtons = (scope = main) => {
@@ -180,23 +236,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             const parent = btn.closest(isComment ? '.comment-actions' : '.post-actions');
-            const likeBtn = parent.querySelector('.like-btn');
-            const dislikeBtn = parent.querySelector('.dislike-btn');
+            // Support both old (.like-btn) and new (.comment-btn.like) selectors
+            const likeBtn = parent.querySelector('.like-btn') || parent.querySelector('.comment-btn.like');
+            const dislikeBtn = parent.querySelector('.dislike-btn') || parent.querySelector('.comment-btn.dislike');
             
             likeBtn.classList.toggle('active', data.type === 'like');
             dislikeBtn.classList.toggle('active', data.type === 'dislike');
             
-            const likeCountEl = likeBtn.querySelector('.count-like');
-            const dislikeCountEl = dislikeBtn.querySelector('.count-dislike');
+            // Support both old (.count-like) and new (span) selectors
+            const likeCountEl = likeBtn.querySelector('.count-like') || likeBtn.querySelector('span');
+            const dislikeCountEl = dislikeBtn.querySelector('.count-dislike') || dislikeBtn.querySelector('span');
             
             if (likeCountEl) likeCountEl.textContent = data.likeCount ?? 0;
             if (dislikeCountEl) dislikeCountEl.textContent = data.dislikeCount ?? 0;
             
-            likeBtn.querySelector('svg').setAttribute('fill', data.type === 'like' ? '#ef4444' : 'currentColor');
-            dislikeBtn.querySelector('svg').setAttribute('fill', data.type === 'dislike' ? '#ffffffff' : 'currentColor');
+            // SVG fill is handled by CSS .active class
         } catch (error) {
             console.error('Reaction error:', error);
-            showAlert('Failed to toggle reaction: ' + error.message, 'error');
+            showAlert(t('reaction_error', 'Failed to toggle reaction'), 'error');
         }
     };
 
@@ -205,8 +262,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('Setting up reaction buttons on:', main);
         main.addEventListener('click', (e) => {
             console.log('Click detected on:', e.target);
-            const likeBtn = e.target.closest('.like-btn');
-            const dislikeBtn = e.target.closest('.dislike-btn');
+            // Support both old (.like-btn) and new (.comment-btn.like) selectors
+            const likeBtn = e.target.closest('.like-btn') || e.target.closest('.comment-btn.like');
+            const dislikeBtn = e.target.closest('.dislike-btn') || e.target.closest('.comment-btn.dislike');
             console.log('Like btn:', likeBtn, 'Dislike btn:', dislikeBtn);
             
             if (likeBtn) {
@@ -236,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         try {
                             const response = await fetch(`/posts/${postId}/views`, {
                                 method: 'POST',
-                                headers: { 'X-CSRF-TOKEN': csrfToken }
+                                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' }
                             });
                             const data = await response.json();
                             document.querySelectorAll(`[data-post-id="${postId}"] .count-view`).forEach(el => el.textContent = data.views);
@@ -336,49 +394,51 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 5000); // Every 5 seconds
     };
 
-    const setupPostForm = () => {
-        if (!els.postForm) return;
-        els.postForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            const formData = new FormData(els.postForm);
-            console.log('FormData contents:');
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
-            try {
-                const response = await fetch(els.postForm.action, {
-                    method: 'POST',
-                    headers: { 'X-CSRF-TOKEN': csrfToken },
-                    body: formData
-                });
-                const data = await response.json();
-                if (data.success) {
-                    showAlert('Post created successfully', 'success');
-                    els.postForm.reset();
-                    els.imagePreview.src = '';
-                    els.videoPreview.src = '';
-                    els.imagePreview.style.display = 'none';
-                    els.videoPreview.style.display = 'none';
-                    els.removeMedia.style.display = 'none';
-                    els.postCharCount.textContent = '0/1000';
-
-                    const postsFeed = document.querySelector('.posts-feed');
-                    const newPost = createPostElement(data.post, csrfToken);
-                    postsFeed.insertBefore(newPost, postsFeed.firstChild);
-                    attachPostEventListeners(newPost);
-                    attachCommentFormListeners(newPost);
-                    setupCommentToggle(newPost);
-                    setupReplyButtons(newPost);
-                    setupShowRepliesButtons(newPost);
-                    restoreReplyDrafts(newPost);
-                } else {
-                    showAlert(data.message || 'Failed to create post', 'error');
-                }
-            } catch (error) {
-                console.error('Post creation error:', error);
-                showAlert('Failed to create post: ' + error.message, 'error');
+    // Sort buttons functionality
+    const setupSortButtons = () => {
+        const sortButtons = document.querySelectorAll('.sort-btn');
+        if (sortButtons.length === 0) return;
+        
+        sortButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all
+                sortButtons.forEach(b => b.classList.remove('active'));
+                // Add to clicked
+                this.classList.add('active');
+                
+                // Get sort type from button text
+                const sortText = this.textContent.trim().toLowerCase();
+                let sortParam = 'newest';
+                if (sortText.includes('top')) sortParam = 'top';
+                else if (sortText.includes('hot')) sortParam = 'hot';
+                
+                // Reload page with sort parameter
+                const url = new URL(window.location.href);
+                url.searchParams.set('sort', sortParam);
+                window.location.href = url.toString();
+            });
+        });
+        
+        // Set active button based on URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentSort = urlParams.get('sort') || 'newest';
+        sortButtons.forEach(btn => {
+            const btnText = btn.textContent.trim().toLowerCase();
+            if (btnText.includes(currentSort) || 
+                (currentSort === 'newest' && btnText.includes('new'))) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
             }
         });
+    };
+
+    const setupPostForm = () => {
+        // Post form now submits normally without AJAX
+        // Just handle media preview and character count
+        if (!els.postForm) return;
+        
+        // Character count is already handled in setupCharCounter
     };
 
     const createPostElement = (post, csrfToken) => {
@@ -534,7 +594,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const restoreReplyDrafts = (scope = main) => {
-        scope.querySelectorAll('.reply-form').forEach(form => {
+        // Support both old (.reply-form) and new (.comment-reply-form) selectors
+        scope.querySelectorAll('.reply-form, .comment-reply-form').forEach(form => {
             const postId = form.dataset.postId;
             const parentId = form.dataset.parentId;
             const draftKey = `replyDraft_${postId}_${parentId}`;
@@ -560,10 +621,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const btn = e.target.closest('.reply-btn');
         const commentId = btn.dataset.commentId;
         const postId = btn.dataset.postId;
-        const form = document.querySelector(`.reply-form[data-parent-id="${commentId}"]`);
+        // Support both old (.reply-form) and new (.comment-reply-form) selectors
+        const form = document.querySelector(`.reply-form[data-parent-id="${commentId}"]`) || 
+                     document.querySelector(`.comment-reply-form[data-parent-id="${commentId}"]`);
         if (form) {
             const isVisible = form.style.display === 'block';
-            document.querySelectorAll(`.reply-form[data-post-id="${postId}"]`).forEach(f => {
+            // Hide all reply forms for this post
+            document.querySelectorAll(`.reply-form[data-post-id="${postId}"], .comment-reply-form[data-post-id="${postId}"]`).forEach(f => {
                 f.style.display = 'none';
             });
             form.style.display = isVisible ? 'none' : 'block';
@@ -576,12 +640,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const initializeReplies = (scope = main) => {
-        scope.querySelectorAll('.comment').forEach(comment => {
+        // Support both old (.comment) and new (.comment-item) selectors
+        scope.querySelectorAll('.comment, .comment-item').forEach(comment => {
             const commentId = comment.dataset.commentId;
-            const repliesContainer = comment.querySelector(`#replies-${commentId}`);
+            const repliesContainer = comment.querySelector(`#replies-${commentId}`) || 
+                                     comment.querySelector('.comment-replies');
             if (repliesContainer && repliesContainer.children.length > 0) {
                 let showRepliesBtn = comment.querySelector(`.show-replies-btn[data-comment-id="${commentId}"]`);
-                const replyCount = repliesContainer.querySelectorAll('.reply').length;
+                // Support both old (.reply) and new (.is-reply) selectors
+                const replyCount = repliesContainer.querySelectorAll('.reply, .is-reply').length;
                 if (!showRepliesBtn && replyCount > 0) {
                     showRepliesBtn = document.createElement('button');
                     showRepliesBtn.className = 'action-btn show-replies-btn';
@@ -600,7 +667,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const attachCommentFormListeners = (scope = main) => {
-        scope.querySelectorAll('.comment-form').forEach(form => {
+        // Support both old (.comment-form) and new (.comment-reply-form) selectors
+        scope.querySelectorAll('.comment-form, .comment-reply-form').forEach(form => {
             form.removeEventListener('submit', submitCommentForm);
             form.addEventListener('submit', submitCommentForm);
 
@@ -619,7 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const parentId = form.dataset.parentId;
         const textarea = form.querySelector('textarea');
         if (!textarea.value.trim()) {
-            showAlert('Comment cannot be empty', 'error');
+            showAlert(t('comment_empty', 'Comment cannot be empty'), 'error');
             return;
         }
 
@@ -627,12 +695,12 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': csrfToken },
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
                 body: new FormData(form)
             });
             const data = await response.json();
             if (data.success) {
-                showAlert('Comment added successfully', 'success');
+                showAlert(t('comment_added', 'Comment added'), 'success');
                 textarea.value = '';
                 if (parentId) {
                     localStorage.removeItem(`replyDraft_${postId}_${parentId}`);
@@ -641,7 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const comments = document.getElementById(`comments-${postId}`);
                 if (!comments) {
                     console.error(`Comments container for post ${postId} not found`);
-                    showAlert('Failed to add comment: Post container missing', 'error');
+                    showAlert(t('comment_add_error', 'Failed to add comment'), 'error');
                     return;
                 }
                 const existingComment = document.getElementById(`comment-${data.comment.id}`);
@@ -660,7 +728,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 parentComment.appendChild(parent);
                             } else {
                                 console.error(`Parent comment ${data.comment.parent_id} not found`);
-                                showAlert('Failed to add reply: Parent comment missing', 'error');
+                                showAlert(t('comment_add_error', 'Failed to add reply'), 'error');
                                 return;
                             }
                         }
@@ -708,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     comments.style.display = 'block';
                 }
             } else {
-                showAlert(data.message || 'Failed to add comment', 'error');
+                showAlert(data.message || t('comment_add_error', 'Failed to add comment'), 'error');
             }
         } catch (error) {
             console.error('Comment submission error:', error);
@@ -719,20 +787,23 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const cancelReplyForm = (e) => {
-        const form = e.target.closest('.reply-form');
+        // Support both old (.reply-form) and new (.comment-reply-form) selectors
+        const form = e.target.closest('.reply-form') || e.target.closest('.comment-reply-form');
         form.querySelector('textarea').value = '';
         localStorage.removeItem(`replyDraft_${form.dataset.postId}_${form.dataset.parentId}`);
         form.style.display = 'none';
     };
 
     const attachCommentEventListeners = (scope = main) => {
-        scope.querySelectorAll('.comment').forEach(comment => {
+        // Support both old (.comment) and new (.comment-item) selectors
+        scope.querySelectorAll('.comment, .comment-item').forEach(comment => {
             const commentId = comment.dataset.commentId;
             const editBtn = comment.querySelector('.edit-comment-btn');
             const editForm = comment.querySelector(`#edit-comment-form-${commentId}`);
-            const commentBody = comment.querySelector('.comment-body');
+            // Support both old (.comment-body) and new (.comment-text) selectors
+            const commentBody = comment.querySelector('.comment-body') || comment.querySelector('.comment-text');
             const cancelEdit = comment.querySelector(`.cancel-edit-comment[data-comment-id="${commentId}"]`);
-            const deleteForm = comment.querySelector('.delete-comment-form');
+            const deleteForm = comment.querySelector('.delete-comment-form') || comment.querySelector('.inline-delete');
 
             if (editBtn && editForm && commentBody && cancelEdit) {
                 editBtn.removeEventListener('click', toggleEditForm);
@@ -753,18 +824,22 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const toggleEditForm = (e) => {
-        const comment = e.target.closest('.comment');
+        // Support both old (.comment) and new (.comment-item) selectors
+        const comment = e.target.closest('.comment') || e.target.closest('.comment-item');
         const commentId = comment.dataset.commentId;
-        const commentBody = comment.querySelector('.comment-body');
+        // Support both old (.comment-body) and new (.comment-text) selectors
+        const commentBody = comment.querySelector('.comment-body') || comment.querySelector('.comment-text');
         const editForm = comment.querySelector(`#edit-comment-form-${commentId}`);
         commentBody.style.display = 'none';
         editForm.style.display = 'block';
     };
 
     const cancelEditForm = (e) => {
-        const comment = e.target.closest('.comment');
+        // Support both old (.comment) and new (.comment-item) selectors
+        const comment = e.target.closest('.comment') || e.target.closest('.comment-item');
         const commentId = comment.dataset.commentId;
-        const commentBody = comment.querySelector('.comment-body');
+        // Support both old (.comment-body) and new (.comment-text) selectors
+        const commentBody = comment.querySelector('.comment-body') || comment.querySelector('.comment-text');
         const editForm = comment.querySelector(`#edit-comment-form-${commentId}`);
         commentBody.style.display = 'block';
         editForm.style.display = 'none';
@@ -775,47 +850,60 @@ document.addEventListener("DOMContentLoaded", () => {
         const form = e.target;
         const commentId = form.id.replace('edit-comment-form-', '');
         const comment = document.querySelector(`#comment-${commentId}`);
-        const commentBody = comment.querySelector('.comment-body');
+        // Support both old (.comment-body) and new (.comment-text) selectors
+        const commentBody = comment.querySelector('.comment-body') || comment.querySelector('.comment-text');
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': csrfToken },
+                headers: { 
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
                 body: new FormData(form)
             });
             const data = await response.json();
             if (data.success) {
-                showAlert('Comment updated successfully', 'success');
+                showAlert(t('comment_updated', 'Comment updated'), 'success');
                 commentBody.innerHTML = `<p>${data.comment.content}</p>`;
                 commentBody.style.display = 'block';
                 form.style.display = 'none';
             } else {
-                showAlert(data.message || 'Failed to update comment', 'error');
+                showAlert(data.message || t('comment_update_error', 'Failed to update comment'), 'error');
             }
         } catch (error) {
             console.error('Comment update error:', error);
-            showAlert('Failed to update comment: ' + error.message, 'error');
+            showAlert(t('comment_update_error', 'Failed to update comment'), 'error');
         }
     };
 
     const submitDeleteForm = async (e) => {
         e.preventDefault();
         const form = e.target;
-        const comment = form.closest('.comment');
-        const postId = comment.closest('.post-card').dataset.postId;
+        // Support both old (.comment) and new (.comment-item) selectors
+        const comment = form.closest('.comment') || form.closest('.comment-item');
+        const postCard = comment.closest('.post-card');
+        const postId = postCard ? postCard.dataset.postId : null;
         if (!confirm('Are you sure you want to delete this comment?')) return;
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
-                headers: { 'X-CSRF-TOKEN': csrfToken },
+                headers: { 
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
                 body: new FormData(form)
             });
             const data = await response.json();
             if (data.success) {
-                showAlert('Comment deleted successfully', 'success');
+                showAlert(t('comment_deleted', 'Comment deleted'), 'success');
                 comment.remove();
-                const toggle = document.querySelector(`.comment-toggle[data-post-id="${postId}"]`);
-                toggle.querySelector('.comment-count').textContent = +toggle.dataset.count - 1;
-                toggle.dataset.count = +toggle.dataset.count - 1;
+                if (postId) {
+                    const toggle = document.querySelector(`.comment-toggle[data-post-id="${postId}"]`);
+                    if (toggle) {
+                        toggle.querySelector('.comment-count').textContent = +toggle.dataset.count - 1;
+                        toggle.dataset.count = +toggle.dataset.count - 1;
+                    }
+                }
                 if (data.parent_id) {
                     const showRepliesBtn = document.querySelector(`.show-replies-btn[data-comment-id="${data.parent_id}"]`);
                     if (showRepliesBtn) {
@@ -829,11 +917,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             } else {
-                showAlert(data.message || 'Failed to delete comment', 'error');
+                showAlert(data.message || t('comment_delete_error', 'Failed to delete comment'), 'error');
             }
         } catch (error) {
             console.error('Comment deletion error:', error);
-            showAlert('Failed to delete comment: ' + error.message, 'error');
+            showAlert(t('comment_delete_error', 'Failed to delete comment'), 'error');
         }
     };
 
@@ -941,12 +1029,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     const response = await fetch(editForm.action, {
                         method: 'POST',
-                        headers: { 'X-CSRF-TOKEN': csrfToken },
+                        headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
                         body: new FormData(editForm)
                     });
                     const data = await response.json();
                     if (data.success) {
-                        showAlert('Post updated successfully', 'success');
+                        showAlert(t('post_updated', 'Post updated'), 'success');
                         postBody.innerHTML = `
                             <p>${data.post.content}</p>
                             ${data.post.media_path ? (data.post.media_type === 'image' ? 
@@ -956,11 +1044,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         postBody.style.display = 'block';
                         editForm.style.display = 'none';
                     } else {
-                        showAlert(data.message || 'Failed to update post', 'error');
+                        showAlert(data.message || t('post_update_error', 'Failed to update post'), 'error');
                     }
                 } catch (error) {
                     console.error('Post update error:', error);
-                    showAlert('Failed to update post: ' + error.message, 'error');
+                    showAlert(t('post_update_error', 'Failed to update post'), 'error');
                 }
             });
         }
@@ -972,19 +1060,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     const response = await fetch(deleteForm.action, {
                         method: 'POST',
-                        headers: { 'X-CSRF-TOKEN': csrfToken },
+                        headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
                         body: new FormData(deleteForm)
                     });
                     const data = await response.json();
                     if (data.success) {
-                        showAlert('Post deleted successfully', 'success');
+                        showAlert(t('post_deleted', 'Post deleted'), 'success');
                         post.remove();
                     } else {
-                        showAlert(data.message || 'Failed to delete post', 'error');
+                        showAlert(data.message || t('post_delete_error', 'Failed to delete post'), 'error');
                     }
                 } catch (error) {
                     console.error('Post deletion error:', error);
-                    showAlert('Failed to delete post: ' + error.message, 'error');
+                    showAlert(t('post_delete_error', 'Failed to delete post'), 'error');
                 }
             });
         }
@@ -992,8 +1080,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize all event listeners and replies
     setupMobileMenu();
+    setupEmojiPicker();
     setupMediaPreview();
     setupCharCounter();
+    setupSortButtons();
     setupCommentToggle();
     setupReactionButtons();
     setupViewCounter();

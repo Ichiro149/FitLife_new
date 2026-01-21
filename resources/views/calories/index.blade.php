@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <!-- Page-specific stylesheet for calorie calculator -->
-    <link href="{{ asset('css/calories.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div id="fitlife-container" role="application" aria-label="{{ __('food.calorie_calc_label') }}">
     <main>

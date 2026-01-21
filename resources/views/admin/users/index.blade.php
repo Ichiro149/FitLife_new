@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/users.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
     <div class="users-content">
         <header class="users-header">

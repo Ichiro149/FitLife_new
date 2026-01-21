@@ -34,4 +34,6 @@ return [
     'biography' => 'Biography',
     'social' => 'Social',
     'profile' => 'Profile',
+    'my_profile' => 'My Profile',
+    'food' => 'Food',
 ];

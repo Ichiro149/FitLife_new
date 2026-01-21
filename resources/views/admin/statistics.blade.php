@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div class="admin-container">
     <header class="admin-header">

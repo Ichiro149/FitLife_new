@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/biography.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <div id="fitlife-container" role="application" aria-label="FitLife Biography Settings">
     <main>

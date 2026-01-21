@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link href="{{ asset('css/events.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
     <div class="events-content">
         <header class="events-header">

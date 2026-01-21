@@ -39,4 +39,9 @@ return [
     'write_reply' => 'Write a reply...',
     'in_reply_to' => 'In reply to',
     'show' => 'Show',
+    'comment_btn' => 'Comment',
+    'newest' => 'New',
+    'top' => 'Top',
+    'hot' => 'Hot',
+    'be_first' => 'Be the first to share something!',
 ];

@@ -2,8 +2,10 @@
 
 return [
     'title' => 'Настройки',
+    'subtitle' => 'Управление настройками аккаунта',
+    'back_to_profile' => 'Вернуться к профилю',
     'language' => 'Язык',
-    'select_language' => 'Выберите язык',
+    'select_language' => 'Выберите предпочитаемый язык',
     'english' => 'Английский',
     'russian' => 'Русский',
     'latvian' => 'Латышский',
@@ -15,4 +17,6 @@ return [
     'notifications' => 'Уведомления',
     'privacy' => 'Конфиденциальность',
     'account' => 'Аккаунт',
+    'security' => 'Безопасность',
+    'password' => 'Пароль',
 ];

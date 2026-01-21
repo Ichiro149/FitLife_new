@@ -3,6 +3,7 @@
 return [
     'title' => 'Vadības panelis',
     'welcome' => 'Laipni lūdzam atpakaļ, :name!',
+    'welcome_back' => 'Laipni lūdzam atpakaļ,',
     'subtitle' => 'Jūsu fitnesa pārskats par šodienu',
     'overview' => 'Pārskats',
     'today' => 'Šodien',
