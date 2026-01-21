@@ -1,61 +1,270 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.icons8.com/color/96/000000/dumbbell.png" alt="FitLife Logo"/>
 </p>
 
-## About Laravel
+<h1 align="center">🏋️ FitLife</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  <strong>Your Personal Fitness & Wellness Companion</strong>
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <a href="https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml">
+    <img src="https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml/badge.svg" alt="Tests">
+  </a>
+  <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
+  <img src="https://img.shields.io/badge/Laravel-11-FF2D20?logo=laravel&logoColor=white" alt="Laravel 11">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-installation">Installation</a> •
+  <a href="#-testing">Testing</a> •
+  <a href="#-screenshots">Screenshots</a>
+</p>
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📖 About
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**FitLife** is a comprehensive fitness tracking web application designed to help users achieve their health and wellness goals. Track your nutrition, monitor sleep patterns, set fitness goals, and connect with friends on your fitness journey.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ✨ Features
 
-## Laravel Sponsors
+### 🍎 Nutrition Tracking
+- Log daily meals (breakfast, lunch, dinner, snacks)
+- Automatic calorie calculation from 40+ foods database
+- View meal history and daily summaries
+- Personalized nutrition feedback
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 😴 Sleep Monitoring
+- Track sleep duration and quality
+- Sleep quality ratings (1-5 scale)
+- View sleep patterns and statistics
+- Get insights for better rest
 
-### Premium Partners
+### 🎯 Goal Management
+- Create custom fitness goals
+- Track progress with visual indicators
+- Log daily achievements
+- Multiple goal types support
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 💧 Water Intake
+- Log water consumption
+- Daily hydration goals
+- Visual progress tracking
 
-## Contributing
+### 📅 Calendar & Events
+- Schedule workouts and activities
+- Set reminders for fitness events
+- View monthly activity overview
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 👥 Social Features
+- Connect with friends
+- Share progress and achievements
+- Like and comment on posts
+- Build your fitness community
 
-## Code of Conduct
+### 📊 Dashboard
+- Comprehensive overview of all metrics
+- Weekly and monthly statistics
+- Progress visualization
+- Quick access to all features
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠 Tech Stack
 
-## Security Vulnerabilities
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **PHP** | 8.4 | Backend Language |
+| **Laravel** | 11 | PHP Framework |
+| **MySQL/SQLite** | 8.0+ | Database |
+| **Tailwind CSS** | 3.x | Styling |
+| **Vite** | 5.x | Asset Bundling |
+| **Pest PHP** | 3.x | Testing Framework |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📦 Installation
 
-## License
+### Prerequisites
+- PHP 8.4+
+- Composer 2.x
+- Node.js 18+
+- MySQL 8.0+ or SQLite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Ichiro149/FitLife_new.git
+cd FitLife_new
+
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+
+# Run database migrations
+php artisan migrate
+
+# (Optional) Seed the database
+php artisan db:seed
+
+# Build frontend assets
+npm run build
+
+# Start the development server
+php artisan serve
+```
+
+Visit `http://localhost:8000` in your browser.
+
+### Development Mode
+
+```bash
+# Terminal 1: Start Laravel server
+php artisan serve
+
+# Terminal 2: Start Vite dev server with hot reload
+npm run dev
+```
+
+## 🧪 Testing
+
+FitLife includes a comprehensive test suite with **243 tests** covering all major features.
+
+```bash
+# Run all tests
+php artisan test
+
+# Run with coverage
+php artisan test --coverage
+
+# Run specific test file
+php artisan test --filter=GoalTest
+
+# Run only unit tests
+php artisan test --testsuite=Unit
+
+# Run only feature tests
+php artisan test --testsuite=Feature
+```
+
+### Test Coverage
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| Authentication | 14 | Login, Register, Logout |
+| Authorization | 12 | Access Control |
+| Goals | 18 | CRUD & Progress |
+| Posts | 16 | Social Features |
+| Comments | 10 | Commenting System |
+| Sleep Tracker | 10 | Sleep Logging |
+| Food Tracker | 9 | Meal Logging |
+| Water Tracker | 7 | Hydration |
+| Calendar | 10 | Events |
+| Friends | 9 | Social Connections |
+| Unit Tests | 45 | Business Logic |
+
+## 📸 Screenshots
+
+<details>
+<summary>Click to view screenshots</summary>
+
+### Dashboard
+*Your personal fitness overview*
+
+### Goals Tracker
+*Set and achieve your fitness goals*
+
+### Nutrition Log
+*Track your daily meals and calories*
+
+### Sleep Monitor
+*Monitor your sleep quality*
+
+</details>
+
+## 📁 Project Structure
+
+```
+FitLife_new/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/     # Request handlers
+│   │   ├── Middleware/      # HTTP middleware
+│   │   └── Requests/        # Form validation
+│   ├── Models/              # Eloquent models
+│   ├── Policies/            # Authorization policies
+│   └── Providers/           # Service providers
+├── database/
+│   ├── factories/           # Model factories
+│   ├── migrations/          # Database migrations
+│   └── seeders/             # Database seeders
+├── resources/
+│   ├── css/                 # Stylesheets
+│   ├── js/                  # JavaScript
+│   └── views/               # Blade templates
+├── routes/
+│   ├── web.php              # Web routes
+│   ├── auth.php             # Auth routes
+│   └── admin.php            # Admin routes
+├── tests/
+│   ├── Feature/             # Feature tests
+│   └── Unit/                # Unit tests
+└── public/                  # Public assets
+```
+
+## 🔧 Configuration
+
+Key environment variables:
+
+```env
+APP_NAME=FitLife
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fitlife
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Vladislav** - [@Ichiro149](https://github.com/Ichiro149)
+
+---
+
+<p align="center">
+  Made with ❤️ and Laravel
+</p>
+
+<p align="center">
+  <a href="#-fitlife">Back to top ⬆️</a>
+</p>
