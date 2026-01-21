@@ -1,510 +1,202 @@
-/* Root variables for consistent theming */
-:root {
-    --bg: #121212; /* Dark background */
-    --text: #e5e5e5; /* Light text */
-    --accent: #00ff00; /* Salatovy green accent */
-    --muted: #a0a0a0; /* Muted text */
-    --card-bg: #1f1f1f; /* Dark card background */
-    --border: #333333; /* Dark border */
-    --radius: 12px; /* Rounded corners */
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    --transition: 0.3s ease; /* Smooth transitions */
-    --highlight: #00cc00; /* Darker green for hover */
-    --danger: #ff5555; /* Red for errors */
-    --success: #00ff00; /* Green for success */
-    --hover-bg: #2a2a2a; /* Hover background */
-    --focus: #33ff33; /* Focus state green */
-    --action-icon: #3b82f6; /* Blue for action icons */
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   BIOGRAPHY STYLES - FitLife v2.0
+   Dark Sport Theme - Green Accent
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ========== GLOBAL ========== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', 'Arial', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* ========== MOBILE TOGGLE BUTTON ========== */
+/* Hide mobile toggle */
 #mobile-toggle {
-    display: none; /* Handled by layouts.app, styled for consistency */
-    background: var(--accent);
-    color: var(--bg);
-    padding: 8px 16px;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition);
+    display: none;
 }
 
-#mobile-toggle svg {
-    width: 20px;
-    height: 20px;
-    stroke: var(--bg);
+/* Page Header */
+#fitlife-container main > header {
+    margin-bottom: var(--space-6);
 }
 
-#mobile-toggle:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
+#fitlife-container main > header h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
 }
 
-/* ========== HEADER ========== */
-header {
-    padding: 24px 0;
+#fitlife-container main > header h1 span {
+    color: var(--primary);
 }
 
-.header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+#fitlife-container main > header p.muted {
+    color: var(--text-muted);
+    font-size: var(--text-base);
 }
 
-header h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--text);
-    text-shadow: 0 1px 2px var(--shadow);
-    text-align: left;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   SUCCESS MESSAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-header h1 span {
-    color: var(--accent);
-}
-
-header .muted {
-    font-size: 0.9rem;
-    color: var(--muted);
-}
-
-/* ========== BIOGRAPHY FORM SECTION ========== */
-section[aria-labelledby="biography-settings-heading"] {
-    margin: 32px 0;
-}
-
-section h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 16px;
-    text-align: left;
-}
-
-/* Success Message */
 .success-msg {
-    background: var(--success);
-    color: var(--bg);
-    padding: 12px;
-    border-radius: var(--radius);
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-    text-align: center;
-    animation: fadeIn 0.5s ease;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
 }
 
-/* Biography Card */
+/* ═══════════════════════════════════════════════════════════════════════════
+   BIOGRAPHY CARD
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 .biography-card {
-    background: var(--card-bg);
-    padding: 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    max-width: 600px;
 }
+
+.biography-card h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--primary);
+    margin-bottom: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.biography-card h3::before {
+    content: '👤';
+    font-size: var(--text-2xl);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BIOGRAPHY FORM
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .biography-form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: flex-end;
+    flex-direction: column;
+    gap: var(--space-5);
 }
 
-.form-group {
-    flex: 1;
-    min-width: 200px;
+.biography-form .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-2);
 }
 
-.form-group label {
-    font-size: 0.9rem;
-    color: var(--text);
-    font-weight: 500;
+.biography-form .form-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
 }
 
-.form-group input,
-.form-group select {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 8px;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: border-color var(--transition);
+/* Input Styles */
+.biography-form .form-group input[type="text"],
+.biography-form .form-group input[type="number"],
+.biography-form .form-group select {
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    font-family: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    height: 48px;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-    border-color: var(--accent);
+.biography-form .form-group input:focus,
+.biography-form .form-group select:focus {
     outline: none;
-    box-shadow: 0 0 8px var(--accent);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
+
+.biography-form .form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Select Styling */
+.biography-form .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.biography-form .form-group select option {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SAVE BUTTON (Fixed huge SVG issue)
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .save-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: var(--bg);
-    padding: 10px 16px;
-    border-radius: var(--radius);
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: var(--primary);
+    color: var(--bg-base);
+    font-weight: var(--font-bold);
+    font-size: var(--text-base);
     border: none;
-    font-size: 0.9rem;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition);
+    transition: all var(--transition-fast);
+    min-height: 52px;
+    margin-top: var(--space-2);
 }
 
+.save-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* FIX: Constrain SVG icon size inside button */
 .save-btn svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--bg);
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    flex-shrink: 0;
+    stroke: var(--bg-base);
 }
 
-.save-btn:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-}
-
-.save-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* ========== LINKS ========== */
-a {
-    color: var(--accent);
-    text-decoration: none;
-    transition: color var(--transition), text-decoration var(--transition);
-}
-
-/* ========== TYPOGRAPHY ========== */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-weight: 600;
-}
-
-p {
-    color: var(--text);
-    margin: 8px 0;
-}
-
-/* ========== ANIMATIONS ========== */
-@keyframes slideIn {
-    from { transform: translateX(20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.biography-card, .form-group, .success-msg {
-    animation: slideIn 0.5s ease-out;
-}
-
-.biography-form {
-    animation: fadeIn 0.3s ease;
-}
-
-/* ========== ACCESSIBILITY ========== */
-a:focus, button:focus, input:focus, select:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-/* ========== SCROLLBAR ========== */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--border);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--highlight);
-}
-
-/* ========== UTILITY CLASSES ========== */
-.text-accent { color: var(--accent); }
-.text-muted { color: var(--muted); }
-.text-primary { color: var(--text); }
-.text-danger { color: var(--danger); }
-.bg-card { background: var(--card-bg); }
-.bg-border { background: var(--border); }
-.bg-hover { background: var(--hover-bg); }
-.border-accent { border-color: var(--accent); }
-.border-muted { border-color: var(--muted); }
-.border-danger { border-color: var(--danger); }
-.border-success { border-color: var(--success); }
-
-.p-05 { padding: 2px; }
-.p-1 { padding: 4px; }
-.p-2 { padding: 8px; }
-.p-3 { padding: 16px; }
-.p-4 { padding: 24px; }
-.p-5 { padding: 32px; }
-.m-05 { margin: 2px; }
-.m-1 { margin: 4px; }
-.m-2 { margin: 8px; }
-.m-3 { margin: 16px; }
-.m-4 { margin: 24px; }
-.m-5 { margin: 32px; }
-
-.pt-05 { padding-top: 2px; }
-.pt-1 { padding-top: 4px; }
-.pt-2 { padding-top: 8px; }
-.pt-3 { padding-top: 16px; }
-.pt-4 { padding-top: 24px; }
-.pb-05 { padding-bottom: 2px; }
-.pb-1 { padding-bottom: 4px; }
-.pb-2 { padding-bottom: 8px; }
-.pb-3 { padding-bottom: 16px; }
-.pb-4 { padding-bottom: 24px; }
-.pl-05 { padding-left: 2px; }
-.pl-1 { padding-left: 4px; }
-.pl-2 { padding-left: 8px; }
-.pl-3 { padding-left: 16px; }
-.pl-4 { padding-left: 24px; }
-.pr-05 { padding-right: 2px; }
-.pr-1 { padding-right: 4px; }
-.pr-2 { padding-right: 8px; }
-.pr-3 { padding-right: 16px; }
-.pr-4 { padding-right: 24px; }
-
-.mt-05 { margin-top: 2px; }
-.mt-1 { margin-top: 4px; }
-.mt-2 { margin-top: 8px; }
-.mt-3 { margin-top: 16px; }
-.mt-4 { margin-top: 24px; }
-.mb-05 { margin-bottom: 2px; }
-.mb-1 { margin-bottom: 4px; }
-.mb-2 { margin-bottom: 8px; }
-.mb-3 { margin-bottom: 16px; }
-.mb-4 { margin-bottom: 24px; }
-.ml-05 { margin-left: 2px; }
-.ml-1 { margin-left: 4px; }
-.ml-2 { margin-left: 8px; }
-.ml-3 { margin-left: 16px; }
-.ml-4 { margin-left: 24px; }
-.mr-05 { margin-right: 2px; }
-.mr-1 { margin-right: 4px; }
-.mr-2 { margin-right: 8px; }
-.mr-3 { margin-right: 16px; }
-.mr-4 { margin-right: 24px; }
-
-.fs-xs { font-size: 0.75rem; }
-.fs-sm { font-size: 0.85rem; }
-.fs-md { font-size: 1rem; }
-.fs-lg { font-size: 1.25rem; }
-.fs-xl { font-size: 1.5rem; }
-.fs-2xl { font-size: 1.75rem; }
-
-.br-4 { border-radius: 4px; }
-.br-8 { border-radius: 8px; }
-.br-12 { border-radius: 12px; }
-.br-16 { border-radius: 16px; }
-.br-20 { border-radius: 20px; }
-
-.shadow-xs { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); }
-.shadow-sm { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-.shadow-md { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-.shadow-lg { box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); }
-
-.opacity-25 { opacity: 0.25; }
-.opacity-50 { opacity: 0.5; }
-.opacity-75 { opacity: 0.75; }
-.opacity-100 { opacity: 1; }
-
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-
-.fw-light { font-weight: 300; }
-.fw-normal { font-weight: 400; }
-.fw-medium { font-weight: 500; }
-.fw-bold { font-weight: 600; }
-.fw-extrabold { font-weight: 700; }
-
-/* ========== RESPONSIVE DESIGN ========== */
-@media (max-width: 1024px) {
-    #fitlife-container main {
-        padding: 16px;
-    }
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-    #fitlife-container main {
-        padding: 12px;
-        margin-left: 0;
-    }
-
-    #mobile-toggle {
-        display: block;
-        position: fixed;
-        top: 16px;
-        left: 16px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    header .muted {
-        font-size: 0.85rem;
-    }
-
-    section h3 {
-        font-size: 1.3rem;
-    }
-
     .biography-card {
-        padding: 12px;
-    }
-
-    .form-group input,
-    .form-group select {
-        font-size: 0.85rem;
-    }
-
-    .save-btn {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-    }
-
-    .success-msg {
-        font-size: 0.85rem;
+        padding: var(--space-5);
     }
 }
 
 @media (max-width: 480px) {
-    #fitlife-container main {
-        padding: 8px;
-    }
-
-    header h1 {
-        font-size: 1.3rem;
-    }
-
-    header .muted {
-        font-size: 0.8rem;
-    }
-
-    section h3 {
-        font-size: 1.1rem;
-    }
-
-    .biography-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .form-group {
-        min-width: 100%;
-    }
-
-    .form-group label {
-        font-size: 0.85rem;
-    }
-
-    .form-group input,
-    .form-group select {
-        font-size: 0.8rem;
-    }
-
-    .save-btn {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-    }
-
-    .success-msg {
-        font-size: 0.8rem;
-    }
-}
-
-/* ========== HIGH CONTRAST MODE ========== */
-@media (prefers-contrast: high) {
-    :root {
-        --accent: #33ff33;
-        --highlight: #66ff66;
-        --border: #000000;
-        --muted: #cccccc;
-    }
-
-    .biography-card, .form-group input, .form-group select {
-        border-color: var(--accent);
-    }
-
-    .save-btn, .success-msg {
-        background: var(--accent);
-    }
-}
-
-/* ========== REDUCED MOTION ========== */
-@media (prefers-reduced-motion: reduce) {
-    .biography-card, .biography-form, .form-group, .save-btn, .success-msg {
-        transition: none;
-        animation: none;
-    }
-}
-
-/* ========== PRINT STYLES ========== */
-@media print {
-    #fitlife-container main {
-        padding: 8px;
+    #fitlife-container main > header h1 {
+        font-size: var(--text-xl);
     }
 
     .biography-card {
-        border: 1px solid #000;
-        box-shadow: none;
+        padding: var(--space-4);
     }
 
-    .save-btn, #mobile-toggle {
-        display: none;
-    }
-
-    .success-msg {
-        border: 1px solid #000;
+    .biography-card h3 {
+        font-size: var(--text-lg);
     }
 }

@@ -84,6 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [GoalController::class, 'index'])->name('goals.index');
         Route::get('/create', [GoalController::class, 'create'])->name('goals.create');
         Route::post('/', [GoalController::class, 'store'])->name('goals.store');
+        Route::get('/{goal}/edit', [GoalController::class, 'edit'])->name('goals.edit');
         Route::get('/{goal}/log', [GoalController::class, 'log'])->name('goals.log');
         Route::post('/{goal}/log', [GoalController::class, 'storeLog'])->name('goals.storeLog');
         Route::patch('/{goal}', [GoalController::class, 'update'])->name('goals.update');
@@ -112,6 +113,8 @@ Route::prefix('biography')->group(function () {
     Route::post('/posts/{post}/reaction', [PostController::class, 'toggleReaction'])->name('posts.toggleReaction');
     Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
     Route::post('/posts/{post}/views', [PostController::class, 'incrementViews'])->name('posts.views');
+    Route::post('/posts/views/bulk', [PostController::class, 'bulkViews'])->name('posts.views.bulk');
+    Route::post('/posts/stats/bulk', [PostController::class, 'bulkStats'])->name('posts.stats.bulk');
 
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::post('/comments/{comment}/toggle-reaction', [CommentController::class, 'toggleReaction'])->name('comments.toggle-reaction');

@@ -42,15 +42,27 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    // Relation: Post has views
+    public function postViews()
+    {
+        return $this->hasMany(PostView::class);
+    }
+
+    // Get unique view count
+    public function getViewCount(): int
+    {
+        return $this->postViews()->count();
+    }
+
     // Check if post is liked by a specific user
     public function isLikedBy(int $userId): bool
     {
-        return $this->likes()->where('user_id', $userId)->where('type', 'like')->exists();
+        return $this->likes()->where('user_id', $userId)->where('type', 'post')->where('is_like', true)->exists();
     }
 
     // Check if post is disliked by a specific user
     public function isDislikedBy(int $userId): bool
     {
-        return $this->likes()->where('user_id', $userId)->where('type', 'dislike')->exists();
+        return $this->likes()->where('user_id', $userId)->where('type', 'post')->where('is_like', false)->exists();
     }
 }

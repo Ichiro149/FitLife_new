@@ -14,6 +14,7 @@ class Food extends Model
 
     // Mass assignable attributes
     protected $fillable = [
+        'user_id',
         'name',
         'calories',
     ];

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div id="fitlife-container" role="application" aria-label="FitLife Sleep Tracker">
+<div id="fitlife-container" role="application" aria-label="Sleep Tracker">
     <main>
         <button id="mobile-toggle" aria-controls="sidebar" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -15,7 +15,7 @@
 
         <header>
             <div class="header-left">
-                <h1><span>FitLife</span> Sleep Tracker</h1>
+                <h1>Sleep Tracker</h1>
                 <p class="muted">Log and track your sleep patterns</p>
             </div>
         </header>
@@ -55,7 +55,10 @@
                         <label for="end_time">End Time</label>
                         <input type="time" id="end_time" name="end_time" required>
                     </div>
-                    <button type="submit" class="calculate-btn">Add Sleep Record</button>
+                    <div class="form-group form-group-btn">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="calculate-btn">Add Sleep Record</button>
+                    </div>
                 </form>
             </div>
         </section>

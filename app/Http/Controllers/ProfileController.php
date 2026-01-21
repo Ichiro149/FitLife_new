@@ -65,6 +65,14 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
+        // Rate limiting: максимум 5 попыток в минуту
+        $key = 'password_update_' . Auth::id();
+        if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = \Illuminate\Support\Facades\RateLimiter::availableIn($key);
+            return redirect()->back()->withErrors(['current_password' => "Too many attempts. Try again in {$seconds} seconds."]);
+        }
+        \Illuminate\Support\Facades\RateLimiter::hit($key, 60);
+        
         $request->validate([
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed',

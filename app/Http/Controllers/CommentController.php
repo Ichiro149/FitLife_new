@@ -15,7 +15,7 @@ class CommentController extends Controller
     {
         try {
             if (Auth::id() !== $comment->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 200);
+                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
             }
 
             $request->validate(['content' => 'required|string|max:500']);
@@ -41,7 +41,7 @@ class CommentController extends Controller
     {
         try {
             if (Auth::id() !== $comment->user_id) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 200);
+                return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
             }
 
             $comment->delete();
@@ -63,7 +63,7 @@ class CommentController extends Controller
     {
         try {
             if (!Auth::check()) {
-                return response()->json(['success' => false, 'message' => 'Unauthorized'], 200);
+                return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
             }
 
             $request->validate(['type' => 'required|in:like,dislike']);

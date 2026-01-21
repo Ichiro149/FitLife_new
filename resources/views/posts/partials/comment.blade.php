@@ -3,7 +3,7 @@
         <strong>{{ $comment->user->name }}</strong>
         <div class="username fs-sm text-muted">{{ '@' . $comment->user->username }}</div>
         @if($comment->parent_id && $comment->parent && $comment->parent->user)
-            <div class="in-reply-to fs-sm text-muted">In reply to <a href="{{ route('profile.show', $comment->parent->user->id) }}" class="text-accent">@{{ $comment->parent->user->username }}</a></div>
+            <div class="in-reply-to fs-sm text-muted">In reply to <a href="{{ route('profile.show', $comment->parent->user->id) }}" class="text-accent">{{ '@' . $comment->parent->user->username }}</a></div>
         @endif
         <span class="time fs-sm text-muted">{{ $comment->created_at->diffForHumans() }}</span>
     </div>

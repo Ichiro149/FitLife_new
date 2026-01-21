@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div id="fitlife-container" role="application" aria-label="FitLife Water Tracker">
+<div id="fitlife-container" role="application" aria-label="Water Tracker">
     <main>
         <button id="mobile-toggle" aria-controls="sidebar" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -15,7 +15,7 @@
 
         <header>
             <div class="header-left">
-                <h1><span>FitLife</span> Water Tracker</h1>
+                <h1>Water Tracker</h1>
                 <p class="muted">Log and track your daily hydration</p>
             </div>
         </header>
@@ -46,7 +46,10 @@
                         <label for="amount">Amount (ml)</label>
                         <input type="number" id="amount" name="amount" placeholder="Enter amount in ml" required>
                     </div>
-                    <button type="submit" class="calculate-btn">Log Water</button>
+                    <div class="form-group form-group-btn">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="calculate-btn">Add Amount</button>
+                    </div>
                 </form>
             </div>
         </section>

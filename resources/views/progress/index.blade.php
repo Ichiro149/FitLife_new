@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div id="fitlife-container" role="application" aria-label="FitLife Progress Photos">
+<div id="fitlife-container" role="application" aria-label="Progress Photos">
     <main>
         <button id="mobile-toggle" aria-controls="sidebar" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -15,7 +15,7 @@
 
         <header>
             <div class="header-left">
-                <h1><span>FitLife</span> Progress Photos</h1>
+                <h1>Progress Photos</h1>
                 <p class="muted">Track your transformation and stay motivated!</p>
             </div>
         </header>
@@ -33,7 +33,10 @@
                         <label for="description">Description</label>
                         <input type="text" id="description" name="description" placeholder="Enter description">
                     </div>
-                    <button type="submit" class="calculate-btn">Add Photo</button>
+                    <div class="form-group form-group-btn">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="calculate-btn">Add Photo</button>
+                    </div>
                 </form>
             </div>
         </section>

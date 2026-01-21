@@ -36,13 +36,15 @@ test('profile information can be updated', function () {
 });
 
 test('email verification status is unchanged when email is the same', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'username' => 'testuser123',
+    ]);
 
     $response = $this
         ->actingAs($user)
         ->patch('/profile', [
             'name' => 'Test User',
-            'username' => $user->username,
+            'username' => 'testuser123',
             'email' => $user->email,
         ]);
 
@@ -61,7 +63,7 @@ test('user can delete their account', function () {
     $response = $this
         ->actingAs($user)
         ->delete('/profile', [
-            'password' => 'password',
+            'current_password' => 'password',
         ]);
 
     $response

@@ -66,12 +66,12 @@
                 </div>
             </div>
 
-            <div class="post-body" id="post-body-{{ $post->id }}">
-                <p>{{ $post->content }}</p>
+            <div class="post-body post-content" id="post-body-{{ $post->id }}">
+                <p data-updated-at="{{ $post->updated_at->toISOString() }}">{{ $post->content }}</p>
                 @if($post->media_path && $post->media_type === 'image')
-                    <img src="{{ asset('storage/' . $post->media_path) }}" alt="Post image" class="post-img" loading="lazy" />
+                    <img src="{{ asset('storage/' . $post->media_path) }}" alt="Post image" class="post-img post-media" loading="lazy" />
                 @elseif($post->media_path && $post->media_type === 'video')
-                    <video src="{{ asset('storage/' . $post->media_path) }}" controls class="post-video" style="max-height: 200px; border-radius: var(--radius);"></video>
+                    <video src="{{ asset('storage/' . $post->media_path) }}" controls class="post-video post-media" style="max-height: 200px; border-radius: var(--radius);"></video>
                 @endif
             </div>
 
@@ -116,14 +116,14 @@
                          fill="{{ Auth::check() && $post->isLikedBy(Auth::id()) ? '#ef4444' : 'currentColor' }}">
                         <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/>
                     </svg>
-                    <span class="count-like">{{ $post->likes()->where('type', 'like')->count() }}</span>
+                    <span class="count-like">{{ $post->likes()->where('type', 'post')->where('is_like', true)->count() }}</span>
                 </button>
                 <button class="action-btn dislike-btn {{ Auth::check() && $post->isDislikedBy(Auth::id()) ? 'active' : '' }}" data-post-id="{{ $post->id }}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" 
                          fill="{{ Auth::check() && $post->isDislikedBy(Auth::id()) ? '#ffffffff' : 'currentColor' }}">
                         <path d="M240-840h440v520L400-40l-50-50q-7-7-11.5-19t-4.5-23v-14l44-174H120q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14Zm360 80H240L120-480v80h360l-54 220 174-174v-406Zm0 406v-406 406Zm80 34v-80h120v-360H680v-80h200v520H680Z"/>
                     </svg>
-                    <span class="count-dislike">{{ $post->likes()->where('type', 'dislike')->count() }}</span>
+                    <span class="count-dislike">{{ $post->likes()->where('type', 'post')->where('is_like', false)->count() }}</span>
                 </button>
                 <button class="action-btn comment-toggle" data-post-id="{{ $post->id }}" data-count="{{ $post->allComments()->count() }}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#3b82f6">
@@ -135,7 +135,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#6b7280">
                         <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/>
                     </svg>
-                    <span class="count-view">{{ $post->views }}</span>
+                    <span class="count-view">{{ $post->postViews()->count() }}</span>
                 </span>
                 @can('update', $post)
                     <button type="button" class="action-btn edit-post-btn" data-post-id="{{ $post->id }}">Edit</button>
@@ -178,5 +178,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/posts.js') }}"></script>
+    <script src="{{ asset('js/posts.js') }}?v={{ time() }}"></script>
 @endsection

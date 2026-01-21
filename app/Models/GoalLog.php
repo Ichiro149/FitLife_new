@@ -14,12 +14,13 @@ class GoalLog extends Model
         'goal_id',
         'value',
         'date',
-        'notes',
+        'change',
     ];
 
     protected $casts = [
         'value' => 'decimal:2',
-        'date' => 'datetime',
+        'date' => 'date',
+        'change' => 'integer',
     ];
 
     public function goal(): BelongsTo

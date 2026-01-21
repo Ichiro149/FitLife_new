@@ -30,7 +30,7 @@ class UserFactory extends Factory
         return [
             // Основная информация
             'name' => fake()->name(),
-            'username' => fake()->unique()->userName(),
+            'username' => fake()->unique()->regexify('[a-zA-Z][a-zA-Z0-9_]{4,14}'),
 
             // Контактные данные
             'email' => fake()->unique()->safeEmail(),

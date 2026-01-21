@@ -12,12 +12,14 @@ class SleepController extends Controller
     // Show sleep tracker page
     public function index()
     {
-        $sleeps = Sleep::where('user_id', Auth::id())
-                        ->orderBy('date', 'desc')
+        $query = Sleep::where('user_id', Auth::id());
+        
+        // Получаем среднее через SQL (оптимизация)
+        $average = (clone $query)->avg('duration');
+        
+        $sleeps = $query->orderBy('date', 'desc')
                         ->orderBy('start_time', 'desc')
                         ->get();
-
-        $average = $sleeps->avg('duration');
 
         return view('sleep.index', compact('sleeps', 'average'));
     }

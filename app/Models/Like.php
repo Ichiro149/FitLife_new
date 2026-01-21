@@ -18,6 +18,7 @@ class Like extends Model
     ];
 
     protected $casts = [
+        'type' => 'string',
         'is_like' => 'boolean',
     ];
 

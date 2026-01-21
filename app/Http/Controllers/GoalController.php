@@ -44,28 +44,88 @@ class GoalController extends Controller
         return redirect()->route('goals.index')->with('success', '');
     }
 
+    // Show form to edit a goal
+    public function edit(Goal $goal)
+    {
+        if ($goal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+        
+        return view('goals.edit', compact('goal'));
+    }
+
+    // Update an existing goal
+    public function update(Request $request, Goal $goal)
+    {
+        if ($goal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+        
+        $request->validate([
+            'type'         => 'required|string',
+            'target_value' => 'required|numeric|min:0',
+            'end_date'     => 'required|date',
+            'description'  => 'nullable|string|max:255',
+        ]);
+
+        $goal->update([
+            'type'          => $request->type,
+            'target_value'  => $request->target_value,
+            'description'   => $request->description ?? '',
+            'end_date'      => $request->end_date,
+        ]);
+
+        return redirect()->route('goals.index')->with('success', 'Goal updated successfully');
+    }
+
+    // Delete a goal
+    public function destroy(Goal $goal)
+    {
+        if ($goal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+        
+        $goal->delete();
+
+        return redirect()->route('goals.index')->with('success', 'Goal deleted successfully');
+    }
+
     // Show goal progress log
     public function log(Goal $goal)
     {
+        // Проверка что цель принадлежит пользователю
+        if ($goal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+        
         return view('goals.log', compact('goal'));
     }
 
     // Store a progress log entry
     public function storeLog(Request $request, Goal $goal)
     {
+        // Проверка что цель принадлежит пользователю
+        if ($goal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+        
         $request->validate([
             'value' => 'required|numeric|min:0',
         ]);
+
+        // Calculate change (difference from current value)
+        $change = $request->value - $goal->current_value;
 
         // Save progress log
         GoalLog::create([
             'goal_id' => $goal->id,
             'value'   => $request->value,
+            'change'  => $change,
             'date'    => now()->toDateString(),
         ]);
 
         // Update current goal value
-        $goal->current_value += $request->value;
+        $goal->current_value = $request->value;
         $goal->save();
 
         // Trigger confetti if goal completed and not already shown

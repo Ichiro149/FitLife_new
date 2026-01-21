@@ -23,6 +23,7 @@ class User extends Authenticatable
         'activity_level',
         'goal_type',
         'role',
+        'bio',
     ];
 
     protected $hidden = [
@@ -36,11 +37,6 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function isFriendsWith(User $user)
-    {
-    return $this->friends()->where('friend_id', $user->id)->exists();
     }
 
     public function biography()
@@ -99,6 +95,11 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class);
     }
 
     public function isFriendWith(User $user): bool

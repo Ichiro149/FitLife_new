@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\PostView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -21,7 +22,13 @@ class PostController extends Controller
             $posts = Cache::remember($cacheKey, 60, function () use ($perPage) {
                 return Post::with(['user', 'comments' => function ($query) {
                     $query->whereNull('parent_id')->with(['replies.user', 'user', 'replies.replies.user', 'parent.user']);
-                }, 'likes'])->latest()->paginate($perPage);
+                }, 'likes'])
+                ->withCount([
+                    'likes as like_count' => fn($q) => $q->where('type', 'like'),
+                    'likes as dislike_count' => fn($q) => $q->where('type', 'dislike'),
+                    'allComments as comment_count'
+                ])
+                ->latest()->paginate($perPage);
             });
 
             if ($request->wantsJson()) {
@@ -170,14 +177,23 @@ class PostController extends Controller
 
             $request->validate(['type' => 'required|in:like,dislike']);
             $userId = Auth::id();
-            $existing = Like::where('post_id', $post->id)->where('user_id', $userId)->first();
-            $type = $request->input('type');
+            $isLike = $request->input('type') === 'like';
+            $existing = Like::where('post_id', $post->id)
+                            ->where('user_id', $userId)
+                            ->where('type', 'post')
+                            ->first();
+            $resultType = $request->input('type');
 
-            if ($existing && $existing->type === $type) {
+            if ($existing && $existing->is_like === $isLike) {
+                // Same reaction clicked - remove it
                 $existing->delete();
-                $type = null;
+                $resultType = null;
             } else {
-                Like::updateOrCreate(['post_id' => $post->id, 'user_id' => $userId], ['type' => $type]);
+                // Create or update reaction
+                Like::updateOrCreate(
+                    ['post_id' => $post->id, 'user_id' => $userId, 'type' => 'post'],
+                    ['is_like' => $isLike]
+                );
             }
 
             Cache::forget("post_{$post->id}_like_count");
@@ -185,9 +201,9 @@ class PostController extends Controller
 
             return response()->json([
                 'success' => true,
-                'type' => $type,
-                'likeCount' => $post->likes()->where('type', 'like')->count(),
-                'dislikeCount' => $post->likes()->where('type', 'dislike')->count(),
+                'type' => $resultType,
+                'likeCount' => $post->likes()->where('type', 'post')->where('is_like', true)->count(),
+                'dislikeCount' => $post->likes()->where('type', 'post')->where('is_like', false)->count(),
             ], 200);
         } catch (\Exception $e) {
             \Log::error('Reaction toggle failed: ' . $e->getMessage());
@@ -252,17 +268,27 @@ class PostController extends Controller
             }
 
             $userId = Auth::id();
-            $cacheKey = "post_view_{$post->id}_{$userId}";
+            
+            // Check if user already viewed this post (using database, not cache)
+            $alreadyViewed = PostView::where('post_id', $post->id)
+                                      ->where('user_id', $userId)
+                                      ->exists();
 
-            if (!Cache::has($cacheKey)) {
-                $post->increment('views');
-                Cache::put($cacheKey, true, now()->addMinutes(60));
-                Cache::forget("posts_page_1");
+            if (!$alreadyViewed) {
+                // Record the view
+                PostView::create([
+                    'post_id' => $post->id,
+                    'user_id' => $userId,
+                ]);
+                
+                // Update cached view count
+                $post->views = PostView::where('post_id', $post->id)->count();
+                $post->save();
             }
 
             return response()->json([
                 'success' => true,
-                'views' => $post->views,
+                'views' => PostView::where('post_id', $post->id)->count(),
             ], 200);
         } catch (\Exception $e) {
             \Log::error('View increment failed: ' . $e->getMessage());
@@ -270,6 +296,69 @@ class PostController extends Controller
                 'success' => false,
                 'message' => 'Failed to increment views: ' . $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public function bulkViews(Request $request)
+    {
+        try {
+            $postIds = $request->input('post_ids', []);
+            
+            if (empty($postIds)) {
+                return response()->json(['views' => []], 200);
+            }
+
+            $views = PostView::selectRaw('post_id, COUNT(*) as count')
+                ->whereIn('post_id', $postIds)
+                ->groupBy('post_id')
+                ->pluck('count', 'post_id')
+                ->toArray();
+
+            // Include posts with 0 views
+            $result = [];
+            foreach ($postIds as $postId) {
+                $result[$postId] = $views[$postId] ?? 0;
+            }
+
+            return response()->json(['views' => $result], 200);
+        } catch (\Exception $e) {
+            \Log::error('Bulk views failed: ' . $e->getMessage());
+            return response()->json(['views' => []], 500);
+        }
+    }
+
+    public function bulkStats(Request $request)
+    {
+        try {
+            $postIds = $request->input('post_ids', []);
+            
+            if (empty($postIds)) {
+                return response()->json(['posts' => []], 200);
+            }
+
+            $posts = Post::with(['allComments'])->whereIn('id', $postIds)->get();
+            $userId = Auth::id();
+
+            $result = [];
+            foreach ($posts as $post) {
+                $result[$post->id] = [
+                    'views' => $post->postViews()->count(),
+                    'likes' => $post->likes()->where('type', 'post')->where('is_like', true)->count(),
+                    'dislikes' => $post->likes()->where('type', 'post')->where('is_like', false)->count(),
+                    'comments' => $post->allComments()->count(),
+                    'content' => $post->content,
+                    'media_path' => $post->media_path ? asset('storage/' . $post->media_path) : null,
+                    'media_type' => $post->media_type,
+                    'updated_at' => $post->updated_at->toISOString(),
+                    'user_liked' => $userId ? $post->isLikedBy($userId) : false,
+                    'user_disliked' => $userId ? $post->isDislikedBy($userId) : false,
+                ];
+            }
+
+            return response()->json(['posts' => $result], 200);
+        } catch (\Exception $e) {
+            \Log::error('Bulk stats failed: ' . $e->getMessage());
+            return response()->json(['posts' => []], 500);
         }
     }
 
@@ -336,9 +425,9 @@ class PostController extends Controller
             ],
             'created_at_diff' => $post->created_at->diffForHumans(),
             'views' => $post->views,
-            'like_count' => $post->likes()->where('type', 'like')->count(),
-            'dislike_count' => $post->likes()->where('type', 'dislike')->count(),
-            'comment_count' => $post->allComments()->count(),
+            'like_count' => $post->like_count ?? $post->likes()->where('type', 'like')->count(),
+            'dislike_count' => $post->dislike_count ?? $post->likes()->where('type', 'dislike')->count(),
+            'comment_count' => $post->comment_count ?? $post->allComments()->count(),
             'user_liked' => $post->isLikedBy(Auth::id()),
             'user_disliked' => $post->isDislikedBy(Auth::id()),
             'can_update' => Auth::id() === $post->user_id,

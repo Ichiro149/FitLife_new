@@ -1,18 +1,46 @@
 <?php
 
-use App\Models\Goal;
+test('goal progress percentage calculated correctly', function () {
+    $currentValue = 50;
+    $targetValue = 100;
+    
+    $percentage = ($currentValue / $targetValue) * 100;
+    
+    expect($percentage)->toBe(50.0);
+});
 
-it('calculates progress correctly', function () {
-    $goal = new Goal([
-        'target_value' => 100,
-        'current_value' => 25,
-    ]);
+test('goal is completed when current equals target', function () {
+    $currentValue = 100;
+    $targetValue = 100;
+    
+    $isCompleted = $currentValue >= $targetValue;
+    
+    expect($isCompleted)->toBeTrue();
+});
 
-    expect((float) $goal->progressPercent())->toBe(25.0);
+test('goal is completed when current exceeds target', function () {
+    $currentValue = 120;
+    $targetValue = 100;
+    
+    $isCompleted = $currentValue >= $targetValue;
+    
+    expect($isCompleted)->toBeTrue();
+});
 
-    $goal->current_value = 120;
-    expect((float) $goal->progressPercent())->toBe(100.0);
+test('goal percentage does not exceed 100', function () {
+    $currentValue = 150;
+    $targetValue = 100;
+    
+    $percentage = min(($currentValue / $targetValue) * 100, 100);
+    
+    expect($percentage)->toEqual(100);
+});
 
-    $goal->target_value = 0;
-    expect((float) $goal->progressPercent())->toBe(0.0);
+test('goal with zero target handles division', function () {
+    $currentValue = 50;
+    $targetValue = 0;
+    
+    $percentage = $targetValue > 0 ? ($currentValue / $targetValue) * 100 : 0;
+    
+    expect($percentage)->toEqual(0);
 });

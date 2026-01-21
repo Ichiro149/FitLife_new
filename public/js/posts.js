@@ -157,23 +157,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const handleReaction = async (btn, type, id, isComment) => {
         try {
+            const formData = new FormData();
+            formData.append('type', type);
+            
             const response = await fetch(isComment ? `/comments/${id}/toggle-reaction` : `/posts/${id}/reaction`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify({ type })
+                body: formData
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.message || 'Failed to toggle reaction');
+            }
+            
             const parent = btn.closest(isComment ? '.comment-actions' : '.post-actions');
             const likeBtn = parent.querySelector('.like-btn');
             const dislikeBtn = parent.querySelector('.dislike-btn');
+            
             likeBtn.classList.toggle('active', data.type === 'like');
             dislikeBtn.classList.toggle('active', data.type === 'dislike');
-            likeBtn.querySelector('.count-like').textContent = data.likeCount;
-            dislikeBtn.querySelector('.count-dislike').textContent = data.dislikeCount;
+            
+            const likeCountEl = likeBtn.querySelector('.count-like');
+            const dislikeCountEl = dislikeBtn.querySelector('.count-dislike');
+            
+            if (likeCountEl) likeCountEl.textContent = data.likeCount ?? 0;
+            if (dislikeCountEl) dislikeCountEl.textContent = data.dislikeCount ?? 0;
+            
             likeBtn.querySelector('svg').setAttribute('fill', data.type === 'like' ? '#ef4444' : 'currentColor');
             dislikeBtn.querySelector('svg').setAttribute('fill', data.type === 'dislike' ? '#ffffffff' : 'currentColor');
         } catch (error) {
@@ -182,12 +200,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const setupReactionButtons = (scope = main) => {
-        scope.querySelectorAll('.like-btn, .dislike-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const isComment = !!btn.dataset.commentId;
-                handleReaction(btn, btn.classList.contains('like-btn') ? 'like' : 'dislike', isComment ? btn.dataset.commentId : btn.dataset.postId, isComment);
-            });
+    // Use event delegation for reaction buttons to handle dynamically added elements
+    const setupReactionButtons = () => {
+        console.log('Setting up reaction buttons on:', main);
+        main.addEventListener('click', (e) => {
+            console.log('Click detected on:', e.target);
+            const likeBtn = e.target.closest('.like-btn');
+            const dislikeBtn = e.target.closest('.dislike-btn');
+            console.log('Like btn:', likeBtn, 'Dislike btn:', dislikeBtn);
+            
+            if (likeBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const isComment = !!likeBtn.dataset.commentId;
+                const id = isComment ? likeBtn.dataset.commentId : likeBtn.dataset.postId;
+                console.log('Like clicked - isComment:', isComment, 'id:', id);
+                handleReaction(likeBtn, 'like', id, isComment);
+            } else if (dislikeBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const isComment = !!dislikeBtn.dataset.commentId;
+                const id = isComment ? dislikeBtn.dataset.commentId : dislikeBtn.dataset.postId;
+                console.log('Dislike clicked - isComment:', isComment, 'id:', id);
+                handleReaction(dislikeBtn, 'dislike', id, isComment);
+            }
         });
     };
 
@@ -209,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         } catch {
                             console.error('Failed to increment view count');
                         }
-                    }, 5000);
+                    }, 2000);
                     entry.target.dataset.viewTimer = timer;
                 } else {
                     clearTimeout(entry.target.dataset.viewTimer);
@@ -218,6 +254,86 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.3 });
 
         main.querySelectorAll('.post-card').forEach(post => observer.observe(post));
+    };
+
+    // Poll for real-time updates every 5 seconds
+    const setupRealTimePolling = () => {
+        setInterval(async () => {
+            const postCards = main.querySelectorAll('.post-card[data-post-id]');
+            if (postCards.length === 0) return;
+            
+            const postIds = Array.from(postCards).map(card => card.dataset.postId);
+            
+            try {
+                const response = await fetch('/posts/stats/bulk', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({ post_ids: postIds })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.posts) {
+                        Object.entries(data.posts).forEach(([postId, stats]) => {
+                            const postCard = main.querySelector(`.post-card[data-post-id="${postId}"]`);
+                            if (!postCard) return;
+
+                            // Update views
+                            postCard.querySelectorAll('.count-view').forEach(el => {
+                                el.textContent = stats.views;
+                            });
+
+                            // Update likes
+                            postCard.querySelectorAll('.like-btn .count-like').forEach(el => {
+                                el.textContent = stats.likes;
+                            });
+
+                            // Update dislikes
+                            postCard.querySelectorAll('.dislike-btn .count-dislike').forEach(el => {
+                                el.textContent = stats.dislikes;
+                            });
+
+                            // Update comment count
+                            postCard.querySelectorAll('.comment-count').forEach(el => {
+                                el.textContent = stats.comments;
+                            });
+
+                            // Update like/dislike button states
+                            const likeBtn = postCard.querySelector('.like-btn[data-post-id]');
+                            const dislikeBtn = postCard.querySelector('.dislike-btn[data-post-id]');
+                            
+                            if (likeBtn) {
+                                likeBtn.classList.toggle('active', stats.user_liked);
+                                const likeSvg = likeBtn.querySelector('svg');
+                                if (likeSvg) {
+                                    likeSvg.setAttribute('fill', stats.user_liked ? '#ef4444' : 'currentColor');
+                                }
+                            }
+                            
+                            if (dislikeBtn) {
+                                dislikeBtn.classList.toggle('active', stats.user_disliked);
+                                const dislikeSvg = dislikeBtn.querySelector('svg');
+                                if (dislikeSvg) {
+                                    dislikeSvg.setAttribute('fill', stats.user_disliked ? '#ffffff' : 'currentColor');
+                                }
+                            }
+
+                            // Update post content if changed (check by updated_at)
+                            const contentEl = postCard.querySelector('.post-content p');
+                            if (contentEl && contentEl.dataset.updatedAt !== stats.updated_at) {
+                                contentEl.textContent = stats.content;
+                                contentEl.dataset.updatedAt = stats.updated_at;
+                            }
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch post stats:', error);
+            }
+        }, 5000); // Every 5 seconds
     };
 
     const setupPostForm = () => {
@@ -250,7 +366,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     const newPost = createPostElement(data.post, csrfToken);
                     postsFeed.insertBefore(newPost, postsFeed.firstChild);
                     attachPostEventListeners(newPost);
-                    setupReactionButtons(newPost);
                     attachCommentFormListeners(newPost);
                     setupCommentToggle(newPost);
                     setupReplyButtons(newPost);
@@ -555,7 +670,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     parent.appendChild(comment);
                     attachCommentEventListeners(comment);
                     attachCommentFormListeners(comment);
-                    setupReactionButtons(comment);
                     setupReplyButtons(comment);
                     setupShowRepliesButtons(comment);
                     restoreReplyDrafts(comment);
@@ -883,6 +997,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupCommentToggle();
     setupReactionButtons();
     setupViewCounter();
+    setupRealTimePolling();
     setupPostForm();
     attachCommentFormListeners();
     attachCommentEventListeners();

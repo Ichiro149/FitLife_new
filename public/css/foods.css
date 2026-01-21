@@ -1,402 +1,288 @@
-/* Root variables for consistent theming */
-:root {
-    --bg: #121212; /* Dark background */
-    --text: #e5e5e5; /* Light text */
-    --accent: #00ff00; /* Salatovy green accent */
-    --muted: #a0a0a0; /* Muted text */
-    --card-bg: #1f1f1f; /* Dark card background */
-    --border: #333333; /* Dark border */
-    --radius: 12px; /* Rounded corners */
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    --transition: 0.3s ease; /* Smooth transitions */
-    --highlight: #00cc00; /* Darker green for hover */
-    --danger: #ff5555; /* Red for errors/alerts */
-    --success: #00ff00; /* Green for success alerts */
-    --hover-bg: #2a2a2a; /* Hover background */
-    --focus: #33ff33; /* Focus state green */
-    --action-icon: #3b82f6; /* Blue for action icons */
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   MEAL TRACKER / FOODS STYLES - FitLife v2.0
+   Dark Sport Theme - Yellow/Warning Accent
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ========== GLOBAL ========== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', 'Arial', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* ========== MOBILE TOGGLE BUTTON ========== */
+/* Hide mobile toggle */
 #mobile-toggle {
     display: none;
-    background: var(--accent);
-    color: var(--bg);
-    padding: 8px 16px;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition);
 }
 
-#mobile-toggle:hover {
-    background: var(--highlight);
-    transform: translateY(-1px);
+/* Page Header */
+#fitlife-container main > header {
+    margin-bottom: var(--space-6);
 }
 
-#mobile-toggle:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
+#fitlife-container main > header h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
 }
 
-/* ========== HEADER ========== */
-header {
-    padding: 24px 0;
+#fitlife-container main > header p.muted {
+    color: var(--text-muted);
+    font-size: var(--text-base);
 }
 
-.header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* Section Headings */
+#fitlife-container section h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
 }
 
-header h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--text);
-    text-shadow: 0 1px 2px var(--shadow);
-    text-align: left;
-}
-
-header .muted {
-    font-size: 0.9rem;
-    color: var(--muted);
-}
-
-/* ========== NOTIFICATIONS ========== */
+/* Notification */
 .notification {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 1000;
-    background: var(--card-bg);
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    color: var(--text);
-    box-shadow: var(--shadow);
-    opacity: 0;
-    transition: opacity var(--transition);
-}
-
-.notification.show {
-    opacity: 1;
-    animation: slideIn 0.3s ease;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+    display: none;
 }
 
 .notification.success {
-    border-color: var(--success);
-    color: var(--success);
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    display: block;
 }
 
 .notification.error {
-    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid var(--danger);
     color: var(--danger);
+    display: block;
 }
 
-/* ========== MEAL FORM SECTION ========== */
-section[aria-labelledby="meal-form-heading"] {
-    margin: 32px 0;
-}
-
-section h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 16px;
-    text-align: left;
-}
-
-.meal-grid-form {
-    background: var(--card-bg);
-    padding: 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.meal-grid-form:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   MEALS GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .meals-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
 }
 
+/* Meal Block */
 .meal-block {
     display: flex;
     flex-direction: column;
 }
 
+/* Meal Card */
 .meal-card {
-    background: var(--bg);
-    padding: 12px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    transition: background-color var(--transition);
-}
-
-.meal-card:hover {
-    background: var(--hover-bg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .meal-card h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 12px;
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--warning);
+    margin-bottom: var(--space-4);
 }
 
+/* Meal Items Container */
 .meal-items {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
-
-.meal-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-}
-
-.food-select {
+    gap: var(--space-3);
     flex: 1;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 8px;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: border-color var(--transition);
+}
+
+/* Meal Item Row */
+.meal-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Food Select */
+.food-select {
+    min-width: 0;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
 }
 
 .food-select:focus {
-    border-color: var(--accent);
     outline: none;
-    box-shadow: 0 0 8px var(--accent);
+    border-color: var(--warning);
 }
 
+.food-select option {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+/* Quantity Input */
 .quantity-input {
-    width: 80px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 8px;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: border-color var(--transition);
+    width: 70px;
+    padding: var(--space-2) var(--space-2);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .quantity-input:focus {
-    border-color: var(--accent);
     outline: none;
-    box-shadow: 0 0 8px var(--accent);
+    border-color: var(--warning);
 }
 
+/* Calorie Preview */
 .calorie-preview {
-    font-size: 0.85rem;
-    color: var(--muted);
     min-width: 60px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
 }
 
+/* Remove Food Button */
 .remove-food-btn {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--danger);
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: var(--text-lg);
     cursor: pointer;
-    transition: background-color var(--transition), color var(--transition);
-}
-
-.remove-food-btn svg {
-    width: 16px;
-    height: 16px;
-    stroke: var(--danger);
+    transition: all var(--transition-fast);
 }
 
 .remove-food-btn:hover {
-    background: var(--hover-bg);
-    color: var(--highlight);
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
 }
 
-.remove-food-btn:hover svg {
-    stroke: var(--highlight);
-}
-
+/* Add Food Button */
 .add-food-btn {
-    background: var(--border);
-    color: var(--text);
-    padding: 8px 12px;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 0.9rem;
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border-default);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
     cursor: pointer;
-    margin-top: 8px;
-    transition: background-color var(--transition), transform var(--transition);
+    transition: all var(--transition-fast);
+    margin-top: var(--space-3);
 }
 
 .add-food-btn:hover {
-    background: var(--highlight);
-    color: var(--bg);
-    transform: translateY(-1px);
+    border-color: var(--warning);
+    color: var(--warning);
+    background: rgba(245, 158, 11, 0.1);
 }
 
-.add-food-btn:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-}
-
+/* Total Calories */
 .total-calories {
-    font-size: 0.9rem;
-    color: var(--accent);
-    margin-top: 12px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    text-align: right;
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-subtle);
 }
 
+/* Error Message */
 .error-message {
+    font-size: var(--text-xs);
     color: var(--danger);
-    font-size: 0.85rem;
-    margin-top: 4px;
+    margin-top: var(--space-2);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CALCULATE BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .calculate-btn {
-    background: var(--accent);
-    color: var(--bg);
-    padding: 10px 16px;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-top: 16px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: background-color var(--transition), transform var(--transition);
-}
-
-.calculate-btn svg {
-    width: 20px;
-    height: 20px;
-    stroke: var(--bg);
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    background: var(--warning);
+    color: var(--bg-base);
+    font-weight: var(--font-bold);
+    font-size: var(--text-base);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    max-width: 300px;
 }
 
 .calculate-btn:hover {
-    background: var(--highlight);
-    transform: translateY(-1px);
+    background: #d97706;
+    transform: translateY(-2px);
 }
 
-.calculate-btn:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
+.calculate-btn svg {
+    width: 24px;
+    height: 24px;
 }
 
-.calculate-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* ========== HISTORY SECTION ========== */
-section[aria-labelledby="history-heading"] {
-    margin: 32px 0;
-}
-
-.history-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-}
-
-.history-table th,
-.history-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-}
-
-.history-table th {
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 0.9rem;
-}
-
-.history-table td {
-    font-size: 0.85rem;
-    color: var(--text);
-}
-
-.history-table .no-data {
-    text-align: center;
-    color: var(--muted);
-    padding: 16px;
-}
-
-.history-table .optimistic {
-    opacity: 0.7;
-}
-
-.history-table tr:hover {
-    background: var(--hover-bg);
-}
-
-/* ========== RESULT SECTION ========== */
-section[aria-labelledby="result-heading"] {
-    margin: 32px 0;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESULT CARD
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .result-card {
-    background: var(--card-bg);
-    padding: 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
     display: flex;
     align-items: center;
-    gap: 16px;
-    transition: transform var(--transition), box-shadow var(--transition);
+    gap: var(--space-5);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    margin-top: var(--space-5);
 }
 
-.result-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+.result-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
 }
 
 .result-icon svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--accent);
-    transition: stroke var(--transition);
-}
-
-.result-card:hover .result-icon svg {
-    stroke: var(--highlight);
+    width: 32px;
+    height: 32px;
+    stroke: var(--warning);
 }
 
 .result-body {
@@ -404,43 +290,115 @@ section[aria-labelledby="result-heading"] {
 }
 
 .result-body h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 8px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
 }
 
 .result-body .value {
-    font-size: 1.5rem;
-    color: var(--text);
-    margin-bottom: 4px;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--warning);
 }
 
 .result-body .muted {
-    font-size: 0.9rem;
-    color: var(--muted);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
 }
 
-/* ========== PAGINATION ========== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   HISTORY SECTION (Meal Table)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#history-section {
+    margin-top: var(--space-8);
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.history-table thead th {
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--border-default);
+}
+
+.history-table tbody td {
+    padding: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.history-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.history-table tbody tr:hover {
+    background: var(--bg-elevated);
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.history-table .no-data {
+    text-align: center;
+    color: var(--text-muted);
+    padding: var(--space-8);
+}
+
+/* Pagination */
 .pagination {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
 }
 
 .pagination a {
-    background: var(--border);
-    color: var(--text);
-    padding: 8px 12px;
-    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
     text-decoration: none;
-    transition: background-color var(--transition), color var(--transition);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    transition: all var(--transition-fast);
 }
 
-.pagination a:hover {
-    background: var(--highlight);
-    color: var(--bg);
+.pagination a:hover:not(.disabled) {
+    background: var(--warning);
+    color: var(--bg-base);
+    border-color: var(--warning);
+}
+
+.pagination a.current {
+    background: var(--warning);
+    color: var(--bg-base);
+    border-color: var(--warning);
 }
 
 .pagination a.disabled {
@@ -448,597 +406,55 @@ section[aria-labelledby="result-heading"] {
     cursor: not-allowed;
 }
 
-/* ========== LINKS ========== */
-a {
-    color: var(--accent);
-    text-decoration: none;
-    transition: color var(--transition), text-decoration var(--transition);
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-a:hover {
-    color: var(--highlight);
-    text-decoration: underline;
-}
-
-/* ========== TYPOGRAPHY ========== */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-weight: 600;
-}
-
-p {
-    color: var(--text);
-    margin: 8px 0;
-}
-
-/* ========== ANIMATIONS ========== */
-@keyframes slideIn {
-    from { transform: translateX(20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.meal-card, .result-card, .notification, .history-table {
-    animation: slideIn 0.5s ease-out;
-}
-
-.meal-grid-form, .meal-item {
-    animation: fadeIn 0.3s ease;
-}
-
-/* ========== ACCESSIBILITY ========== */
-a:focus, button:focus, select:focus, input:focus {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-/* ========== SCROLLBAR ========== */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--border);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--highlight);
-}
-
-/* ========== UTILITY CLASSES ========== */
-.text-accent { color: var(--accent); }
-.text-muted { color: var(--muted); }
-.text-primary { color: var(--text); }
-.text-danger { color: var(--danger); }
-.bg-card { background: var(--card-bg); }
-.bg-border { background: var(--border); }
-.bg-hover { background: var(--hover-bg); }
-.border-accent { border-color: var(--accent); }
-.border-muted { border-color: var(--muted); }
-.border-danger { border-color: var(--danger); }
-.border-success { border-color: var(--success); }
-
-.p-05 { padding: 2px; }
-.p-1 { padding: 4px; }
-.p-2 { padding: 8px; }
-.p-3 { padding: 16px; }
-.p-4 { padding: 24px; }
-.p-5 { padding: 32px; }
-.m-05 { margin: 2px; }
-.m-1 { margin: 4px; }
-.m-2 { margin: 8px; }
-.m-3 { margin: 16px; }
-.m-4 { margin: 24px; }
-.m-5 { margin: 32px; }
-
-.pt-05 { padding-top: 2px; }
-.pt-1 { padding-top: 4px; }
-.pt-2 { padding-top: 8px; }
-.pt-3 { padding-top: 16px; }
-.pt-4 { padding-top: 24px; }
-.pb-05 { padding-bottom: 2px; }
-.pb-1 { padding-bottom: 4px; }
-.pb-2 { padding-bottom: 8px; }
-.pb-3 { padding-bottom: 16px; }
-.pb-4 { padding-bottom: 24px; }
-.pl-05 { padding-left: 2px; }
-.pl-1 { padding-left: 4px; }
-.pl-2 { padding-left: 8px; }
-.pl-3 { padding-left: 16px; }
-.pl-4 { padding-left: 24px; }
-.pr-05 { padding-right: 2px; }
-.pr-1 { padding-right: 4px; }
-.pr-2 { padding-right: 8px; }
-.pr-3 { padding-right: 16px; }
-.pr-4 { padding-right: 24px; }
-
-.mt-05 { margin-top: 2px; }
-.mt-1 { margin-top: 4px; }
-.mt-2 { margin-top: 8px; }
-.mt-3 { margin-top: 16px; }
-.mt-4 { margin-top: 24px; }
-.mb-05 { margin-bottom: 2px; }
-.mb-1 { margin-bottom: 4px; }
-.mb-2 { margin-bottom: 8px; }
-.mb-3 { margin-bottom: 16px; }
-.mb-4 { margin-bottom: 24px; }
-.ml-05 { margin-left: 2px; }
-.ml-1 { margin-left: 4px; }
-.ml-2 { margin-left: 8px; }
-.ml-3 { margin-left: 16px; }
-.ml-4 { margin-left: 24px; }
-.mr-05 { margin-right: 2px; }
-.mr-1 { margin-right: 4px; }
-.mr-2 { margin-right: 8px; }
-.mr-3 { margin-right: 16px; }
-.mr-4 { margin-right: 24px; }
-
-.fs-xs { font-size: 0.75rem; }
-.fs-sm { font-size: 0.85rem; }
-.fs-md { font-size: 1rem; }
-.fs-lg { font-size: 1.25rem; }
-.fs-xl { font-size: 1.5rem; }
-.fs-2xl { font-size: 1.75rem; }
-
-.br-4 { border-radius: 4px; }
-.br-8 { border-radius: 8px; }
-.br-12 { border-radius: 12px; }
-.br-16 { border-radius: 16px; }
-.br-20 { border-radius: 20px; }
-
-.shadow-xs { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); }
-:shadow-sm { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-.shadow-md { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-.shadow-lg { box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); }
-
-.opacity-25 { opacity: 0.25; }
-.opacity-50 { opacity: 0.5; }
-.opacity-75 { opacity: 0.75; }
-.opacity-100 { opacity: 1; }
-
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-
-.fw-light { font-weight: 300; }
-.fw-normal { font-weight: 400; }
-.fw-medium { font-weight: 500; }
-.fw-bold { font-weight: 600; }
-.fw-extrabold { font-weight: 700; }
-
-/* ========== RESPONSIVE DESIGN — ОТСТУПЫ КАК В ACTIVITY-CALENDAR ========== */
-@media (max-width: 768px) {
-    main {
-        padding: 60px 12px 100px 12px; /* 60px сверху — под аватарку, 100px снизу — под навбар */
-    }
-
-    header {
-        padding: 16px 0;
-    }
-
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    header .muted {
-        font-size: 0.85rem;
-    }
-
-    section h3 {
-        font-size: 1.3rem;
-        margin-bottom: 12px;
-    }
-
-    .meal-grid-form {
-        padding: 12px;
-    }
-
+@media (max-width: 1024px) {
     .meals-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .meals-grid {
+        grid-template-columns: 1fr;
     }
 
-    .meal-card {
-        padding: 10px;
+    .meal-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
     }
 
-    .meal-card h4 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-    }
-
-    .meal-items {
-        gap: 6px;
-    }
-
-    .food-select, .quantity-input {
-        font-size: 0.85rem;
-        padding: 6px;
+    .meal-item > * {
+        width: 100%;
     }
 
     .quantity-input {
-        width: 70px;
+        width: 100%;
     }
 
-    .calorie-preview, .total-calories {
-        font-size: 0.8rem;
-        min-width: 50px;
+    .calorie-preview {
+        text-align: left;
     }
 
-    .remove-food-btn {
-        width: 22px;
-        height: 22px;
-    }
-
-    .remove-food-btn svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .add-food-btn, .calculate-btn {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-    }
-
-    .calculate-btn svg {
-        width: 18px;
-        height: 18px;
+    .calculate-btn {
+        width: 100%;
+        max-width: none;
     }
 
     .result-card {
-        padding: 12px;
-        gap: 12px;
-    }
-
-    .result-icon svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .result-body h4 {
-        font-size: 1.1rem;
-    }
-
-    .result-body .value {
-        font-size: 1.3rem;
-    }
-
-    .result-body .muted {
-        font-size: 0.85rem;
-    }
-
-    .history-table th, .history-table td {
-        padding: 10px;
-        font-size: 0.8rem;
-    }
-
-    .notification {
-        padding: 10px 14px;
-        font-size: 0.85rem;
-        min-width: 200px;
-    }
-
-    .pagination a {
-        padding: 6px 10px;
-        font-size: 0.85rem;
+        flex-direction: column;
+        text-align: center;
     }
 }
 
 @media (max-width: 480px) {
-    main {
-        padding: 50px 8px 90px 8px; /* Компактнее, но всё видно */
-    }
-
-    header {
-        padding: 12px 0;
-    }
-
-    header h1 {
-        font-size: 1.3rem;
-    }
-
-    header .muted {
-        font-size: 0.8rem;
-    }
-
-    section h3 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-    }
-
-    .meal-grid-form {
-        padding: 10px;
-    }
-
-    .meals-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
+    #fitlife-container main > header h1 {
+        font-size: var(--text-xl);
     }
 
     .meal-card {
-        padding: 8px;
-    }
-
-    .meal-card h4 {
-        font-size: 1rem;
-        margin-bottom: 6px;
-    }
-
-    .meal-items {
-        gap: 4px;
-    }
-
-    .food-select, .quantity-input {
-        font-size: 0.8rem;
-        padding: 5px;
-    }
-
-    .quantity-input {
-        width: 60px;
-    }
-
-    .calorie-preview, .total-calories {
-        font-size: 0.75rem;
-        min-width: 45px;
-    }
-
-    .remove-food-btn {
-        width: 20px;
-        height: 20px;
-    }
-
-    .remove-food-btn svg {
-        width: 12px;
-        height: 12px;
-    }
-
-    .add-food-btn, .calculate-btn {
-        padding: 5px 10px;
-        font-size: 0.8rem;
-    }
-
-    .calculate-btn svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .result-card {
-        padding: 10px;
-        gap: 10px;
-    }
-
-    .result-icon svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .result-body h4 {
-        font-size: 1rem;
-    }
-
-    .result-body .value {
-        font-size: 1.2rem;
-    }
-
-    .result-body .muted {
-        font-size: 0.8rem;
-    }
-
-    .history-table th, .history-table td {
-        padding: 8px;
-        font-size: 0.75rem;
-    }
-
-    .history-table .no-data {
-        padding: 12px;
-    }
-
-    .notification {
-        top: 12px;
-        right: 12px;
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        min-width: 180px;
-    }
-
-    .pagination a {
-        padding: 5px 8px;
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 360px) {
-    main {
-        padding: 45px 6px 85px 6px; /* Максимально компактно, но безопасно */
-    }
-
-    header {
-        padding: 10px 0;
-    }
-
-    header h1 {
-        font-size: 1.2rem;
-    }
-
-    header .muted {
-        font-size: 0.75rem;
-    }
-
-    section h3 {
-        font-size: 1rem;
-        margin-bottom: 8px;
-    }
-
-    .meal-grid-form {
-        padding: 8px;
-    }
-
-    .meals-grid {
-        gap: 8px;
-    }
-
-    .meal-card {
-        padding: 6px;
-    }
-
-    .meal-card h4 {
-        font-size: 0.9rem;
-        margin-bottom: 4px;
-    }
-
-    .meal-items {
-        gap: 3px;
-    }
-
-    .food-select, .quantity-input {
-        font-size: 0.75rem;
-        padding: 4px;
-    }
-
-    .quantity-input {
-        width: 55px;
-    }
-
-    .calorie-preview, .total-calories {
-        font-size: 0.7rem;
-        min-width: 40px;
-    }
-
-    .remove-food-btn {
-        width: 18px;
-        height: 18px;
-    }
-
-    .remove-food-btn svg {
-        width: 10px;
-        height: 10px;
-    }
-
-    .add-food-btn, .calculate-btn {
-        padding: 4px 8px;
-        font-size: 0.75rem;
-    }
-
-    .calculate-btn svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .result-card {
-        padding: 8px;
-        gap: 8px;
-    }
-
-    .result-icon svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .result-body h4 {
-        font-size: 0.9rem;
-    }
-
-    .result-body .value {
-        font-size: 1.1rem;
-    }
-
-    .result-body .muted {
-        font-size: 0.75rem;
-    }
-
-    .history-table th, .history-table td {
-        padding: 6px;
-        font-size: 0.7rem;
-    }
-
-    .history-table .no-data {
-        padding: 10px;
-        font-size: 0.75rem;
-    }
-
-    .notification {
-        top: 10px;
-        right: 10px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-        min-width: 160px;
-    }
-
-    .pagination a {
-        padding: 4px 6px;
-        font-size: 0.75rem;
-    }
-
-    ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-}
-
-/* ========== HIGH CONTRAST MODE ========== */
-@media (prefers-contrast: high) {
-    :root {
-        --accent: #33ff33;
-        --highlight: #66ff66;
-        --border: #000000;
-        --muted: #cccccc;
-    }
-
-    .meal-card, .result-card, .history-table, .food-select, .quantity-input {
-        border-color: var(--accent);
-    }
-
-    .calculate-btn, .add-food-btn {
-        background: var(--accent);
-    }
-}
-
-/* ========== REDUCED MOTION ========== */
-@media (prefers-reduced-motion: reduce) {
-    .meal-card, .result-card, .notification, .history-table, .calculate-btn, .add-food-btn {
-        transition: none;
-        animation: none;
-    }
-}
-
-/* ========== PRINT STYLES ========== */
-@media print {
-    .notification {
-        display: none;
-    }
-
-    main {
-        padding: 8px;
-    }
-
-    .meal-grid-form, .meal-card, .result-card, .history-table {
-        border: 1px solid #000;
-        box-shadow: none;
-    }
-
-    .calculate-btn, .add-food-btn, .remove-food-btn {
-        display: none;
+        padding: var(--space-4);
     }
 }
