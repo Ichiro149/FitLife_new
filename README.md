@@ -1,270 +1,419 @@
-<p align="center">
-  <img src="https://img.icons8.com/color/96/000000/dumbbell.png" alt="FitLife Logo"/>
-</p>
+<div align="center">
 
-<h1 align="center">🏋️ FitLife</h1>
+# 🏋️ FitLife
+
+### ⚡ Personal Fitness & Wellness Platform
+
+<br/>
+
+[![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.4+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tailwind](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+[![Tests](https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml/badge.svg)](https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml)
+[![Pest](https://img.shields.io/badge/Pest-3.x-F472B6?style=flat-square&logo=php)](https://pestphp.com)
+[![Code Style](https://img.shields.io/badge/Code%20Style-Laravel%20Pint-orange?style=flat-square)](https://laravel.com/docs/pint)
+
+<br/>
 
 <p align="center">
-  <strong>Your Personal Fitness & Wellness Companion</strong>
-</p>
-
-<p align="center">
-  <a href="https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml">
-    <img src="https://github.com/Ichiro149/FitLife_new/actions/workflows/tests.yml/badge.svg" alt="Tests">
-  </a>
-  <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
-  <img src="https://img.shields.io/badge/Laravel-11-FF2D20?logo=laravel&logoColor=white" alt="Laravel 11">
-  <img src="https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT">
-</p>
-
-<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
   <a href="#-features">Features</a> •
+  <a href="#-screenshots">Screenshots</a> •
   <a href="#-tech-stack">Tech Stack</a> •
-  <a href="#-installation">Installation</a> •
-  <a href="#-testing">Testing</a> •
-  <a href="#-screenshots">Screenshots</a>
+  <a href="#-testing">Testing</a>
 </p>
+
+<br/>
+
+**Complete fitness tracking solution with Nutrition, Sleep, Goals, Progress Photos & Social Community**
+
+<br/>
+
+> 🌍 **Multi-language**: Supports English, Russian, and Latvian
+
+</div>
+
+<br/>
 
 ---
 
-## 📖 About
+<br/>
 
-**FitLife** is a comprehensive fitness tracking web application designed to help users achieve their health and wellness goals. Track your nutrition, monitor sleep patterns, set fitness goals, and connect with friends on your fitness journey.
+## 🚀 Quick Start
+
+```bash
+# Clone & Install
+git clone https://github.com/Ichiro149/FitLife_new.git
+cd FitLife_new && composer install && npm install
+
+# Setup
+cp .env.example .env && php artisan key:generate
+php artisan migrate --seed && php artisan storage:link
+
+# Run
+npm run build && php artisan serve
+```
+
+**Visit:** http://localhost:8000
+
+<br/>
+
+---
+
+<br/>
 
 ## ✨ Features
 
-### 🍎 Nutrition Tracking
-- Log daily meals (breakfast, lunch, dinner, snacks)
-- Automatic calorie calculation from 40+ foods database
-- View meal history and daily summaries
-- Personalized nutrition feedback
+<table>
+<tr>
+<td width="50%">
 
-### 😴 Sleep Monitoring
-- Track sleep duration and quality
-- Sleep quality ratings (1-5 scale)
-- View sleep patterns and statistics
-- Get insights for better rest
+### 🍎 Health Tracking
 
-### 🎯 Goal Management
-- Create custom fitness goals
-- Track progress with visual indicators
-- Log daily achievements
-- Multiple goal types support
+- 🍽️ **Meal Tracker** — Log meals with 40+ foods database
+- 💧 **Water Tracker** — Daily hydration monitoring
+- 😴 **Sleep Tracker** — Duration & quality tracking
+- 🔥 **Calorie Calculator** — BMR & macro calculation
+- 📊 **Progress Photos** — Visual transformation gallery
+- 🎯 **Goals** — Custom fitness goals with progress
 
-### 💧 Water Intake
-- Log water consumption
-- Daily hydration goals
-- Visual progress tracking
-
-### 📅 Calendar & Events
-- Schedule workouts and activities
-- Set reminders for fitness events
-- View monthly activity overview
+</td>
+<td width="50%">
 
 ### 👥 Social Features
-- Connect with friends
-- Share progress and achievements
-- Like and comment on posts
-- Build your fitness community
 
-### 📊 Dashboard
-- Comprehensive overview of all metrics
-- Weekly and monthly statistics
-- Progress visualization
-- Quick access to all features
+- 📝 **Posts** — Share updates with photo/video
+- 💬 **Comments** — Nested replies & likes
+- 👫 **Friends** — Connect with fitness buddies
+- 👤 **Profiles** — Customizable user profiles
+- 📅 **Activity Calendar** — Plan workouts & events
+- 🔔 **Notifications** — Stay updated
 
-## 🛠 Tech Stack
+</td>
+</tr>
+</table>
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **PHP** | 8.4 | Backend Language |
-| **Laravel** | 11 | PHP Framework |
-| **MySQL/SQLite** | 8.0+ | Database |
-| **Tailwind CSS** | 3.x | Styling |
-| **Vite** | 5.x | Asset Bundling |
-| **Pest PHP** | 3.x | Testing Framework |
+<br/>
 
-## 📦 Installation
+### 📅 Activity Calendar
 
-### Prerequisites
-- PHP 8.4+
-- Composer 2.x
-- Node.js 18+
-- MySQL 8.0+ or SQLite
+<table>
+<tr>
+<td width="25%" align="center">
 
-### Setup
+**🏃 Workouts**
 
-```bash
-# Clone the repository
-git clone https://github.com/Ichiro149/FitLife_new.git
-cd FitLife_new
+Running, Cycling,
+Swimming, CrossFit
 
-# Install PHP dependencies
-composer install
+</td>
+<td width="25%" align="center">
 
-# Install Node.js dependencies
-npm install
+**🧘 Wellness**
 
-# Copy environment file
-cp .env.example .env
+Yoga, Meditation,
+Dance, Walking
 
-# Generate application key
-php artisan key:generate
+</td>
+<td width="25%" align="center">
 
-# Run database migrations
-php artisan migrate
+**💪 Strength**
 
-# (Optional) Seed the database
-php artisan db:seed
+Weightlifting, Boxing,
+Gym sessions
 
-# Build frontend assets
-npm run build
+</td>
+<td width="25%" align="center">
 
-# Start the development server
-php artisan serve
-```
+**🌿 Recovery**
 
-Visit `http://localhost:8000` in your browser.
+Rest days, Hiking,
+Light activities
 
-### Development Mode
+</td>
+</tr>
+</table>
 
-```bash
-# Terminal 1: Start Laravel server
-php artisan serve
+<br/>
 
-# Terminal 2: Start Vite dev server with hot reload
-npm run dev
-```
+### 🔐 Role System
+
+| Role | Access Level |
+|:-----|:-------------|
+| 🔴 **Admin** | Full system access, user management, content moderation |
+| 🟢 **User** | Track health, post updates, connect with friends |
+
+<br/>
+
+### 🌍 Multi-language Support
+
+<table>
+<tr>
+<td align="center">🇬🇧 <b>English</b></td>
+<td align="center">🇷🇺 <b>Русский</b></td>
+<td align="center">🇱🇻 <b>Latviešu</b></td>
+</tr>
+</table>
+
+<br/>
+
+---
+
+<br/>
+
+## 🛠️ Tech Stack
+
+<table>
+<tr>
+<td align="center" width="20%">
+<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="80"/><br/>
+<b>Laravel 11</b><br/>
+<sub>Backend Framework</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" width="50"/><br/>
+<b>Tailwind CSS</b><br/>
+<sub>Styling</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://alpinejs.dev/alpine_long.svg" width="80"/><br/>
+<b>Alpine.js</b><br/>
+<sub>JavaScript</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://vitejs.dev/logo.svg" width="50"/><br/>
+<b>Vite</b><br/>
+<sub>Build Tool</sub>
+</td>
+<td align="center" width="20%">
+<img src="https://pestphp.com/www/assets/logo.svg" width="50"/><br/>
+<b>Pest PHP</b><br/>
+<sub>Testing</sub>
+</td>
+</tr>
+</table>
+
+<br/>
+
+| Layer | Technologies |
+|:------|:------------|
+| **Backend** | PHP 8.4, Laravel 11, Blade Templates |
+| **Frontend** | Tailwind CSS 3, Alpine.js, Vite |
+| **Database** | MySQL 8.0+ (prod), SQLite (testing) |
+| **Testing** | Pest PHP 3.x with parallel execution |
+
+<br/>
+
+---
+
+<br/>
 
 ## 🧪 Testing
 
-FitLife includes a comprehensive test suite with **243 tests** covering all major features.
+<div align="center">
+
+```
+✅ 243 Tests | ✅ 418 Assertions | ⚡ ~1s (parallel)
+```
+
+</div>
+
+<br/>
 
 ```bash
 # Run all tests
-php artisan test
+./vendor/bin/pest
 
-# Run with coverage
-php artisan test --coverage
+# Parallel execution (faster)
+./vendor/bin/pest --parallel
 
-# Run specific test file
-php artisan test --filter=GoalTest
-
-# Run only unit tests
-php artisan test --testsuite=Unit
-
-# Run only feature tests
-php artisan test --testsuite=Feature
+# With coverage
+./vendor/bin/pest --coverage
 ```
+
+<br/>
 
 ### Test Coverage
 
-| Category | Tests | Description |
-|----------|-------|-------------|
-| Authentication | 14 | Login, Register, Logout |
-| Authorization | 12 | Access Control |
-| Goals | 18 | CRUD & Progress |
-| Posts | 16 | Social Features |
-| Comments | 10 | Commenting System |
-| Sleep Tracker | 10 | Sleep Logging |
-| Food Tracker | 9 | Meal Logging |
-| Water Tracker | 7 | Hydration |
-| Calendar | 10 | Events |
-| Friends | 9 | Social Connections |
-| Unit Tests | 45 | Business Logic |
+| Module | Tests | What's Covered |
+|:-------|:-----:|:---------------|
+| 🔐 Auth | 15 | Registration, login, password reset |
+| 🍽️ Meals | 18 | CRUD, calorie calculation |
+| 😴 Sleep | 15 | Logging, duration tracking |
+| 💧 Water | 12 | Daily logging, history |
+| 🎯 Goals | 21 | CRUD, progress tracking |
+| 📝 Posts | 24 | CRUD, media, likes, comments |
+| 👫 Friends | 18 | Requests, accept/reject |
+| 📅 Calendar | 15 | Events CRUD, filtering |
+| 📊 Progress | 12 | Photo upload, gallery |
+| 👤 Profile | 18 | Edit, biography, avatar |
+| 🛡️ Admin | 15 | Dashboard, user management |
 
-## 📸 Screenshots
+<br/>
 
-<details>
-<summary>Click to view screenshots</summary>
+---
 
-### Dashboard
-*Your personal fitness overview*
-
-### Goals Tracker
-*Set and achieve your fitness goals*
-
-### Nutrition Log
-*Track your daily meals and calories*
-
-### Sleep Monitor
-*Monitor your sleep quality*
-
-</details>
+<br/>
 
 ## 📁 Project Structure
 
 ```
-FitLife_new/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/     # Request handlers
-│   │   ├── Middleware/      # HTTP middleware
-│   │   └── Requests/        # Form validation
-│   ├── Models/              # Eloquent models
-│   ├── Policies/            # Authorization policies
-│   └── Providers/           # Service providers
-├── database/
-│   ├── factories/           # Model factories
-│   ├── migrations/          # Database migrations
-│   └── seeders/             # Database seeders
-├── resources/
-│   ├── css/                 # Stylesheets
-│   ├── js/                  # JavaScript
-│   └── views/               # Blade templates
-├── routes/
-│   ├── web.php              # Web routes
-│   ├── auth.php             # Auth routes
-│   └── admin.php            # Admin routes
-├── tests/
-│   ├── Feature/             # Feature tests
-│   └── Unit/                # Unit tests
-└── public/                  # Public assets
+app/
+├── 📂 Http/
+│   ├── Controllers/        # Web controllers
+│   ├── Middleware/         # Auth, Admin, Locale
+│   └── Requests/           # Form validation
+│
+├── 📂 Models/              # Eloquent models
+│   ├── User.php
+│   ├── Post.php
+│   ├── Goal.php
+│   ├── Sleep.php
+│   ├── MealLog.php
+│   └── ...
+│
+└── 📂 View/Components/     # Blade components
+
+database/
+├── 📂 factories/           # Test factories
+├── 📂 migrations/          # Database schema
+└── 📂 seeders/             # Sample data
+
+resources/
+├── 📂 css/                 # Stylesheets
+├── 📂 js/                  # Alpine components
+├── 📂 lang/                # Translations (en, ru, lv)
+│   ├── en/
+│   ├── ru/
+│   └── lv/
+└── 📂 views/               # Blade templates
+
+tests/
+├── 📂 Feature/             # 243 feature tests
+└── 📂 Unit/                # Unit tests
 ```
 
-## 🔧 Configuration
-
-Key environment variables:
-
-```env
-APP_NAME=FitLife
-APP_ENV=local
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=fitlife
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Vladislav** - [@Ichiro149](https://github.com/Ichiro149)
+<br/>
 
 ---
 
-<p align="center">
-  Made with ❤️ and Laravel
-</p>
+<br/>
 
-<p align="center">
-  <a href="#-fitlife">Back to top ⬆️</a>
-</p>
+## ⚙️ Configuration
+
+### Environment Variables
+
+```env
+# App
+APP_NAME=FitLife
+APP_URL=http://localhost:8000
+
+# Database
+DB_CONNECTION=mysql
+DB_DATABASE=fitlife
+
+# Mail (optional)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+```
+
+<br/>
+
+---
+
+<br/>
+
+## 🔌 Main Routes
+
+<details>
+<summary><b>🏠 Dashboard & Tracking</b></summary>
+
+| Route | Description |
+|:------|:------------|
+| `/dashboard` | Main dashboard with stats |
+| `/foods` | Meal tracker |
+| `/sleep` | Sleep tracker |
+| `/water` | Water tracker |
+| `/goals` | Goals management |
+| `/progress` | Progress photos |
+| `/calories` | Calorie calculator |
+
+</details>
+
+<details>
+<summary><b>👥 Social</b></summary>
+
+| Route | Description |
+|:------|:------------|
+| `/posts` | Community feed |
+| `/profile/{user}` | User profile |
+| `/profile/edit` | Edit profile |
+| `/profile/friends` | Friends list |
+
+</details>
+
+<details>
+<summary><b>📅 Calendar</b></summary>
+
+| Route | Description |
+|:------|:------------|
+| `/activity-calendar` | Activity calendar |
+| `/biography/edit` | Edit biography |
+| `/settings` | Language settings |
+
+</details>
+
+<details>
+<summary><b>🛡️ Admin</b></summary>
+
+| Route | Description |
+|:------|:------------|
+| `/admin` | Admin dashboard |
+| `/admin/users` | User management |
+| `/admin/posts` | Posts moderation |
+| `/admin/statistics` | Statistics |
+
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+## 📝 License
+
+This project is open-sourced under the [MIT License](https://opensource.org/licenses/MIT).
+
+<br/>
+
+---
+
+<br/>
+
+<div align="center">
+
+### 🌟 Star this repo if you find it helpful!
+
+<br/>
+
+**Built with ❤️ using**
+
+<br/>
+
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Pest](https://img.shields.io/badge/Pest-F472B6?style=for-the-badge&logo=php&logoColor=white)](https://pestphp.com)
+
+<br/>
+
+<sub>Made by <a href="https://github.com/Ichiro149">@Ichiro149</a></sub>
+
+</div>
