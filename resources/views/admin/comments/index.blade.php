@@ -88,7 +88,7 @@
                                 <td data-label="Author">
                                     <div class="admin-comment__meta">
                                         <strong>{{ $authorName }}</strong>
-                                        <span>{{ data_get($comment, 'user.email', 'No email available') }}</span>
+                                        <span>{{ data_get($comment, 'user.admin_masked_email', 'Protected email') }}</span>
                                     </div>
                                 </td>
                                 <td data-label="Post">

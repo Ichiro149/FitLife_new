@@ -78,7 +78,7 @@ flowchart LR
 ### Health Engine
 
 - Meal logging with macro tracking
-- Nutrition lookup via CalorieNinjas with local fallback data
+- Nutrition lookup via USDA FoodData Central with local fallback data
 - Water tracker with a daily goal workflow
 - Sleep tracking with overnight duration handling
 - Goals with progress logs and completion state
@@ -166,7 +166,7 @@ flowchart LR
 
 | Behavior | How it works |
 |:---------|:-------------|
-| Nutrition lookup | Uses CalorieNinjas when configured, otherwise falls back to local food data |
+| Nutrition lookup | Uses USDA FoodData Central when configured, otherwise falls back to local food data |
 | Sleep duration | Handles overnight sleep sessions by carrying end time into the next day when needed |
 | Online state | Uses `last_seen_at` tracking to approximate recent presence |
 | Feed ranking | Supports multiple feed modes, including a time-sensitive hot sort |
@@ -211,7 +211,7 @@ Minimum setup usually includes:
 
 Optional service keys:
 
-- `CALORIENINJAS_KEY` for nutrition lookup
+- `USDA_FOODDATA_CENTRAL_API_KEY` for nutrition lookup
 - `OPENAI_API_KEY` for OpenAI-backed features
 
 ### Database and Storage
@@ -265,7 +265,7 @@ Use `composer test` if you want the framework test runner after a config clear.
 
 | Service | Purpose |
 |:--------|:--------|
-| CalorieNinjas | Nutrition lookup with calories and macro data |
+| USDA FoodData Central | Nutrition lookup with calories and macro data |
 | OpenAI PHP for Laravel | Foundation for AI-powered features |
 
 ## Database Restore

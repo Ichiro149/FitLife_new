@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -197,5 +198,36 @@ class User extends Authenticatable
     public function isOnline(): bool
     {
         return $this->last_seen_at && $this->last_seen_at->gt(now()->subMinutes(3));
+    }
+
+    public function getAdminMaskedEmailAttribute(): string
+    {
+        $email = trim((string) $this->email);
+
+        if ($email === '' || ! str_contains($email, '@')) {
+            return 'Protected email';
+        }
+
+        [$localPart, $domainPart] = explode('@', $email, 2);
+
+        return $this->maskEmailSegment($localPart, 2).'@'.$this->maskEmailSegment($domainPart, 1);
+    }
+
+    private function maskEmailSegment(string $value, int $visiblePrefix = 1): string
+    {
+        $length = Str::length($value);
+
+        if ($length === 0) {
+            return '';
+        }
+
+        if ($length === 1) {
+            return '*';
+        }
+
+        $visible = min($visiblePrefix, max($length - 1, 1));
+
+        return Str::substr($value, 0, $visible)
+            .str_repeat('*', max($length - $visible, 1));
     }
 }

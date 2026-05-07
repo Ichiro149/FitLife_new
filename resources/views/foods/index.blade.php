@@ -4,31 +4,34 @@
 @section('flush-mobile-content', '1')
 
 @section('content')
+@php
+    $mealTrackerConfig = [
+        'lookupUrl' => route('foods.lookup'),
+        'calculateUrl' => route('foods.calculate'),
+        'destroyUrl' => url('tracker/foods/log'),
+        'csrfToken' => csrf_token(),
+        'translations' => [
+            'kcal' => __('food.kcal'),
+            'g' => __('food.g'),
+            'total' => __('food.total'),
+            'searching' => __('food.searching'),
+            'no_results' => __('food.no_results'),
+            'per_serving' => __('food.per_serving'),
+            'food_placeholder' => __('food.food_placeholder'),
+            'g_ml' => __('food.g_ml'),
+            'search' => __('food.search'),
+            'saving' => __('food.saving'),
+            'saved' => __('food.meal_added'),
+            'error' => __('food.error'),
+            'empty_items' => __('food.empty_items'),
+            'confirm_delete' => __('food.confirm_delete'),
+            'deleted' => __('food.deleted'),
+        ],
+    ];
+@endphp
 <div
     class="mt-page"
-    data-meal-tracker='{!! json_encode([
-        "lookupUrl" => route("foods.lookup"),
-        "calculateUrl" => route("foods.calculate"),
-        "destroyUrl" => url("tracker/foods/log"),
-        "csrfToken" => csrf_token(),
-        "translations" => [
-            "kcal" => __("food.kcal"),
-            "g" => __("food.g"),
-            "total" => __("food.total"),
-            "searching" => __("food.searching"),
-            "no_results" => __("food.no_results"),
-            "per_serving" => __("food.per_serving"),
-            "food_placeholder" => __("food.food_placeholder"),
-            "g_ml" => __("food.g_ml"),
-            "search" => __("food.search"),
-            "saving" => __("food.saving"),
-            "saved" => __("food.meal_added"),
-            "error" => __("food.error"),
-            "empty_items" => __("food.empty_items"),
-            "confirm_delete" => __("food.confirm_delete"),
-            "deleted" => __("food.deleted"),
-        ],
-    ])'
+    data-meal-tracker='@json($mealTrackerConfig)'
 >
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

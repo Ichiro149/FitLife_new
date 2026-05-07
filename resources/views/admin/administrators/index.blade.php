@@ -85,7 +85,7 @@
                                 </td>
                                 <td data-label="Email">
                                     <div class="admin-table__stack">
-                                        <span class="admin-table__meta">{{ $administrator->email }}</span>
+                                        <span class="admin-table__meta">{{ $administrator->admin_masked_email }}</span>
                                         @if ($role === 'super_admin')
                                             <span class="admin-table__footnote">Highest privilege tier</span>
                                         @endif

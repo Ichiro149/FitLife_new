@@ -40,7 +40,7 @@
         <section class="admin-toolbar">
             <div class="admin-toolbar__group">
                 <label class="admin-toolbar__label" for="user-search">Search</label>
-                <input id="user-search" type="search" class="admin-toolbar__search" placeholder="Search by name or email" autocomplete="off">
+                <input id="user-search" type="search" class="admin-toolbar__search" placeholder="Search by name or role" autocomplete="off">
             </div>
 
             <div class="admin-toolbar__group">
@@ -79,7 +79,7 @@
                                 $role = $user->role ?? 'user';
                                 $isProtectedSuperAdmin = $role === 'super_admin';
                             @endphp
-                            <tr class="admin-table__row {{ $isProtectedSuperAdmin ? 'admin-table__row--super' : '' }}" data-role="{{ $role }}" data-search-text="{{ strtolower(($user->name ?? '') . ' ' . ($user->email ?? '') . ' ' . $role) }}">
+                            <tr class="admin-table__row {{ $isProtectedSuperAdmin ? 'admin-table__row--super' : '' }}" data-role="{{ $role }}" data-search-text="{{ strtolower(($user->name ?? '') . ' ' . $role) }}">
                                 <td data-label="User">
                                     <div class="admin-table__stack">
                                         <strong class="admin-table__title">{{ $user->name }}</strong>
@@ -87,7 +87,7 @@
                                     </div>
                                 </td>
                                 <td data-label="Email">
-                                    <span class="admin-table__meta">{{ $user->email }}</span>
+                                    <span class="admin-table__meta">{{ $user->admin_masked_email }}</span>
                                 </td>
                                 <td data-label="Role">
                                     <div class="admin-table__role">

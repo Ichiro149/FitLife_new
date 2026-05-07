@@ -76,11 +76,10 @@
                         </div>
 
                         <div class="admin-form__group">
-                            <label for="email" class="admin-form__label">Email</label>
-                            <input id="email" type="email" name="email" value="{{ old('email', $user->email) }}" class="admin-form__control" required>
-                            @error('email')
-                                <span class="admin-form__hint text-red-600">{{ $message }}</span>
-                            @enderror
+                            <span class="admin-form__label">Email privacy</span>
+                            <div class="admin-note admin-note--warning">
+                                User email is hidden in the admin panel for privacy and cannot be viewed or edited here.
+                            </div>
                         </div>
                     </div>
 

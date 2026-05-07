@@ -17,6 +17,8 @@ test('authenticated users can access food tracker', function () {
     $response = $this->actingAs($user)->get('/tracker/foods');
 
     $response->assertOk();
+    $response->assertSee('data-meal-tracker=', false);
+    $response->assertDontSee('{!! json_encode', false);
 });
 
 test('food tracker displays today summary', function () {
@@ -29,10 +31,10 @@ test('food tracker displays today summary', function () {
 });
 
 test('food lookup marks fallback results as local source', function () {
-    Config::set('services.calorieninjas.key', 'test-key');
+    Config::set('services.usda.key', 'test-key');
 
     Http::fake([
-        'https://api.calorieninjas.com/*' => Http::response(['items' => []], 200),
+        'https://api.nal.usda.gov/*' => Http::response(['foods' => []], 200),
     ]);
 
     $user = User::factory()->create();
@@ -46,6 +48,45 @@ test('food lookup marks fallback results as local source', function () {
     $response->assertOk();
     $response->assertJsonPath('source', 'local');
     $response->assertJsonPath('items.0.name', 'Rice');
+});
+
+test('food lookup maps usda results to meal tracker contract', function () {
+    Config::set('services.usda.key', 'test-key');
+
+    Http::fake([
+        'https://api.nal.usda.gov/*' => Http::response([
+            'foods' => [
+                [
+                    'description' => 'Banana, raw',
+                    'servingSize' => 118,
+                    'servingSizeUnit' => 'g',
+                    'foodNutrients' => [
+                        ['nutrientNumber' => '1008', 'nutrientName' => 'Energy', 'value' => 105],
+                        ['nutrientNumber' => '1003', 'nutrientName' => 'Protein', 'value' => 1.3],
+                        ['nutrientNumber' => '1004', 'nutrientName' => 'Total lipid (fat)', 'value' => 0.4],
+                        ['nutrientNumber' => '1005', 'nutrientName' => 'Carbohydrate, by difference', 'value' => 27],
+                    ],
+                ],
+            ],
+        ], 200),
+    ]);
+
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)
+        ->withHeaders(['X-Requested-With' => 'XMLHttpRequest'])
+        ->postJson('/tracker/foods/lookup', [
+            'query' => 'banana',
+        ]);
+
+    $response->assertOk();
+    $response->assertJsonPath('source', 'api');
+    $response->assertJsonPath('items.0.name', 'Banana, raw');
+    $response->assertJsonPath('items.0.calories', 105);
+    $response->assertJsonPath('items.0.serving_size', 118);
+    $response->assertJsonPath('items.0.protein', 1.3);
+    $response->assertJsonPath('items.0.fat', 0.4);
+    $response->assertJsonPath('items.0.carbs', 27);
 });
 
 test('users can calculate calories', function () {

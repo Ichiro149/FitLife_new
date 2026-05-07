@@ -51,7 +51,7 @@ class FoodController extends Controller
         ]);
 
         $query = $request->input('query');
-        $apiKey = config('services.calorieninjas.key');
+        $apiKey = config('services.usda.key');
         [$items, $source] = $this->lookupFoods($query, $apiKey);
 
         return response()->json([
@@ -213,29 +213,35 @@ class FoodController extends Controller
     private function lookupFromApi(string $query, string $apiKey): array
     {
         try {
-            $response = Http::withHeaders([
-                'X-Api-Key' => $apiKey,
-            ])->timeout(5)->get('https://api.calorieninjas.com/v1/nutrition', [
-                'query' => $query,
-            ]);
+            $response = Http::acceptJson()
+                ->timeout(5)
+                ->post("https://api.nal.usda.gov/fdc/v1/foods/search?api_key={$apiKey}", [
+                    'query' => $query,
+                    'pageSize' => 8,
+                ]);
 
             if (! $response->successful()) {
                 return [];
             }
 
-            return collect($response->json('items', []))
-                ->map(fn ($item) => [
-                    'name' => $item['name'] ?? $query,
-                    'calories' => round($item['calories'] ?? 0),
-                    'serving_size' => round($item['serving_size_g'] ?? 100),
-                    'protein' => round($item['protein_g'] ?? 0, 1),
-                    'fat' => round($item['fat_total_g'] ?? 0, 1),
-                    'carbs' => round($item['carbohydrates_total_g'] ?? 0, 1),
-                ])
+            return collect($response->json('foods', []))
+                ->map(function ($item) use ($query) {
+                    $nutrients = $item['foodNutrients'] ?? [];
+
+                    return [
+                        'name' => $item['description'] ?? $query,
+                        'calories' => round($this->extractUsdaNutrient($nutrients, ['1008'], ['Energy'])),
+                        'serving_size' => $this->resolveUsdaServingSize($item),
+                        'protein' => round($this->extractUsdaNutrient($nutrients, ['1003'], ['Protein']), 1),
+                        'fat' => round($this->extractUsdaNutrient($nutrients, ['1004'], ['Total lipid (fat)', 'Total Fat']), 1),
+                        'carbs' => round($this->extractUsdaNutrient($nutrients, ['1005'], ['Carbohydrate, by difference', 'Carbohydrate']), 1),
+                    ];
+                })
+                ->filter(fn ($item) => $item['name'] !== '' && ($item['calories'] > 0 || $item['protein'] > 0 || $item['fat'] > 0 || $item['carbs'] > 0))
                 ->values()
                 ->all();
         } catch (\Exception $e) {
-            Log::warning('CalorieNinjas API error: '.$e->getMessage());
+            Log::warning('USDA FoodData Central API error: '.$e->getMessage());
 
             return [];
         }
@@ -284,5 +290,33 @@ class FoodController extends Controller
         }
 
         return null;
+    }
+
+    private function extractUsdaNutrient(array $nutrients, array $numbers, array $names = []): float
+    {
+        $normalizedNames = array_map(static fn ($name) => mb_strtolower($name), $names);
+
+        foreach ($nutrients as $nutrient) {
+            $number = (string) ($nutrient['nutrientNumber'] ?? $nutrient['number'] ?? '');
+            $name = mb_strtolower((string) ($nutrient['nutrientName'] ?? $nutrient['name'] ?? ''));
+
+            if (in_array($number, $numbers, true) || in_array($name, $normalizedNames, true)) {
+                return (float) ($nutrient['value'] ?? $nutrient['amount'] ?? 0);
+            }
+        }
+
+        return 0.0;
+    }
+
+    private function resolveUsdaServingSize(array $item): int
+    {
+        $servingSize = (float) ($item['servingSize'] ?? 0);
+        $servingUnit = mb_strtolower((string) ($item['servingSizeUnit'] ?? ''));
+
+        if ($servingSize > 0 && in_array($servingUnit, ['g', 'gm', 'ml'], true)) {
+            return max(1, (int) round($servingSize));
+        }
+
+        return 100;
     }
 }

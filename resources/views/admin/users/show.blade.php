@@ -25,7 +25,7 @@
                 <div class="admin-user-profile__header">
                     <div class="admin-user-profile__summary">
                         <h1 class="admin-hero__title">{{ $user->name }}</h1>
-                        <p class="admin-hero__description">{{ $user->email }}</p>
+                        <p class="admin-hero__description">{{ $user->admin_masked_email }}</p>
                         <div class="admin-user-profile__role">
                             @if ($isUserSuperAdmin)
                                 <span class="admin-badge admin-badge--super">Super admin</span>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="admin-user-profile__detail">
                             <span class="admin-user-profile__detail-label">Email</span>
-                            <div class="admin-user-profile__detail-value">{{ $user->email }}</div>
+                            <div class="admin-user-profile__detail-value">{{ $user->admin_masked_email }}</div>
                         </div>
                         <div class="admin-user-profile__detail">
                             <span class="admin-user-profile__detail-label">Joined</span>

@@ -23,8 +23,8 @@ return [
         ],
     ],
 
-    'calorieninjas' => [
-        'key' => env('CALORIENINJAS_API_KEY'),
+    'usda' => [
+        'key' => env('USDA_FOODDATA_CENTRAL_API_KEY'),
     ],
 
 ];
