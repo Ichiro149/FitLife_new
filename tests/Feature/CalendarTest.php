@@ -59,6 +59,39 @@ test('calendar event requires valid type', function () {
     $response->assertSessionHasErrors('type');
 });
 
+test('calendar custom event requires custom type name', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->post('/calendar', [
+        'date' => now()->addDay()->toDateString(),
+        'type' => 'custom',
+        'description' => 'Evening session',
+    ]);
+
+    $response->assertSessionHasErrors('custom_type');
+});
+
+test('users can create calendar events with custom types', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->post('/calendar', [
+        'date' => now()->addDay()->toDateString(),
+        'type' => 'custom',
+        'custom_type' => 'Box 18:00',
+        'description' => 'Coach-led boxing session',
+    ]);
+
+    $response->assertJsonPath('event.type', 'custom');
+    $response->assertJsonPath('event.type_label', 'Box 18:00');
+
+    $this->assertDatabaseHas('calendars', [
+        'user_id' => $user->id,
+        'type' => 'custom',
+        'custom_type' => 'Box 18:00',
+        'description' => 'Coach-led boxing session',
+    ]);
+});
+
 test('calendar supports various event types', function () {
     $user = User::factory()->create();
 

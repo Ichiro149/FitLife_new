@@ -133,7 +133,7 @@
                                 <span class="event-date-month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span>
                             </div>
                             <div class="event-info">
-                                <div class="event-type">{{ ucfirst($event->type) }}</div>
+                                <div class="event-type">{{ $event->display_type }}</div>
                                 <p class="event-desc">{{ $event->description ?? __('dashboard.no_description') }}</p>
                             </div>
                             @if(\Carbon\Carbon::parse($event->date)->isToday())

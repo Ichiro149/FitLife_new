@@ -58,6 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
         noEventsToday: 'No events for this day',
         addFirstEvent: 'Add your first event',
         noUpcoming: 'No upcoming events',
+        addEvent: 'Add Event',
+        eventCreated: 'Event created successfully',
+        eventDeleted: 'Event deleted successfully',
+        selectEventType: 'Please select an event type',
+        customTypeRequired: 'Please enter a custom type name',
+        loadEventsFailed: 'Failed to load events',
+        createEventFailed: 'Failed to create event',
+        updateEventFailed: 'Failed to update event',
+        deleteEventFailed: 'Failed to delete event',
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         today: 'Today',
         noDescription: 'No description'
@@ -101,6 +110,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const capitalizeFirst = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
+    const formatFallbackTypeLabel = (type) => capitalizeFirst((type || '').replace(/_/g, ' '));
+
+    const getEventTypeLabel = (event) => event?.type_label || formatFallbackTypeLabel(event?.type);
+
+    const getEventTypeClass = (type) => /^[a-z0-9_-]+$/i.test(type || '') ? type : 'custom';
+
+    const getRequestErrorMessage = (result, fallback) => {
+        const firstError = Object.values(result?.errors || {}).flat().find(Boolean);
+
+        if (firstError) {
+            return firstError;
+        }
+
+        if (typeof result?.message === 'string' && result.message.trim()) {
+            return result.message;
+        }
+
+        return fallback;
+    };
+
+    const parseJsonSafely = async (response) => {
+        const contentType = response.headers.get('content-type') || '';
+
+        if (contentType.includes('application/json')) {
+            return response.json();
+        }
+
+        const text = await response.text();
+
+        if (!text) {
+            return {};
+        }
+
+        try {
+            return JSON.parse(text);
+        } catch {
+            return {};
+        }
+    };
+
+    const setCustomTypeInputVisible = (isVisible) => {
+        const customTypeInput = document.getElementById('custom-type-input');
+        const customTypeNameInput = document.getElementById('custom-type-name');
+
+        if (!customTypeInput || !customTypeNameInput) {
+            return;
+        }
+
+        customTypeInput.style.display = isVisible ? 'block' : 'none';
+
+        if (!isVisible) {
+            customTypeNameInput.value = '';
+        }
+    };
+
     const showToast = (message, type = 'success') => {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
@@ -142,11 +206,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     'X-CSRF-TOKEN': csrfToken
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch events');
+
+            if (!response.ok) {
+                throw new Error(translations.loadEventsFailed);
+            }
+
             return await response.json();
         } catch (error) {
             console.error('Error fetching events:', error);
-            showToast('Failed to load events', 'error');
+            showToast(translations.loadEventsFailed, 'error');
             return [];
         }
     };
@@ -161,8 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: formData
             });
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.message || 'Failed to create event');
+
+            const result = await parseJsonSafely(response);
+
+            if (!response.ok) {
+                throw new Error(getRequestErrorMessage(result, translations.createEventFailed));
+            }
+
             return result;
         } catch (error) {
             console.error('Error creating event:', error);
@@ -181,8 +254,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             });
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.message || 'Failed to update event');
+
+            const result = await parseJsonSafely(response);
+
+            if (!response.ok) {
+                throw new Error(getRequestErrorMessage(result, translations.updateEventFailed));
+            }
+
             return result;
         } catch (error) {
             console.error('Error updating event:', error);
@@ -199,10 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     'X-CSRF-TOKEN': csrfToken
                 }
             });
+
+            const result = await parseJsonSafely(response);
+
             if (!response.ok) {
-                const result = await response.json();
-                throw new Error(result.message || 'Failed to delete event');
+                throw new Error(getRequestErrorMessage(result, translations.deleteEventFailed));
             }
+
             return true;
         } catch (error) {
             console.error('Error deleting event:', error);
@@ -267,8 +348,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="day-number">${date.getDate()}</span>
             <div class="day-events">
                 ${dayEvents.slice(0, 3).map(event => `
-                    <div class="day-event ${event.type} ${event.completed ? 'completed' : ''}" data-id="${event.id}">
-                        ${capitalizeFirst(event.type)}
+                    <div class="day-event ${getEventTypeClass(event.type)} ${event.completed ? 'completed' : ''}" data-id="${event.id}" title="${getEventTypeLabel(event)}">
+                        ${getEventTypeLabel(event)}
                     </div>
                 `).join('')}
                 ${dayEvents.length > 3 ? `<div class="more-events">+${dayEvents.length - 3} more</div>` : ''}
@@ -404,9 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         elements.eventsTimeline.innerHTML = dayEvents.map(event => `
-            <div class="event-card ${event.type} ${event.completed ? 'completed' : ''} slide-up" data-id="${event.id}">
+            <div class="event-card ${getEventTypeClass(event.type)} ${event.completed ? 'completed' : ''} slide-up" data-id="${event.id}">
                 <div class="event-card-header">
-                    <span class="event-type-badge ${event.type}">${capitalizeFirst(event.type)}</span>
+                    <span class="event-type-badge ${getEventTypeClass(event.type)}">${getEventTypeLabel(event)}</span>
                     <div class="event-actions">
                         <button class="event-action-btn complete" data-id="${event.id}" title="${event.completed ? 'Mark incomplete' : 'Mark complete'}">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -424,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>
                     </div>
                 </div>
-                <p class="event-description">${event.description || 'No description'}</p>
+                <p class="event-description">${event.description || translations.noDescription}</p>
             </div>
         `).join('');
 
@@ -475,10 +556,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="date-month">${getShortMonthName(date)}</span>
                     </div>
                     <div class="upcoming-info">
-                        <div class="upcoming-type">${capitalizeFirst(event.type)}</div>
-                        <div class="upcoming-desc">${event.description || 'No description'}</div>
+                        <div class="upcoming-type">${getEventTypeLabel(event)}</div>
+                        <div class="upcoming-desc">${event.description || translations.noDescription}</div>
                     </div>
-                    <span class="upcoming-indicator ${event.type}"></span>
+                    <span class="upcoming-indicator ${getEventTypeClass(event.type)}"></span>
                 </div>
             `;
         }).join('');
@@ -541,7 +622,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const openModal = (dateStr = null, type = null) => {
         elements.eventForm.reset();
         elements.eventId.value = '';
-        elements.modalTitle.textContent = 'Add Event';
+        elements.modalTitle.textContent = translations.addEvent;
+        setCustomTypeInputVisible(false);
 
         if (dateStr) {
             elements.eventDate.value = dateStr;
@@ -560,15 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeModal = () => {
         elements.eventModal.classList.remove('active');
-
-        const customTypeInput = document.getElementById('custom-type-input');
-        const customTypeNameInput = document.getElementById('custom-type-name');
-        if (customTypeInput) {
-            customTypeInput.style.display = 'none';
-        }
-        if (customTypeNameInput) {
-            customTypeNameInput.value = '';
-        }
+        setCustomTypeInputVisible(false);
     };
 
     const closeDeleteModal = () => {
@@ -622,12 +696,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     typeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
-            if (radio.value === 'custom') {
-                customTypeInput.style.display = 'block';
+            if (radio.checked && radio.value === 'custom') {
+                setCustomTypeInputVisible(true);
                 customTypeNameInput.focus();
             } else {
-                customTypeInput.style.display = 'none';
-                customTypeNameInput.value = '';
+                setCustomTypeInputVisible(false);
             }
         });
     });
@@ -644,7 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (id) {
             try {
                 await deleteEvent(id);
-                showToast('Event deleted successfully');
+                showToast(translations.eventDeleted);
                 closeDeleteModal();
                 await loadEvents();
             } catch (error) {
@@ -657,32 +730,34 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const formData = new FormData(elements.eventForm);
-        const selectedType = formData.get('type');
+        const selectedType = formData.get('type')?.trim();
 
         if (!selectedType) {
-            showToast('Please select an event type', 'error');
+            showToast(translations.selectEventType, 'error');
             return;
         }
 
         if (selectedType === 'custom') {
             const customTypeName = formData.get('custom_type')?.trim();
             if (!customTypeName) {
-                showToast('Please enter a custom type name', 'error');
+                showToast(translations.customTypeRequired, 'error');
                 document.getElementById('custom-type-name')?.focus();
                 return;
             }
 
-            formData.set('type', customTypeName.toLowerCase().replace(/\s+/g, '_'));
+            formData.set('type', 'custom');
+            formData.set('custom_type', customTypeName);
+        } else {
+            formData.delete('custom_type');
         }
 
         try {
             await createEvent(formData);
-            showToast('Event created successfully!');
+            showToast(translations.eventCreated);
             closeModal();
 
             if (customTypeInput) {
-                customTypeInput.style.display = 'none';
-                customTypeNameInput.value = '';
+                setCustomTypeInputVisible(false);
             }
             await loadEvents();
         } catch (error) {

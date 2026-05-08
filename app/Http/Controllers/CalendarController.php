@@ -6,6 +6,7 @@ use App\Models\Calendar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CalendarController extends Controller
 {
@@ -18,15 +19,19 @@ class CalendarController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'date' => 'required|date',
-            'type' => 'required|in:workout,rest,goal,running,gym,yoga,cardio,stretching,cycling,swimming,weightlifting,pilates,hiking,boxing,dance,crossfit,walking,meditation,tennis,basketball,soccer,climbing,rowing,martial_arts,recovery',
-            'description' => 'nullable|string|max:255',
+            'date' => ['required', 'date'],
+            'type' => ['required', Rule::in([...Calendar::PRESET_TYPES, 'custom'])],
+            'custom_type' => ['nullable', 'string', 'max:30', 'required_if:type,custom'],
+            'description' => ['nullable', 'string', 'max:255'],
         ]);
 
         $event = Calendar::create([
             'user_id' => Auth::id(),
             'date' => Carbon::parse($validated['date'])->toDateString(),
             'type' => $validated['type'],
+            'custom_type' => $validated['type'] === 'custom'
+                ? trim((string) $validated['custom_type'])
+                : null,
             'description' => $validated['description'],
             'completed' => false,
         ]);
@@ -36,8 +41,11 @@ class CalendarController extends Controller
             'event' => [
                 'id' => $event->id,
                 'start' => $event->date,
-                'title' => ucfirst($event->type).': '.($event->description ?? 'No description'),
+                'title' => $event->display_type.': '.($event->description ?? __('calendar.no_description')),
                 'type' => $event->type,
+                'type_label' => $event->display_type,
+                'custom_type' => $event->custom_type,
+                'description' => $event->description,
                 'completed' => $event->completed,
             ],
         ]);
@@ -72,8 +80,10 @@ class CalendarController extends Controller
                 return [
                     'id' => $event->id,
                     'start' => $event->date->toDateString(),
-                    'title' => ucfirst($event->type).': '.($event->description ?? 'No description'),
+                    'title' => $event->display_type.': '.($event->description ?? __('calendar.no_description')),
                     'type' => $event->type,
+                    'type_label' => $event->display_type,
+                    'custom_type' => $event->custom_type,
                     'description' => $event->description,
                     'completed' => $event->completed,
                 ];

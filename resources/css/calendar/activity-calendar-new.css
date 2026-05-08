@@ -29,6 +29,7 @@
     --cal-crossfit: var(--warning);
     --cal-meditation: #8b5cf6;
     --cal-walking: #14b8a6;
+    --cal-custom: var(--cal-primary);
 
     --cal-danger: var(--danger);
     --cal-success: var(--primary);
@@ -622,6 +623,7 @@
 .day-event.crossfit { background: var(--cal-crossfit); }
 .day-event.meditation { background: var(--cal-meditation); }
 .day-event.walking { background: var(--cal-walking); }
+.day-event.custom { background: var(--cal-custom); }
 
 .more-events {
     font-size: 0.6875rem;
@@ -767,6 +769,7 @@
 .event-card.crossfit::before { background: var(--cal-crossfit); }
 .event-card.meditation::before { background: var(--cal-meditation); }
 .event-card.walking::before { background: var(--cal-walking); }
+.event-card.custom::before { background: var(--cal-custom); }
 
 .event-card:hover {
     border-color: var(--cal-border-hover);
@@ -811,6 +814,7 @@
 .event-type-badge.crossfit { background: rgba(245, 158, 11, 0.15); color: var(--cal-crossfit); }
 .event-type-badge.meditation { background: rgba(139, 92, 246, 0.15); color: var(--cal-meditation); }
 .event-type-badge.walking { background: rgba(20, 184, 166, 0.15); color: var(--cal-walking); }
+.event-type-badge.custom { background: rgba(34, 197, 94, 0.15); color: var(--cal-custom); }
 
 .event-actions {
     display: flex;
@@ -954,6 +958,7 @@
 .upcoming-indicator.crossfit { background: var(--cal-crossfit); }
 .upcoming-indicator.meditation { background: var(--cal-meditation); }
 .upcoming-indicator.walking { background: var(--cal-walking); }
+.upcoming-indicator.custom { background: var(--cal-custom); }
 
 .modal-overlay {
     position: fixed;
@@ -1109,8 +1114,9 @@
 
 .type-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+    gap: 0.55rem;
+    align-items: start;
 }
 
 .type-option input[type="radio"] {
@@ -1129,8 +1135,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.45rem;
     cursor: pointer;
+    min-width: 0;
 }
 
 .type-option .type-icon {
@@ -1163,11 +1170,18 @@
     text-align: center;
     color: var(--cal-text-muted);
     transition: all 0.22s ease;
-    line-height: 1.2;
+    line-height: 1.25;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    min-height: 1.40625rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .type-option:hover .type-icon {

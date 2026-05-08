@@ -4,15 +4,45 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Calendar extends Model
 {
     use HasFactory;
 
+    public const PRESET_TYPES = [
+        'workout',
+        'rest',
+        'goal',
+        'running',
+        'gym',
+        'yoga',
+        'cardio',
+        'stretching',
+        'cycling',
+        'swimming',
+        'weightlifting',
+        'pilates',
+        'hiking',
+        'boxing',
+        'dance',
+        'crossfit',
+        'walking',
+        'meditation',
+        'tennis',
+        'basketball',
+        'soccer',
+        'climbing',
+        'rowing',
+        'martial_arts',
+        'recovery',
+    ];
+
     protected $fillable = [
         'user_id',
         'date',
         'type',
+        'custom_type',
         'description',
         'completed',
     ];
@@ -25,5 +55,21 @@ class Calendar extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getDisplayTypeAttribute(): string
+    {
+        if ($this->type === 'custom') {
+            return $this->custom_type ?: __('calendar.type_custom');
+        }
+
+        $translationKey = 'calendar.type_'.$this->type;
+        $translated = __($translationKey);
+
+        if ($translated !== $translationKey) {
+            return $translated;
+        }
+
+        return Str::headline(str_replace('_', ' ', $this->type));
     }
 }

@@ -10,6 +10,15 @@
         "noEventsToday" => __("calendar.no_events_today"),
         "addFirstEvent" => __("calendar.add_first_event"),
         "noUpcoming" => __("calendar.no_upcoming"),
+        "addEvent" => __("calendar.add_event"),
+        "eventCreated" => __("calendar.event_created"),
+        "eventDeleted" => __("calendar.event_deleted"),
+        "selectEventType" => __("calendar.validation_select_type"),
+        "customTypeRequired" => __("calendar.validation_custom_type_required"),
+        "loadEventsFailed" => __("calendar.load_events_failed"),
+        "createEventFailed" => __("calendar.create_event_failed"),
+        "updateEventFailed" => __("calendar.update_event_failed"),
+        "deleteEventFailed" => __("calendar.delete_event_failed"),
         "months" => [
             __("calendar.january"),
             __("calendar.february"),
@@ -25,7 +34,7 @@
             __("calendar.december"),
         ],
         "today" => __("calendar.today"),
-        "noDescription" => __("calendar.event_description"),
+        "noDescription" => __("calendar.no_description"),
     ]) !!}'
 >
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -259,6 +268,7 @@
                         <option value="weightlifting">{{ __('calendar.type_weightlifting') }}</option>
                         <option value="rest">{{ __('calendar.type_rest') }}</option>
                         <option value="goal">{{ __('calendar.type_goal') }}</option>
+                        <option value="custom">{{ __('calendar.type_custom') }}</option>
                     </select>
                 </div>
             </div>
@@ -557,5 +567,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/activity-calendar-new.js') }}"></script>
+    <script src="{{ asset('js/activity-calendar-new.js') }}?v={{ filemtime(public_path('js/activity-calendar-new.js')) }}"></script>
 @endsection
