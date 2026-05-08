@@ -92,6 +92,27 @@ test('users can create calendar events with custom types', function () {
     ]);
 });
 
+test('stale cached clients can still create custom events', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->post('/calendar', [
+        'date' => now()->addDay()->toDateString(),
+        'type' => 'box_18_00',
+        'custom_type' => 'Box 18:00',
+        'description' => 'Submitted by an old cached client script',
+    ]);
+
+    $response->assertJsonPath('event.type', 'custom');
+    $response->assertJsonPath('event.type_label', 'Box 18:00');
+
+    $this->assertDatabaseHas('calendars', [
+        'user_id' => $user->id,
+        'type' => 'custom',
+        'custom_type' => 'Box 18:00',
+        'description' => 'Submitted by an old cached client script',
+    ]);
+});
+
 test('calendar supports various event types', function () {
     $user = User::factory()->create();
 

@@ -18,9 +18,20 @@ class CalendarController extends Controller
 
     public function store(Request $request)
     {
+        $customType = trim((string) $request->input('custom_type', ''));
+        $requestedType = (string) $request->input('type', '');
+        $allowedTypes = [...Calendar::PRESET_TYPES, 'custom'];
+
+        if ($customType !== '' && $requestedType !== '' && ! in_array($requestedType, $allowedTypes, true)) {
+            $request->merge([
+                'type' => 'custom',
+                'custom_type' => $customType,
+            ]);
+        }
+
         $validated = $request->validate([
             'date' => ['required', 'date'],
-            'type' => ['required', Rule::in([...Calendar::PRESET_TYPES, 'custom'])],
+            'type' => ['required', Rule::in($allowedTypes)],
             'custom_type' => ['nullable', 'string', 'max:30', 'required_if:type,custom'],
             'description' => ['nullable', 'string', 'max:255'],
         ]);
