@@ -499,7 +499,7 @@ header h1 {
 }
 
 .alert-success {
-    background: rgba(34, 197, 94, 0.15);
+    background: rgba(95, 125, 22, 0.15);
     border: 1px solid var(--primary);
     color: var(--primary-light);
 }
@@ -1057,7 +1057,7 @@ textarea.form-input {
 .save-btn:hover {
     background: var(--primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 4px 12px rgba(95, 125, 22, 0.3);
 }
 
 .save-btn:active {
@@ -2356,12 +2356,12 @@ textarea.form-input {
     .sp-btn--primary {
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: #000;
-        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
+        box-shadow: 0 4px 16px rgba(95, 125, 22, 0.25);
     }
 
     .sp-btn--primary:hover {
         transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+        box-shadow: 0 6px 20px rgba(95, 125, 22, 0.35);
     }
 
     .sp-btn--outline {

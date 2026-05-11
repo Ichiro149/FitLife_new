@@ -4,7 +4,7 @@
 
 [data-theme="light"] body {
     background:
-        radial-gradient(circle at top left, rgba(170, 237, 63, 0.16), transparent 28%),
+        radial-gradient(circle at top left, rgba(95, 125, 22, 0.16), transparent 28%),
         radial-gradient(circle at top right, rgba(56, 189, 248, 0.14), transparent 24%),
         linear-gradient(180deg, #fbfcfe 0%, #f5f7fb 42%, #eef2f7 100%);
 }
@@ -16,7 +16,7 @@
 [data-theme="light"] .site-footer {
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.92)),
-        linear-gradient(135deg, rgba(170, 237, 63, 0.08), transparent 35%);
+        linear-gradient(135deg, rgba(95, 125, 22, 0.08), transparent 35%);
     border-top-color: var(--border-default);
 }
 
@@ -112,7 +112,7 @@
 }
 
 [data-theme="light"] .settings-page .sidebar-link.active {
-    background: rgba(170, 237, 63, 0.14);
+    background: rgba(95, 125, 22, 0.14);
     color: #24310f;
 }
 
@@ -122,7 +122,7 @@
 
 [data-theme="light"] .settings-page .sidebar-link:hover .link-icon,
 [data-theme="light"] .settings-page .sidebar-link.active .link-icon {
-    background: rgba(170, 237, 63, 0.18);
+    background: rgba(95, 125, 22, 0.18);
 }
 
 [data-theme="light"] .settings-page .card-header {
@@ -144,8 +144,8 @@
 }
 
 [data-theme="light"] .settings-page .theme-card.selected {
-    background: linear-gradient(180deg, rgba(170, 237, 63, 0.14), rgba(255, 255, 255, 0.96));
-    box-shadow: 0 0 0 1px rgba(170, 237, 63, 0.2), var(--shadow-md);
+    background: linear-gradient(180deg, rgba(95, 125, 22, 0.14), rgba(255, 255, 255, 0.96));
+    box-shadow: 0 0 0 1px rgba(95, 125, 22, 0.2), var(--shadow-md);
 }
 
 [data-theme="light"] .settings-page .back-link:hover {
@@ -154,8 +154,8 @@
 }
 
 [data-theme="light"] .settings-page .settings-alert.success {
-    background: rgba(34, 197, 94, 0.10);
-    border-color: rgba(34, 197, 94, 0.18);
+    background: rgba(95, 125, 22, 0.10);
+    border-color: rgba(95, 125, 22, 0.18);
 }
 
 [data-theme="light"] .dashboard-page .stat-card,
@@ -166,8 +166,8 @@
 }
 
 [data-theme="light"] .dashboard-page .dashboard-greeting span {
-    color: #84b11f;
-    -webkit-text-fill-color: #84b11f;
+    color: #5f7d16;
+    -webkit-text-fill-color: #5f7d16;
 }
 
 [data-theme="light"] .sidebar-card {
@@ -215,7 +215,7 @@
 
 [data-theme="light"] .feed-page .feed-tab.active,
 [data-theme="light"] .feed-page .feed-tab:hover {
-    background: linear-gradient(135deg, #e8ff80 0%, #d9ff61 100%);
+    background: linear-gradient(135deg, #7b9c29 0%, #5f7d16 100%);
     color: #16202c;
 }
 
@@ -267,7 +267,7 @@
 [data-theme="light"] .feed-page .search-box input:focus,
 [data-theme="light"] .feed-page .comment-form textarea:focus,
 [data-theme="light"] .feed-page [id^="edit-post-form-"] textarea:focus {
-    border-color: rgba(170, 237, 63, 0.45) !important;
+    border-color: rgba(95, 125, 22, 0.45) !important;
 }
 
 [data-theme="light"] .feed-page .trending-item:hover,
@@ -277,8 +277,8 @@
 }
 
 [data-theme="light"] .feed-page .stat-value {
-    color: #84b11f !important;
-    -webkit-text-fill-color: #84b11f !important;
+    color: #5f7d16 !important;
+    -webkit-text-fill-color: #5f7d16 !important;
 }
 
 [data-theme="light"] .feed-page .post-avatar,
@@ -317,7 +317,7 @@
 [data-theme="light"] .feed-page .composer-island form {
     background: rgba(255, 255, 255, 0.94) !important;
     border-color: rgba(15, 23, 42, 0.12) !important;
-    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(170, 237, 63, 0.08) !important;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(95, 125, 22, 0.08) !important;
 }
 
 [data-theme="light"] .feed-page .composer-body textarea {
@@ -325,7 +325,7 @@
 }
 
 [data-theme="light"] .feed-page .composer-avatar {
-    border-color: rgba(170, 237, 63, 0.22) !important;
+    border-color: rgba(95, 125, 22, 0.22) !important;
 }
 
 [data-theme="light"] .mt-summary-item__value {
@@ -344,7 +344,7 @@
 
 [data-theme="light"] .mt-summary-item--carbs .mt-summary-item__value,
 [data-theme="light"] .mt-macros__tag--c {
-    color: #166534;
+    color: #49610d;
 }
 
 [data-theme="light"] .mt-macros__tag--p,
@@ -580,8 +580,8 @@
 }
 
 [data-theme="light"] .dashboard-page .event-date {
-    background: rgba(170, 237, 63, 0.14);
-    border-color: rgba(170, 237, 63, 0.22);
+    background: rgba(95, 125, 22, 0.14);
+    border-color: rgba(95, 125, 22, 0.22);
 }
 
 [data-theme="light"] .dashboard-page .event-date-day,
@@ -629,7 +629,7 @@
 
 [data-theme="light"] .sp-tab:hover,
 [data-theme="light"] .sp-tab.active {
-    background: rgba(170, 237, 63, 0.12);
+    background: rgba(95, 125, 22, 0.12);
     color: #24310f;
 }
 
@@ -653,9 +653,9 @@
 }
 
 [data-theme="light"] .goals-page .log-btn {
-    background: rgba(34, 197, 94, 0.10);
-    border-color: rgba(34, 197, 94, 0.22);
-    color: #166534;
+    background: rgba(95, 125, 22, 0.10);
+    border-color: rgba(95, 125, 22, 0.22);
+    color: #5f7d16;
 }
 
 [data-theme="light"] .goals-page .log-btn:hover {
@@ -685,14 +685,14 @@
 }
 
 [data-theme="light"] .goals-page .gm-log-input-shell {
-    background: rgba(34, 197, 94, 0.08);
-    border-color: rgba(34, 197, 94, 0.18);
+    background: rgba(95, 125, 22, 0.08);
+    border-color: rgba(95, 125, 22, 0.18);
     box-shadow: none;
 }
 
 [data-theme="light"] .goals-page .gm-log-input-shell:focus-within {
-    border-color: rgba(34, 197, 94, 0.34);
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.10);
+    border-color: rgba(95, 125, 22, 0.34);
+    box-shadow: 0 0 0 3px rgba(95, 125, 22, 0.10);
 }
 
 [data-theme="light"] .goals-page .gm-log-input::placeholder {
@@ -823,7 +823,7 @@
 [data-theme="light"] .admin-layout .admin-hero--premium,
 [data-theme="light"] .admin-layout .admin-hero--warning {
     background:
-        radial-gradient(circle at top right, rgba(170, 237, 63, 0.12), transparent 42%),
+        radial-gradient(circle at top right, rgba(95, 125, 22, 0.12), transparent 42%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 253, 0.98));
     border-color: rgba(15, 23, 42, 0.10);
     box-shadow: var(--admin-shadow);

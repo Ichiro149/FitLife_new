@@ -1,24 +1,24 @@
 
 :root {
 
-    --primary: #d9ff61;
-    --primary-light: #e8ff80;
-    --primary-dark: #aaed3f;
-    --primary-50: rgba(217, 255, 97, 0.05);
-    --primary-100: rgba(217, 255, 97, 0.1);
-    --primary-200: rgba(217, 255, 97, 0.2);
+    --primary: #5f7d16;
+    --primary-light: #7b9c29;
+    --primary-dark: #49610d;
+    --primary-50: rgba(95, 125, 22, 0.05);
+    --primary-100: rgba(95, 125, 22, 0.1);
+    --primary-200: rgba(95, 125, 22, 0.2);
 
     --secondary: #f97316;
     --secondary-light: #fb923c;
     --secondary-dark: #ea6a0a;
 
-    --accent: #79f279;
-    --accent-light: #a3f5a3;
-    --accent-dark: #4de64d;
+    --accent: #5f7d16;
+    --accent-light: #7b9c29;
+    --accent-dark: #49610d;
 
-    --success: #79f279;
-    --success-light: #a3f5a3;
-    --success-bg: rgba(121, 242, 121, 0.1);
+    --success: #5f7d16;
+    --success-light: #7b9c29;
+    --success-bg: rgba(95, 125, 22, 0.1);
 
     --warning: #F59E0B;
     --warning-light: #FFD37A;
@@ -28,9 +28,9 @@
     --danger-light: #FF8A8A;
     --danger-bg: rgba(220, 38, 38, 0.1);
 
-    --info: #d9ff61;
-    --info-light: #e8ff80;
-    --info-bg: rgba(217, 255, 97, 0.1);
+    --info: #5f7d16;
+    --info-light: #7b9c29;
+    --info-bg: rgba(95, 125, 22, 0.1);
 
     --purple: #A78BFA;
     --purple-light: #C4B5FD;
@@ -52,15 +52,15 @@
     --border-subtle: rgba(255, 255, 255, 0.04);
     --border-default: rgba(255, 255, 255, 0.07);
     --border-strong: rgba(255, 255, 255, 0.12);
-    --border-focus: rgba(217, 255, 97, 0.4);
+    --border-focus: rgba(95, 125, 22, 0.4);
 
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.55);
     --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 24px rgba(217, 255, 97, 0.15);
-    --shadow-glow-strong: 0 0 40px rgba(217, 255, 97, 0.25);
+    --shadow-glow: 0 0 24px rgba(95, 125, 22, 0.15);
+    --shadow-glow-strong: 0 0 40px rgba(95, 125, 22, 0.25);
 
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'SF Mono', 'Fira Code', monospace;
@@ -176,9 +176,9 @@
     --gradient-accent: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
 
-    --shadow-accent-sm: 0 2px 6px rgba(34, 197, 94, 0.15);
-    --shadow-accent-md: 0 4px 12px rgba(34, 197, 94, 0.18);
-    --shadow-accent-lg: 0 8px 20px rgba(34, 197, 94, 0.2);
+    --shadow-accent-sm: 0 2px 6px rgba(95, 125, 22, 0.15);
+    --shadow-accent-md: 0 4px 12px rgba(95, 125, 22, 0.18);
+    --shadow-accent-lg: 0 8px 20px rgba(95, 125, 22, 0.2);
 }
 
 [data-theme="light"] {
@@ -198,7 +198,7 @@
     --border-subtle: rgba(15, 23, 42, 0.06);
     --border-default: rgba(15, 23, 42, 0.10);
     --border-strong: rgba(15, 23, 42, 0.16);
-    --border-focus: rgba(170, 237, 63, 0.35);
+    --border-focus: rgba(95, 125, 22, 0.35);
 
     --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
     --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.06);
@@ -297,7 +297,7 @@
 }
 
 [data-theme="light"] .settings-page .sidebar-link.active {
-    background: rgba(170, 237, 63, 0.14);
+    background: rgba(95, 125, 22, 0.14);
     color: #24310f;
 }
 
@@ -307,7 +307,7 @@
 
 [data-theme="light"] .settings-page .sidebar-link:hover .link-icon,
 [data-theme="light"] .settings-page .sidebar-link.active .link-icon {
-    background: rgba(170, 237, 63, 0.18);
+    background: rgba(95, 125, 22, 0.18);
 }
 
 [data-theme="light"] .settings-page .card-header {
@@ -329,8 +329,8 @@
 }
 
 [data-theme="light"] .settings-page .theme-card.selected {
-    background: linear-gradient(180deg, rgba(170, 237, 63, 0.14), rgba(255, 255, 255, 0.96));
-    box-shadow: 0 0 0 1px rgba(170, 237, 63, 0.2), var(--shadow-md);
+    background: linear-gradient(180deg, rgba(95, 125, 22, 0.14), rgba(255, 255, 255, 0.96));
+    box-shadow: 0 0 0 1px rgba(95, 125, 22, 0.2), var(--shadow-md);
 }
 
 [data-theme="light"] .settings-page .back-link:hover {
@@ -339,8 +339,8 @@
 }
 
 [data-theme="light"] .settings-page .settings-alert.success {
-    background: rgba(34, 197, 94, 0.10);
-    border-color: rgba(34, 197, 94, 0.18);
+    background: rgba(95, 125, 22, 0.10);
+    border-color: rgba(95, 125, 22, 0.18);
 }
 
 [data-theme="light"] .dashboard-page .stat-card,
@@ -351,8 +351,8 @@
 }
 
 [data-theme="light"] .dashboard-page .dashboard-greeting span {
-    color: #84b11f;
-    -webkit-text-fill-color: #84b11f;
+    color: #5f7d16;
+    -webkit-text-fill-color: #5f7d16;
 }
 
 [data-theme="light"] .sidebar-card {
@@ -400,7 +400,7 @@
 
 [data-theme="light"] .feed-page .feed-tab.active,
 [data-theme="light"] .feed-page .feed-tab:hover {
-    background: linear-gradient(135deg, #e8ff80 0%, #d9ff61 100%);
+    background: linear-gradient(135deg, #7b9c29 0%, #5f7d16 100%);
     color: #16202c;
 }
 
@@ -452,7 +452,7 @@
 [data-theme="light"] .feed-page .search-box input:focus,
 [data-theme="light"] .feed-page .comment-form textarea:focus,
 [data-theme="light"] .feed-page [id^="edit-post-form-"] textarea:focus {
-    border-color: rgba(170, 237, 63, 0.45) !important;
+    border-color: rgba(95, 125, 22, 0.45) !important;
 }
 
 [data-theme="light"] .feed-page .trending-item:hover,
@@ -462,8 +462,8 @@
 }
 
 [data-theme="light"] .feed-page .stat-value {
-    color: #84b11f !important;
-    -webkit-text-fill-color: #84b11f !important;
+    color: #5f7d16 !important;
+    -webkit-text-fill-color: #5f7d16 !important;
 }
 
 [data-theme="light"] .feed-page .post-avatar,
@@ -502,7 +502,7 @@
 [data-theme="light"] .feed-page .composer-island form {
     background: rgba(255, 255, 255, 0.94) !important;
     border-color: rgba(15, 23, 42, 0.12) !important;
-    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(170, 237, 63, 0.08) !important;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(95, 125, 22, 0.08) !important;
 }
 
 [data-theme="light"] .feed-page .composer-body textarea {
@@ -510,5 +510,5 @@
 }
 
 [data-theme="light"] .feed-page .composer-avatar {
-    border-color: rgba(170, 237, 63, 0.22) !important;
+    border-color: rgba(95, 125, 22, 0.22) !important;
 }

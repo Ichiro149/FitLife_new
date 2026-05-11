@@ -450,7 +450,7 @@ body:has(.messenger) {
 .msg-alert--success {
     background: var(--success-bg);
     color: var(--success);
-    border: 1px solid rgba(22, 163, 74, 0.2);
+    border: 1px solid rgba(95, 125, 22, 0.2);
 }
 
 .msg-alert--error {
@@ -1405,7 +1405,7 @@ body:has(.messenger) {
 }
 
 .chat-user__status--online {
-    background: #22c55e;
+    background: #5f7d16;
 }
 
 .msg-item__avatar-wrap {
@@ -1420,7 +1420,7 @@ body:has(.messenger) {
     width: 10px;
     height: 10px;
     border-radius: var(--radius-full);
-    background: #22c55e;
+    background: #5f7d16;
     border: 2px solid var(--bg-surface);
 }
 
@@ -2755,7 +2755,7 @@ body:has(.messenger) {
 .chat-theme-swatch--default { background: linear-gradient(135deg, #f3f4f6, #e5e7eb); color: #374151; }
 .chat-theme-swatch--ocean { background: linear-gradient(135deg, #0369a1, #0ea5e9); color: #fff; }
 .chat-theme-swatch--sunset { background: linear-gradient(135deg, #ea580c, #f59e0b); color: #fff; }
-.chat-theme-swatch--forest { background: linear-gradient(135deg, #166534, #22c55e); color: #fff; }
+.chat-theme-swatch--forest { background: linear-gradient(135deg, #49610d, #5f7d16); color: #fff; }
 .chat-theme-swatch--neon { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: #fff; }
 .chat-theme-swatch--aurora { background: linear-gradient(135deg, #1e3a5f, #10b981, #8b5cf6); color: #fff; }
 .chat-theme-swatch--cherry { background: linear-gradient(135deg, #be123c, #fb7185); color: #fff; }
@@ -2770,7 +2770,7 @@ body:has(.messenger) {
 
 .chat-theme--ocean { --theme-bg: #0c4a6e; --theme-msg-mine: #0284c7; --theme-msg-theirs: #075985; --theme-text: #e0f2fe; --theme-input-bg: #0369a1; }
 .chat-theme--sunset { --theme-bg: #7c2d12; --theme-msg-mine: #ea580c; --theme-msg-theirs: #9a3412; --theme-text: #fff7ed; --theme-input-bg: #c2410c; }
-.chat-theme--forest { --theme-bg: #14532d; --theme-msg-mine: #16a34a; --theme-msg-theirs: #166534; --theme-text: #f0fdf4; --theme-input-bg: #15803d; }
+.chat-theme--forest { --theme-bg: #14532d; --theme-msg-mine: #49610d; --theme-msg-theirs: #49610d; --theme-text: #f0fdf4; --theme-input-bg: #15803d; }
 .chat-theme--neon { --theme-bg: #1e1b4b; --theme-msg-mine: #7c3aed; --theme-msg-theirs: #312e81; --theme-text: #ede9fe; --theme-input-bg: #4c1d95; }
 .chat-theme--aurora { --theme-bg: #0f172a; --theme-msg-mine: #10b981; --theme-msg-theirs: #1e3a5f; --theme-text: #ecfdf5; --theme-input-bg: #064e3b; }
 .chat-theme--cherry { --theme-bg: #4c0519; --theme-msg-mine: #e11d48; --theme-msg-theirs: #881337; --theme-text: #fff1f2; --theme-input-bg: #be123c; }

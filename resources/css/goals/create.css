@@ -126,7 +126,7 @@
 
 .goal-type-option input[type="radio"]:checked + .goal-type-option-inner {
     border-color: var(--primary);
-    background: rgba(34, 197, 94, 0.08);
+    background: rgba(95, 125, 22, 0.08);
 }
 
 .goal-type-option input[type="radio"]:checked + .goal-type-option-inner span {

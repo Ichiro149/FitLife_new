@@ -8,19 +8,19 @@ body.auth-shell-page {
     --auth-shell-bg: #040506;
     --auth-shell-card: rgba(14, 16, 20, 0.82);
     --auth-shell-elevated: rgba(255, 255, 255, 0.04);
-    --auth-shell-primary: #d9ff61;
-    --auth-shell-primary-glow: rgba(217, 255, 97, 0.18);
+    --auth-shell-primary: #5f7d16;
+    --auth-shell-primary-glow: rgba(95, 125, 22, 0.18);
     --auth-shell-text: #f4f7fb;
     --auth-shell-text-muted: rgba(244, 247, 251, 0.52);
     --auth-shell-border: rgba(255, 255, 255, 0.07);
     --auth-shell-error: #ef4444;
-    --auth-shell-gradient: linear-gradient(135deg, #e8ff80 0%, #d9ff61 45%, #aaed3f 100%);
+    --auth-shell-gradient: linear-gradient(135deg, #7b9c29 0%, #5f7d16 45%, #49610d 100%);
 }
 
 .auth-shell-page {
     font-family: 'Inter', sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 32%),
+        radial-gradient(circle at top left, rgba(95, 125, 22, 0.14), transparent 32%),
         radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 28%),
         linear-gradient(180deg, #040506 0%, #090b0f 42%, #050607 100%);
     color: var(--auth-shell-text);
@@ -184,7 +184,7 @@ body.auth-shell-page {
     position: absolute;
     inset: 0 0 auto 0;
     height: 100px;
-    background: linear-gradient(180deg, rgba(217, 255, 97, 0.06), transparent);
+    background: linear-gradient(180deg, rgba(95, 125, 22, 0.06), transparent);
     pointer-events: none;
 }
 
@@ -208,8 +208,8 @@ body.auth-shell-page {
     padding: 0.3rem 0.8rem;
     margin: 0 auto 1rem;
     border-radius: 999px;
-    border: 1px solid rgba(217, 255, 97, 0.2);
-    background: rgba(217, 255, 97, 0.06);
+    border: 1px solid rgba(95, 125, 22, 0.2);
+    background: rgba(95, 125, 22, 0.06);
     color: var(--auth-shell-primary);
     font-size: 0.72rem;
     letter-spacing: 0.1em;
@@ -287,8 +287,8 @@ body.auth-shell-page {
 }
 
 .auth-shell-alert--success {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: rgba(95, 125, 22, 0.1);
+    border: 1px solid rgba(95, 125, 22, 0.3);
     color: var(--auth-shell-primary);
 }
 
@@ -373,7 +373,7 @@ body.auth-shell-page {
 }
 
 .auth-shell-input:hover {
-    border-color: rgba(34, 197, 94, 0.35);
+    border-color: rgba(95, 125, 22, 0.35);
 }
 
 .auth-shell-input:focus {
@@ -434,13 +434,13 @@ body.auth-shell-page {
     font-family: inherit;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 18px 34px rgba(34, 197, 94, 0.18);
+    box-shadow: 0 18px 34px rgba(95, 125, 22, 0.18);
     box-sizing: border-box;
 }
 
 .auth-shell-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 20px 48px rgba(217, 255, 97, 0.28);
+    box-shadow: 0 20px 48px rgba(95, 125, 22, 0.28);
 }
 
 .auth-shell-footer {
@@ -466,9 +466,9 @@ body.auth-shell-page {
 .auth-shell-reset-link {
     width: 100%;
     padding: 0.875rem 1rem;
-    border: 1px solid rgba(217, 255, 97, 0.15);
+    border: 1px solid rgba(95, 125, 22, 0.15);
     border-radius: 14px;
-    background: rgba(217, 255, 97, 0.03);
+    background: rgba(95, 125, 22, 0.03);
     box-sizing: border-box;
     overflow: auto;
     word-break: break-all;
@@ -511,7 +511,7 @@ body.auth-shell-page {
     }
 
     .auth-shell-page.auth-shell-page--scrollable .auth-shell-card::-webkit-scrollbar-thumb {
-        background: rgba(34, 197, 94, 0.45);
+        background: rgba(95, 125, 22, 0.45);
         border-radius: 999px;
     }
 

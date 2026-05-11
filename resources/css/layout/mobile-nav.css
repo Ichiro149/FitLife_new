@@ -281,7 +281,7 @@
 .mobile-menu-link:hover,
 .mobile-menu-link.active {
     color: var(--primary);
-    background: rgba(34, 197, 94, 0.1);
+    background: rgba(95, 125, 22, 0.1);
     transform: translateX(6px);
 }
 

@@ -51,7 +51,7 @@
 
 .mt-notification.success {
     display: block;
-    background: rgba(34, 197, 94, 0.1);
+    background: rgba(95, 125, 22, 0.1);
     border: 1px solid var(--border-default);
     color: var(--primary);
 }
@@ -145,7 +145,7 @@
 
 .mt-summary-item--protein::before { background: #3b82f6; }
 .mt-summary-item--fat::before { background: #ef4444; }
-.mt-summary-item--carbs::before { background: #22c55e; }
+.mt-summary-item--carbs::before { background: #5f7d16; }
 
 .mt-summary-item__value {
     font-size: var(--text-2xl);
@@ -156,7 +156,7 @@
 
 .mt-summary-item--protein .mt-summary-item__value { color: #3b82f6; }
 .mt-summary-item--fat .mt-summary-item__value { color: #ef4444; }
-.mt-summary-item--carbs .mt-summary-item__value { color: #22c55e; }
+.mt-summary-item--carbs .mt-summary-item__value { color: #5f7d16; }
 
 .mt-summary-item__label {
     font-size: var(--text-xs);
@@ -211,7 +211,7 @@
 }
 
 .mt-meal-tab__icon--breakfast { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }
-.mt-meal-tab__icon--lunch { background: rgba(34, 197, 94, 0.12); color: #22c55e; }
+.mt-meal-tab__icon--lunch { background: rgba(95, 125, 22, 0.12); color: #5f7d16; }
 .mt-meal-tab__icon--dinner { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
 .mt-meal-tab__icon--snack { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
 
@@ -411,8 +411,8 @@
 }
 
 .mt-info-tag--carbs {
-    background: rgba(34, 197, 94, 0.12);
-    color: #22c55e;
+    background: rgba(95, 125, 22, 0.12);
+    color: #5f7d16;
 }
 
 .mt-info-tag .val {
@@ -590,7 +590,7 @@
 
 .mt-macros__tag--p { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
 .mt-macros__tag--f { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
-.mt-macros__tag--c { background: rgba(34, 197, 94, 0.12); color: #22c55e; }
+.mt-macros__tag--c { background: rgba(95, 125, 22, 0.12); color: #5f7d16; }
 
 .pagination {
     display: flex;
