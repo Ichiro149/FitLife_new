@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī starpprogrammatūra kontrolē "Set Locale" piekļuvi vai pieprasījuma apstrādi.
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Water Tracker Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\User;
 use App\Models\WaterLog;
 

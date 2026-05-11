@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "settings" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Settings',
     'subtitle' => 'Manage your account preferences',

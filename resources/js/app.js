@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "js app" interaktivitāti un klienta puses loģiku. */
+
 import './bootstrap';
 import './app-ui';
 

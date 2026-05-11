@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī migrācija izveido vai maina "0001 01 01 000002 create jobs table" datubāzes struktūru.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

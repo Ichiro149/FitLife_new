@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī starpprogrammatūra kontrolē "Track Last Seen" piekļuvi vai pieprasījuma apstrādi.
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;

@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "input error" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props(['messages'])
 
 @if ($messages)

@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "update profile information form" lapu vai saskarnes sadaļu. --}}
+
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">

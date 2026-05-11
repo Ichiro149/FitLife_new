@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī migrācija izveido vai maina "2025 10 20 144552 add parent id to comments table" datubāzes struktūru.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

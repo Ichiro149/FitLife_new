@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "groups create" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const avatarInput = document.getElementById('avatarInput');
     const avatarTrigger = document.getElementById('avatarTrigger');

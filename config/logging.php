@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "logging" iestatījumus.
+ */
+
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;

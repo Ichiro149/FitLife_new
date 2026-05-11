@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "chats sidebar" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('chatSidebarList');
 

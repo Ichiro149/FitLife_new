@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "dashboard" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', 'Admin Dashboard')

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis modelis apraksta "Goal Log" datus un saites ar citiem ierakstiem.
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +27,9 @@ class GoalLog extends Model
         'change' => 'integer',
     ];
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "goal".
+     */
     public function goal(): BelongsTo
     {
         return $this->belongsTo(Goal::class);

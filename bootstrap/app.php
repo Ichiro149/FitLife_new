@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails apraksta "bootstrap app" loģiku un lietotnes uzvedību.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

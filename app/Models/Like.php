@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis modelis apraksta "Like" datus un saites ar citiem ierakstiem.
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,11 +26,17 @@ class Like extends Model
         'is_like' => 'boolean',
     ];
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "post".
+     */
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "user".
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

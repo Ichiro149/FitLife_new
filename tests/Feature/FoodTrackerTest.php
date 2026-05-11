@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Food Tracker Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\MealLog;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;

@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "dashboard" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app', ['title' => 'FitLife — ' . __('dashboard.title')])
 
 @section('hide-mobile-nav', '1')

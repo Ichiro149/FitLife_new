@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Password Reset Link Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -12,11 +16,17 @@ use Illuminate\View\View;
 class PasswordResetLinkController extends Controller
 {
 
+    /**
+     * Šī metode parāda jauna ieraksta izveides formu.
+     */
     public function create(): View
     {
         return view('auth.forgot-password');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Sleep Tracker Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Sleep;
 use App\Models\User;
 

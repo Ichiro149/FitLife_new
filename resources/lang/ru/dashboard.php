@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "dashboard" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Панель управления',
     'welcome' => 'С возвращением, :name!',

@@ -1,3 +1,5 @@
+/* Šie stili noformē "welcome" lapas vai komponenta izskatu. */
+
 body.welcome-page {
     background-color: #040506;
     overscroll-behavior-x: auto;

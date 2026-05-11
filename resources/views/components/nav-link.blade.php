@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "nav link" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props(['active'])
 
 @php

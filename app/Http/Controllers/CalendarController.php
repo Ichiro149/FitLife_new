@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Calendar Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Calendar;
@@ -11,11 +15,17 @@ use Illuminate\Validation\Rule;
 class CalendarController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         return view('activity-calendar.index');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $customType = trim((string) $request->input('custom_type', ''));
@@ -62,6 +72,9 @@ class CalendarController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request, $id)
     {
         $calendar = Calendar::findOrFail($id);
@@ -79,6 +92,9 @@ class CalendarController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "get Events" un atgriež atbilstošu rezultātu.
+     */
     public function getEvents(Request $request)
     {
         $start = $request->query('start', Carbon::today()->toDateString());
@@ -103,6 +119,9 @@ class CalendarController extends Controller
         return response()->json($events);
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy($id)
     {
         $calendar = Calendar::findOrFail($id);

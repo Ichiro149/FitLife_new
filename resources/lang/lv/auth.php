@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "lv auth" tulkojuma tekstus.
+ */
+
 return [
     'login' => 'Pieslēgties',
     'register' => 'Reģistrēties',

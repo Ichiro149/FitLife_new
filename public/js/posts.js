@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "posts" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener("DOMContentLoaded", () => {
     const main = document.querySelector('#main-content') || document.querySelector('.main-content');
     if (!main) return;

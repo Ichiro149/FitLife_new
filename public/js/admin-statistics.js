@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "admin statistics" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const userChartCanvas = document.getElementById('userChart');
     const postChartCanvas = document.getElementById('postChart');

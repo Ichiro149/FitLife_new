@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Validation Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('username validation allows letters and numbers', function () {
     $username = 'JohnDoe123';
 

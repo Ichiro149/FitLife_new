@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Post Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
@@ -15,6 +19,9 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index(Request $request)
     {
         try {
@@ -82,6 +89,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         try {
@@ -134,6 +144,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request, Post $post)
     {
         try {
@@ -212,6 +225,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Request $request, Post $post)
     {
         try {
@@ -246,6 +262,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode pārslēdz stāvokli starp divām iespējamām darbībām.
+     */
     public function toggleReaction(Request $request, Post $post)
     {
         try {
@@ -304,6 +323,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode apstrādā darbību "comment" un atgriež atbilstošu rezultātu.
+     */
     public function comment(Request $request, Post $post)
     {
         try {
@@ -398,6 +420,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode apstrādā darbību "increment Views" un atgriež atbilstošu rezultātu.
+     */
     public function incrementViews(Request $request, Post $post)
     {
         try {
@@ -436,6 +461,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode apstrādā darbību "bulk Views" un atgriež atbilstošu rezultātu.
+     */
     public function bulkViews(Request $request)
     {
         try {
@@ -464,6 +492,9 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Šī metode apstrādā darbību "bulk Stats" un atgriež atbilstošu rezultātu.
+     */
     public function bulkStats(Request $request)
     {
         try {
@@ -638,6 +669,9 @@ class PostController extends Controller
         Cache::forget("posts_page_{$page}");
     }
 
+    /**
+     * Šī metode meklē ierakstus vai lietotājus pēc norādītā filtra.
+     */
     public function searchUsers(Request $request)
     {
         $q = $request->input('q', '');

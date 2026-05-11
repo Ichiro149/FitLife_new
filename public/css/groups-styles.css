@@ -1,3 +1,5 @@
+/* Šie stili noformē "groups styles" publisko saskarnes daļu. */
+
 @media (max-width: 900px) {
     .chat-input__field,
     .chat-search-bar__input,

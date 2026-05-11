@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "sleep table" lapu vai saskarnes sadaļu. --}}
+
 <div class="table-wrapper">
     @if($sleepLogs->isEmpty())
         <p style="text-align:center; padding:1rem; color:#475569;">{{ __('profile.no_sleep_records') }}</p>

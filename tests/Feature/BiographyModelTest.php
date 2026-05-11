@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Biography Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Biography;
 use App\Models\User;
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "ru admin" tulkojuma tekstus.
+ */
+
 return [
     'dashboard' => 'Панель управления',
     'dashboard_subtitle' => 'Управление пользователями, публикациями, событиями и модерацией',

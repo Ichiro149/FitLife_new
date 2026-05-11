@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Sleep Calculation Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('sleep duration calculated from hours and minutes', function () {
     $hours = 7;
     $minutes = 30;

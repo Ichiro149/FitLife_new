@@ -1,3 +1,5 @@
+{{-- Šis daļējais skats attēlo "site footer" koplietojamu saskarnes daļu. --}}
+
 @php($footerWithMobileNav = $withMobileNav ?? false)
 
 <footer class="site-footer{{ $footerWithMobileNav ? ' site-footer--with-mobile-nav' : '' }}">

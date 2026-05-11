@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "services" iestatījumus.
+ */
+
 return [
 
     'postmark' => [

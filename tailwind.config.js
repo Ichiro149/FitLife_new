@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "tailwind config" interaktivitāti. */
+
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 

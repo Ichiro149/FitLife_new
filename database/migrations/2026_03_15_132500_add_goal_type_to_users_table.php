@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī migrācija izveido vai maina "2026 03 15 132500 add goal type to users table" datubāzes struktūru.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Progress Photo Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Progress;
@@ -10,6 +14,9 @@ use Illuminate\Support\Facades\Storage;
 class ProgressPhotoController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $progressPhotos = Auth::user()->progress()->latest()->get();
@@ -17,6 +24,9 @@ class ProgressPhotoController extends Controller
         return view('progress.index', compact('progressPhotos'));
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -32,6 +42,9 @@ class ProgressPhotoController extends Controller
         return back()->with('success', '');
     }
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request, Progress $progress)
     {
         $this->authorizeUser($progress);
@@ -45,6 +58,9 @@ class ProgressPhotoController extends Controller
         return back()->with('success', '');
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Progress $progress)
     {
         $this->authorizeUser($progress);

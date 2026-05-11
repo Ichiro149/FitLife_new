@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī migrācija izveido vai maina "2025 09 09 214422 create goal logs table" datubāzes struktūru.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

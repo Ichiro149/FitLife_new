@@ -1,3 +1,5 @@
+{{-- Šis izkārtojuma skats veido "guest" kopējo lapas struktūru. --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

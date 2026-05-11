@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Confirmable Password Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -12,11 +16,17 @@ use Illuminate\View\View;
 class ConfirmablePasswordController extends Controller
 {
 
+    /**
+     * Šī metode attēlo detalizētu izvēlētā ieraksta skatu.
+     */
     public function show(): View
     {
         return view('auth.confirm-password');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request): RedirectResponse
     {
         if (! Auth::guard('web')->validate([

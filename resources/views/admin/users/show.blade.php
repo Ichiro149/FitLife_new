@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "users show" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', $user->name)

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "legal" tulkojuma tekstus.
+ */
+
 return [
     'kicker' => 'FITLIFE LEGAL',
     'privacy' => [

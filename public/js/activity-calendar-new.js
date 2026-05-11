@@ -1,3 +1,4 @@
+/* Šis skripts nodrošina "activity calendar new" publiskās saskarnes interaktivitāti. */
 
 document.addEventListener('DOMContentLoaded', () => {
     const calendarPage = document.querySelector('.calendar-page');

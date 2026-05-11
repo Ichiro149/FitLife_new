@@ -1,3 +1,5 @@
+/* Šie stili noformē "guest" lapas vai komponenta izskatu. */
+
 .guest-container {
     min-height: 100vh;
     display: flex;

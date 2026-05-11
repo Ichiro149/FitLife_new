@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "database" iestatījumus.
+ */
+
 use Illuminate\Support\Str;
 
 return [

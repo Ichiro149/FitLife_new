@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī rūpnīca ģenerē "Like Factory" testdatus.
+ */
+
 namespace Database\Factories;
 
 use App\Models\Like;

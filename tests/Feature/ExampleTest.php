@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Example Test" darbību un sagaidāmo uzvedību.
+ */
+
 it('returns a successful response', function () {
     $response = $this->get('/');
 

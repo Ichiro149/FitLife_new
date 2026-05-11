@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "welcome" tulkojuma tekstus.
+ */
+
 return [
 
     'page_title' => 'FitLife - Your Path to Wellness',

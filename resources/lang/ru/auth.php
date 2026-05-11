@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "ru auth" tulkojuma tekstus.
+ */
+
 return [
     'login' => 'Войти',
     'register' => 'Регистрация',

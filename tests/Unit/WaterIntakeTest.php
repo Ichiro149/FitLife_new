@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Water Intake Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('water intake percentage of daily goal', function () {
     $intake = 1500;
     $dailyGoal = 2000;

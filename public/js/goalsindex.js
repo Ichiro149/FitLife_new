@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "goalsindex" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById('mobile-toggle');
     const sidebar = document.getElementById('sidebar');

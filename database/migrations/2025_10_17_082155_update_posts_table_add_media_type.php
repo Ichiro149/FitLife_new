@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī migrācija izveido vai maina "2025 10 17 082155 update posts table add media type" datubāzes struktūru.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;

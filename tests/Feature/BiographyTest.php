@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Biography Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\User;
 
 test('guests cannot access profile edit page', function () {

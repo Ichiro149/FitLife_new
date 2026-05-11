@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Settings Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,11 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         return view('settings.index');
     }
 
+    /**
+     * Šī metode apstrādā darbību "update Language" un atgriež atbilstošu rezultātu.
+     */
     public function updateLanguage(Request $request)
     {
         $request->validate([

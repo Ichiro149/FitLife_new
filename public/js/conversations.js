@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "conversations" publiskās saskarnes interaktivitāti. */
+
 // Чистый JavaScript для chat conversations (PHP vars перемещены в Blade window.conversationsData)
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('chatMessages');

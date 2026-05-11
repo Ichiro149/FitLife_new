@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "session" iestatījumus.
+ */
+
 use Illuminate\Support\Str;
 
 return [

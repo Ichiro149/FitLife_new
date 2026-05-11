@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Conversation Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
@@ -14,6 +18,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ConversationController extends Controller
 {
+    /**
+     * Šī metode apstrādā darbību "chats" un atgriež atbilstošu rezultātu.
+     */
     public function chats()
     {
         $user = Auth::user();
@@ -24,6 +31,9 @@ class ConversationController extends Controller
         return view('chats.index', compact('conversations', 'groups'));
     }
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -33,6 +43,9 @@ class ConversationController extends Controller
         return view('conversations.index', compact('conversations'));
     }
 
+    /**
+     * Šī metode uzsāk jaunu plūsmu vai sarunu.
+     */
     public function start(User $user)
     {
         $me = Auth::user();
@@ -63,6 +76,9 @@ class ConversationController extends Controller
         return redirect()->route('conversations.show', $conversation);
     }
 
+    /**
+     * Šī metode attēlo detalizētu izvēlētā ieraksta skatu.
+     */
     public function show(Conversation $conversation)
     {
         $user = Auth::user();
@@ -99,6 +115,9 @@ class ConversationController extends Controller
         return view('conversations.show', compact('conversation', 'messages', 'otherUser', 'pinnedMessages', 'forwardTargets', 'conversations', 'groups', 'activeConversationId', 'chatTheme'));
     }
 
+    /**
+     * Šī metode nosūta jaunu saturu vai ziņu uz izvēlēto plūsmu.
+     */
     public function send(Request $request, Conversation $conversation)
     {
         $user = Auth::user();
@@ -162,6 +181,9 @@ class ConversationController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode atgriež periodiski atjaunojamus datus.
+     */
     public function poll(Request $request, Conversation $conversation)
     {
         $user = Auth::user();
@@ -191,6 +213,9 @@ class ConversationController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode ielādē iepriekšējo darbību vai ziņu vēsturi.
+     */
     public function loadHistory(Request $request, Conversation $conversation)
     {
         $user = Auth::user();
@@ -212,6 +237,9 @@ class ConversationController extends Controller
         return response()->json(['messages' => $messages]);
     }
 
+    /**
+     * Šī metode meklē ierakstus vai lietotājus pēc norādītā filtra.
+     */
     public function search(Request $request, Conversation $conversation)
     {
         $user = Auth::user();
@@ -236,6 +264,9 @@ class ConversationController extends Controller
         return response()->json(['results' => $messages]);
     }
 
+    /**
+     * Šī metode atjaunina rakstīšanas statusu.
+     */
     public function typing(Conversation $conversation)
     {
         $user = Auth::user();
@@ -248,6 +279,9 @@ class ConversationController extends Controller
         return response()->json(['ok' => true]);
     }
 
+    /**
+     * Šī metode nolasa aktuālo rakstīšanas statusu.
+     */
     public function typingStatus(Conversation $conversation)
     {
         $user = Auth::user();
@@ -260,6 +294,9 @@ class ConversationController extends Controller
         return response()->json(['typing' => cache()->get($cacheKey, false)]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "forward" un atgriež atbilstošu rezultātu.
+     */
     public function forward(Request $request, Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -306,6 +343,9 @@ class ConversationController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "pin Message" un atgriež atbilstošu rezultātu.
+     */
     public function pinMessage(Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -368,6 +408,9 @@ class ConversationController extends Controller
         ];
     }
 
+    /**
+     * Šī metode apstrādā darbību "edit Message" un atgriež atbilstošu rezultātu.
+     */
     public function editMessage(Request $request, Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -390,6 +433,9 @@ class ConversationController extends Controller
         return response()->json(['success' => true, 'body' => $message->body]);
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function deleteMessage(Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -414,6 +460,9 @@ class ConversationController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "react Message" un atgriež atbilstošu rezultātu.
+     */
     public function reactMessage(Request $request, Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -481,6 +530,9 @@ class ConversationController extends Controller
         return $conversations->merge($groups)->toArray();
     }
 
+    /**
+     * Šī metode pārslēdz stāvokli starp divām iespējamām darbībām.
+     */
     public function toggleFavorite(Conversation $conversation, ConversationMessage $message)
     {
         $user = Auth::user();
@@ -507,6 +559,9 @@ class ConversationController extends Controller
         return response()->json(['favorited' => true]);
     }
 
+    /**
+     * Šī metode iestata jaunu vērtību vai konfigurāciju.
+     */
     public function setTheme(Request $request, Conversation $conversation)
     {
         $user = Auth::user();
@@ -523,6 +578,9 @@ class ConversationController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode ielādē attiecīgo saistīto ierakstu sarakstu.
+     */
     public function favorites()
     {
         $user = Auth::user();

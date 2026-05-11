@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "goals" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Цели',
     'my_goals' => 'Мои цели',

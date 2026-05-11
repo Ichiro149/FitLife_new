@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis palīgfails inicializē lietotni testu izpildei.
+ */
+
 namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;

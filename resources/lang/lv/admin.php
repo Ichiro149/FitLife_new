@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "lv admin" tulkojuma tekstus.
+ */
+
 return [
     'dashboard' => 'Vadības panelis',
     'users' => 'Lietotāji',

@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "settings index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', __('settings.title') . ' - FitLife')

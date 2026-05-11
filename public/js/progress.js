@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "progress" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener("DOMContentLoaded", function () {
     const photoInput = document.getElementById('photo');
     const fileNameDisplay = document.getElementById('file-name-display');

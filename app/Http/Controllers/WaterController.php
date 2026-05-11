@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Water Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\WaterLog;
@@ -9,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 class WaterController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $todayLogs = WaterLog::where('user_id', Auth::id())
@@ -27,6 +34,9 @@ class WaterController extends Controller
         return view('water.index', compact('todayLogs', 'historyLogs', 'todayTotal', 'dailyGoal'));
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $request->validate([

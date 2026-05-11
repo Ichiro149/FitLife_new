@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "common" tulkojuma tekstus.
+ */
+
 return [
     'save' => 'Saglabāt',
     'cancel' => 'Atcelt',

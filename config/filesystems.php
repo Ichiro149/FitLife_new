@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "filesystems" iestatījumus.
+ */
+
 return [
 
     'default' => env('FILESYSTEM_DISK', 'local'),

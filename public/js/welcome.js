@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "welcome" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const welcomeHeader = document.getElementById('welcomeHeader');
     const welcomeNav = document.getElementById('welcomeNav');

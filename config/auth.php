@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "config auth" iestatījumus.
+ */
+
 return [
 
     'defaults' => [

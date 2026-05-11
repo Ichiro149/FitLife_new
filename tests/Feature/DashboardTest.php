@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Dashboard Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Calendar;
 use App\Models\MealLog;
 use App\Models\Sleep;

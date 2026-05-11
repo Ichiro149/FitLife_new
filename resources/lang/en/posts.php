@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "posts" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Posts',
     'feed' => 'Feed',

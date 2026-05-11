@@ -1,3 +1,4 @@
+/* Šis skripts nodrošina "biography" publiskās saskarnes interaktivitāti. */
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileToggle = document.getElementById('mobile-toggle');

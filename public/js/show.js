@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "js show" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const friendForms = document.querySelectorAll('.friend-form');
 

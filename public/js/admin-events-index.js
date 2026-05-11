@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "admin events index" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const eventSearch = document.getElementById('event-search');
     const typeFilter = document.getElementById('type-filter');

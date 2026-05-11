@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails apraksta "Kernel" loģiku un lietotnes uzvedību.
+ */
+
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

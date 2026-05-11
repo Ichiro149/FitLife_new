@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "sleep" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener("DOMContentLoaded", () => {
   const mobileToggle = document.getElementById('mobile-toggle');
   const sidebar = document.getElementById('sidebar');

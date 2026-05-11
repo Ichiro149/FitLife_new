@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "sleep" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Трекер сна',
     'add_sleep' => 'Добавить сон',

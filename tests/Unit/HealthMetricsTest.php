@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Health Metrics Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('BMI calculated correctly', function () {
     $weight = 70;
     $height = 175;

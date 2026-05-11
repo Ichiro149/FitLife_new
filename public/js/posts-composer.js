@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "posts composer" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', function() {
     const composerIsland = document.getElementById('composer-island');
     const composerForm = document.getElementById('post-form');

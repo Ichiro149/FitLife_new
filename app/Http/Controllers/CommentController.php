@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Comment Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
@@ -11,6 +15,9 @@ use Illuminate\Support\Facades\Cache;
 class CommentController extends Controller
 {
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request, Comment $comment)
     {
         try {
@@ -54,6 +61,9 @@ class CommentController extends Controller
         }
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Request $request, Comment $comment)
     {
         try {
@@ -89,6 +99,9 @@ class CommentController extends Controller
         }
     }
 
+    /**
+     * Šī metode pārslēdz stāvokli starp divām iespējamām darbībām.
+     */
     public function toggleReaction(Request $request, Comment $comment)
     {
         try {

@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "activity calendar" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const calendarGrid = document.querySelector('.calendar-grid');
     const monthDisplay = document.querySelector('.calendar-month');

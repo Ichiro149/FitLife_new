@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis modelis apraksta "Goal" datus un saites ar citiem ierakstiem.
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,16 +32,25 @@ class Goal extends Model
         'end_date' => 'date',
     ];
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "user".
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "logs".
+     */
     public function logs(): HasMany
     {
         return $this->hasMany(GoalLog::class);
     }
 
+    /**
+     * Šī metode aprēķina vai atgriež rādītāju "progress Percent".
+     */
     public function progressPercent(): float
     {
 

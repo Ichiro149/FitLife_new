@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī politika nosaka atļaujas darbam ar "Post Policy".
+ */
+
 namespace App\Policies;
 
 use App\Models\Post;

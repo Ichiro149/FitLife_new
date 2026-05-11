@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Admin Panel Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -14,6 +18,9 @@ use Illuminate\View\View;
 
 class AdminPanelController extends Controller
 {
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index(): View
     {
         $totalUsers = User::count();
@@ -39,6 +46,9 @@ class AdminPanelController extends Controller
         ));
     }
 
+    /**
+     * Šī metode apstrādā darbību "comments" un atgriež atbilstošu rezultātu.
+     */
     public function comments(): View
     {
         $comments = Comment::with(['user', 'post'])->latest()->paginate(10);
@@ -46,6 +56,9 @@ class AdminPanelController extends Controller
         return view('admin.comments.index', compact('comments'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "comments Delete" un atgriež atbilstošu rezultātu.
+     */
     public function commentsDelete(Comment $comment): RedirectResponse
     {
         $comment->delete();
@@ -53,6 +66,9 @@ class AdminPanelController extends Controller
         return redirect()->route('admin.comments')->with('success', 'Comment deleted successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "administrators" un atgriež atbilstošu rezultātu.
+     */
     public function administrators(): View
     {
         $administrators = User::whereIn('role', ['admin', 'super_admin'])->latest()->paginate(10);
@@ -60,6 +76,9 @@ class AdminPanelController extends Controller
         return view('admin.administrators.index', compact('administrators'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "users" un atgriež atbilstošu rezultātu.
+     */
     public function users()
     {
         $users = User::paginate(10);
@@ -67,6 +86,9 @@ class AdminPanelController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "users Show" un atgriež atbilstošu rezultātu.
+     */
     public function usersShow(User $user)
     {
         $subscriptions = collect();
@@ -80,6 +102,9 @@ class AdminPanelController extends Controller
         return view('admin.users.show', compact('user', 'subscriptions', 'subscriptionsCount'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "users Edit" un atgriež atbilstošu rezultātu.
+     */
     public function usersEdit(User $user)
     {
         if ($user->isSuperAdmin() && ! auth()->user()->isSuperAdmin()) {
@@ -89,6 +114,9 @@ class AdminPanelController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "users Update" un atgriež atbilstošu rezultātu.
+     */
     public function usersUpdate(Request $request, User $user)
     {
         if ($user->isSuperAdmin() && ! auth()->user()->isSuperAdmin()) {
@@ -113,6 +141,9 @@ class AdminPanelController extends Controller
         return redirect()->route('admin.users')->with('success', 'User updated successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "users Delete" un atgriež atbilstošu rezultātu.
+     */
     public function usersDelete(User $user)
     {
         if ($user->isSuperAdmin()) {
@@ -124,6 +155,9 @@ class AdminPanelController extends Controller
         return redirect()->route('admin.users')->with('success', 'User deleted successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "posts" un atgriež atbilstošu rezultātu.
+     */
     public function posts()
     {
         $posts = Post::with('user')->paginate(10);
@@ -131,6 +165,9 @@ class AdminPanelController extends Controller
         return view('admin.posts.index', compact('posts'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "posts Delete" un atgriež atbilstošu rezultātu.
+     */
     public function postsDelete(Post $post)
     {
         $post->delete();
@@ -138,6 +175,9 @@ class AdminPanelController extends Controller
         return redirect()->route('admin.posts')->with('success', 'Post deleted successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "events" un atgriež atbilstošu rezultātu.
+     */
     public function events()
     {
         $events = Calendar::with('user')->paginate(10);
@@ -145,6 +185,9 @@ class AdminPanelController extends Controller
         return view('admin.events.index', compact('events'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "events Delete" un atgriež atbilstošu rezultātu.
+     */
     public function eventsDelete(Calendar $event)
     {
         $event->delete();
@@ -152,6 +195,9 @@ class AdminPanelController extends Controller
         return redirect()->route('admin.events')->with('success', 'Event deleted successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "statistics" un atgriež atbilstošu rezultātu.
+     */
     public function statistics(): View
     {
         $totalUsers = User::count();

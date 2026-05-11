@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Subscription Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
@@ -9,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request, User $user)
     {
         $me = Auth::user();
@@ -35,6 +42,9 @@ class SubscriptionController extends Controller
         ], 201);
     }
 
+    /**
+     * Šī metode apstiprina saņemto darbību vai pieprasījumu.
+     */
     public function accept(Request $request, User $user)
     {
         $subscriptionRequest = Subscription::where('user_id', $user->id)
@@ -61,6 +71,9 @@ class SubscriptionController extends Controller
         ], 200);
     }
 
+    /**
+     * Šī metode apstrādā darbību "remove" un atgriež atbilstošu rezultātu.
+     */
     public function remove(Request $request, User $user)
     {
         $subscription = Subscription::where(function ($query) use ($user) {

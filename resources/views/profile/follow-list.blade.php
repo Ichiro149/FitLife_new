@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "follow list" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', $title . ' — FitLife')

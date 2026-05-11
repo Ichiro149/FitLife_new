@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Notification Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\GroupInvite;
@@ -9,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -27,6 +34,9 @@ class NotificationController extends Controller
         return view('notifications.index', compact('invites', 'notifications'));
     }
 
+    /**
+     * Šī metode atzīmē ierakstu ar jaunu statusu.
+     */
     public function markAsRead(Request $request)
     {
         Notification::where('user_id', Auth::id())
@@ -40,6 +50,9 @@ class NotificationController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstiprina saņemto darbību vai pieprasījumu.
+     */
     public function acceptInvite(GroupInvite $invite)
     {
         if ($invite->user_id !== Auth::id()) {
@@ -52,6 +65,9 @@ class NotificationController extends Controller
         return back()->with('success', __('messages.invite_accepted'));
     }
 
+    /**
+     * Šī metode noraida saņemto darbību vai pieprasījumu.
+     */
     public function declineInvite(GroupInvite $invite)
     {
         if ($invite->user_id !== Auth::id()) {

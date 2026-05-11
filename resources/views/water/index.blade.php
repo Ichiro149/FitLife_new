@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "water index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('hide-mobile-nav', '1')

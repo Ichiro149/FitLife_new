@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "messages" tulkojuma tekstus.
+ */
+
 return [
     'conversations' => 'Messages',
     'chats' => 'Chats',

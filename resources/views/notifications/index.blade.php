@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "notifications index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 @section('title', __('messages.notifications'))
 

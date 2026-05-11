@@ -1,3 +1,5 @@
+/* Šie stili noformē "comments" lapas vai komponenta izskatu. */
+
 .admin-layout--comments .admin-comment__excerpt {
     display: -webkit-box;
     overflow: hidden;

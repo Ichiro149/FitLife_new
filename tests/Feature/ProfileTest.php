@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Profile Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\User;
 
 test('profile page is displayed', function () {

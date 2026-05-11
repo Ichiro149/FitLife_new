@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "modal" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props([
     'name',
     'show' => false,

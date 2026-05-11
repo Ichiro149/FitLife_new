@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Admin Email Privacy Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\User;
 
 it('does not expose raw user emails in the admin users list', function () {

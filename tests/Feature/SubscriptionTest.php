@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Subscription Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Subscription;
 use App\Models\User;
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "mail" iestatījumus.
+ */
+
 return [
 
     'default' => env('MAIL_MAILER', 'log'),

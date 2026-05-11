@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Email Verification Prompt Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -10,6 +14,9 @@ use Illuminate\View\View;
 class EmailVerificationPromptController extends Controller
 {
 
+    /**
+     * Šī metode apstrādā darbību "invoke" un atgriež atbilstošu rezultātu.
+     */
     public function __invoke(Request $request): RedirectResponse|View
     {
         return $request->user()->hasVerifiedEmail()

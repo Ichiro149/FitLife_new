@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "comment" lapu vai saskarnes sadaļu. --}}
+
 <div class="comment-item {{ $comment->parent_id ? 'is-reply' : '' }} {{ ($hidden ?? false) ? 'reply-extra' : '' }}" id="comment-{{ $comment->id }}" data-comment-id="{{ $comment->id }}" data-root-id="{{ $comment->parent_id ?: $comment->id }}"@if($hidden ?? false) style="display:none"@endif>
     <img src="{{ $comment->user->avatar ? asset('storage/' . $comment->user->avatar) : asset('storage/default-avatar/default-avatar.avif') }}"
          alt="{{ $comment->user->name }}" class="comment-avatar">

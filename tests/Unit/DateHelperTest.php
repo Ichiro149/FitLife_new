@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Date Helper Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('date formatting works correctly', function () {
     $date = '2026-01-21';
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Goal Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Goal;
@@ -10,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 class GoalController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $goals = Goal::where('user_id', Auth::id())->get();
@@ -17,11 +24,17 @@ class GoalController extends Controller
         return view('goals.index', compact('goals'));
     }
 
+    /**
+     * Šī metode parāda jauna ieraksta izveides formu.
+     */
     public function create()
     {
         return view('goals.create');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -43,6 +56,9 @@ class GoalController extends Controller
         return redirect()->route('goals.index')->with('success', '');
     }
 
+    /**
+     * Šī metode parāda esoša ieraksta rediģēšanas formu.
+     */
     public function edit(Goal $goal)
     {
         if ($goal->user_id !== Auth::id()) {
@@ -52,6 +68,9 @@ class GoalController extends Controller
         return view('goals.edit', compact('goal'));
     }
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request, Goal $goal)
     {
         if ($goal->user_id !== Auth::id()) {
@@ -75,6 +94,9 @@ class GoalController extends Controller
         return redirect()->route('goals.index')->with('success', 'Goal updated successfully');
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Goal $goal)
     {
         if ($goal->user_id !== Auth::id()) {
@@ -86,6 +108,9 @@ class GoalController extends Controller
         return redirect()->route('goals.index')->with('success', 'Goal deleted successfully');
     }
 
+    /**
+     * Šī metode apstrādā darbību "log" un atgriež atbilstošu rezultātu.
+     */
     public function log(Goal $goal)
     {
 
@@ -96,6 +121,9 @@ class GoalController extends Controller
         return view('goals.log', compact('goal'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "store Log" un atgriež atbilstošu rezultātu.
+     */
     public function storeLog(Request $request, Goal $goal)
     {
 

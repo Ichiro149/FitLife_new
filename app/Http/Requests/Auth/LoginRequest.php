@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis pieprasījums validē "Login Request" ievades datus.
+ */
+
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;

@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "responsive nav link" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props(['active'])
 
 @php

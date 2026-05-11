@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis bāzes tests sagatavo kopējo testu vidi.
+ */
+
 namespace Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;

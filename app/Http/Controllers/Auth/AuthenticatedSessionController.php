@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Authenticated Session Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -12,11 +16,17 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
 
+    /**
+     * Šī metode parāda jauna ieraksta izveides formu.
+     */
     public function create(): View
     {
         return view('auth.login');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
@@ -26,6 +36,9 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

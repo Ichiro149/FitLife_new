@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "calendar" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Календарь',
     'my_calendar' => 'Мой календарь',

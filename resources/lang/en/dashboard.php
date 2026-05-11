@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "dashboard" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Dashboard',
     'welcome' => 'Welcome back, :name!',

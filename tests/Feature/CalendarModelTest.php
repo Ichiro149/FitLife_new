@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Calendar Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Calendar;
 use App\Models\User;
 use Carbon\Carbon;

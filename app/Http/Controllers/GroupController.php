@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Group Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\ChatTheme;
@@ -18,6 +22,9 @@ use Illuminate\Support\Facades\Storage;
 
 class GroupController extends Controller
 {
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -26,11 +33,17 @@ class GroupController extends Controller
         return view('groups.index', compact('groups'));
     }
 
+    /**
+     * Šī metode parāda jauna ieraksta izveides formu.
+     */
     public function create()
     {
         return view('groups.create');
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -55,6 +68,9 @@ class GroupController extends Controller
         return redirect()->route('groups.show', $group);
     }
 
+    /**
+     * Šī metode attēlo detalizētu izvēlētā ieraksta skatu.
+     */
     public function show(Group $group)
     {
         $user = Auth::user();
@@ -99,6 +115,9 @@ class GroupController extends Controller
             ->with('groups', $userGroups);
     }
 
+    /**
+     * Šī metode nosūta jaunu saturu vai ziņu uz izvēlēto plūsmu.
+     */
     public function send(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -167,6 +186,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode atgriež periodiski atjaunojamus datus.
+     */
     public function poll(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -193,6 +215,9 @@ class GroupController extends Controller
         return response()->json(['messages' => $mapped]);
     }
 
+    /**
+     * Šī metode ielādē iepriekšējo darbību vai ziņu vēsturi.
+     */
     public function loadHistory(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -216,6 +241,9 @@ class GroupController extends Controller
         return response()->json(['messages' => $messages]);
     }
 
+    /**
+     * Šī metode meklē ierakstus vai lietotājus pēc norādītā filtra.
+     */
     public function search(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -242,6 +270,9 @@ class GroupController extends Controller
         return response()->json(['results' => $messages]);
     }
 
+    /**
+     * Šī metode atjaunina rakstīšanas statusu.
+     */
     public function typing(Group $group)
     {
         $user = Auth::user();
@@ -256,6 +287,9 @@ class GroupController extends Controller
         return response()->json(['ok' => true]);
     }
 
+    /**
+     * Šī metode nolasa aktuālo rakstīšanas statusu.
+     */
     public function typingStatus(Group $group)
     {
         $user = Auth::user();
@@ -277,6 +311,9 @@ class GroupController extends Controller
         return response()->json(['users' => $typingUsers]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "update Avatar" un atgriež atbilstošu rezultātu.
+     */
     public function updateAvatar(Request $request, Group $group)
     {
         if (!$group->isAdmin(Auth::user())) {
@@ -298,6 +335,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstrādā darbību "update Name" un atgriež atbilstošu rezultātu.
+     */
     public function updateName(Request $request, Group $group)
     {
         if (!$group->isAdmin(Auth::user())) {
@@ -314,6 +354,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstrādā darbību "update Description" un atgriež atbilstošu rezultātu.
+     */
     public function updateDescription(Request $request, Group $group)
     {
         if (!$group->isAdmin(Auth::user())) {
@@ -330,6 +373,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstrādā darbību "invite" un atgriež atbilstošu rezultātu.
+     */
     public function invite(Group $group)
     {
         $user = Auth::user();
@@ -350,6 +396,9 @@ class GroupController extends Controller
         return view('groups.invite', compact('group', 'mutualFollowers'));
     }
 
+    /**
+     * Šī metode nosūta jaunu saturu vai ziņu uz izvēlēto plūsmu.
+     */
     public function sendInvite(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -378,6 +427,9 @@ class GroupController extends Controller
         return back()->with('success', __('messages.invite_sent'));
     }
 
+    /**
+     * Šī metode apstrādā darbību "leave" un atgriež atbilstošu rezultātu.
+     */
     public function leave(Group $group)
     {
         $user = Auth::user();
@@ -391,6 +443,9 @@ class GroupController extends Controller
         return redirect()->route('groups.index');
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Group $group)
     {
         if ($group->owner_id !== Auth::id()) {
@@ -402,6 +457,9 @@ class GroupController extends Controller
         return redirect()->route('groups.index');
     }
 
+    /**
+     * Šī metode iestata jaunu vērtību vai konfigurāciju.
+     */
     public function setRole(Request $request, Group $group, User $user)
     {
         $me = Auth::user();
@@ -424,6 +482,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstrādā darbību "remove Member" un atgriež atbilstošu rezultātu.
+     */
     public function removeMember(Group $group, User $user)
     {
         $me = Auth::user();
@@ -448,6 +509,9 @@ class GroupController extends Controller
         return back();
     }
 
+    /**
+     * Šī metode apstrādā darbību "forward" un atgriež atbilstošu rezultātu.
+     */
     public function forward(Request $request, Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -500,6 +564,9 @@ class GroupController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "pin Message" un atgriež atbilstošu rezultātu.
+     */
     public function pinMessage(Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -566,6 +633,9 @@ class GroupController extends Controller
         ];
     }
 
+    /**
+     * Šī metode apstrādā darbību "edit Message" un atgriež atbilstošu rezultātu.
+     */
     public function editMessage(Request $request, Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -588,6 +658,9 @@ class GroupController extends Controller
         return response()->json(['success' => true, 'body' => $message->body]);
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function deleteMessage(Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -612,6 +685,9 @@ class GroupController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "react Message" un atgriež atbilstošu rezultātu.
+     */
     public function reactMessage(Request $request, Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -675,6 +751,9 @@ class GroupController extends Controller
         return $conversations->merge($groups)->toArray();
     }
 
+    /**
+     * Šī metode pārslēdz stāvokli starp divām iespējamām darbībām.
+     */
     public function toggleFavorite(Group $group, GroupMessage $message)
     {
         $user = Auth::user();
@@ -705,6 +784,9 @@ class GroupController extends Controller
         return response()->json(['favorited' => true]);
     }
 
+    /**
+     * Šī metode iestata jaunu vērtību vai konfigurāciju.
+     */
     public function setTheme(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -723,6 +805,9 @@ class GroupController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "create Poll" un atgriež atbilstošu rezultātu.
+     */
     public function createPoll(Request $request, Group $group)
     {
         $user = Auth::user();
@@ -768,6 +853,9 @@ class GroupController extends Controller
         return response()->json($formatted);
     }
 
+    /**
+     * Šī metode apstrādā darbību "vote Poll" un atgriež atbilstošu rezultātu.
+     */
     public function votePoll(Request $request, Group $group, GroupPoll $poll)
     {
         $user = Auth::user();
@@ -833,6 +921,9 @@ class GroupController extends Controller
         ];
     }
 
+    /**
+     * Šī metode meklē ierakstus vai lietotājus pēc norādītā filtra.
+     */
     public function searchMembers(Request $request, Group $group)
     {
         $user = Auth::user();

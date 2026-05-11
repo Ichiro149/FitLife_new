@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "water table" lapu vai saskarnes sadaļu. --}}
+
 <div class="table-wrapper">
     <table>
         <thead>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "profile" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Профиль',
     'settings' => 'Настройки профиля',

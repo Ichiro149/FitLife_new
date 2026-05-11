@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "invite" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 @section('title', __('messages.invite_to_group'))
 

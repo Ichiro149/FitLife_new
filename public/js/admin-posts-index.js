@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "admin posts index" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const postSearch = document.getElementById('post-search');
     const rows = Array.from(document.querySelectorAll('[data-post-row]'));

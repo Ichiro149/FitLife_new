@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "toast" tulkojuma tekstus.
+ */
+
 return [
 
     'post_created' => 'Пост успешно создан',

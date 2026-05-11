@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "vite config" interaktivitāti. */
+
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Meal Log Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\MealLog;
 use App\Models\User;
 

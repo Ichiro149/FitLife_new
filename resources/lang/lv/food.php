@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "food" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Ēdiena izsekotājs',
     'add_meal' => 'Pievienot ēdienreizi',

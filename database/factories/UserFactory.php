@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī rūpnīca ģenerē "User Factory" testdatus.
+ */
+
 namespace Database\Factories;
 
 use App\Models\User;

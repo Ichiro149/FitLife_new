@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "sidebar" lapu vai saskarnes sadaļu. --}}
+
 <div class="chat-sidebar-list" id="chatSidebarList" data-default-tab="{{ isset($activeGroupId) ? 'groups' : 'messages' }}">
     <div class="chat-sidebar-list__header">
         <h2 class="chat-sidebar-list__title">{{ __('messages.chats') }}</h2>

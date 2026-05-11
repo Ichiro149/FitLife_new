@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "config app" iestatījumus.
+ */
+
 return [
 
     'name' => env('APP_NAME', 'Laravel'),

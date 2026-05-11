@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "privacy policy" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.legal')
 
 @section('title', __('legal.privacy.seo_title'))

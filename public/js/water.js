@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "water" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener("DOMContentLoaded", function () {
 
   const mobileToggle = document.getElementById('mobile-toggle');

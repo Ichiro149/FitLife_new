@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Authorization Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Calendar;
 use App\Models\Comment;
 use App\Models\Goal;

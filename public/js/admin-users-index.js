@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "admin users index" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const userSearch = document.getElementById('user-search');
     const roleFilter = document.getElementById('role-filter');

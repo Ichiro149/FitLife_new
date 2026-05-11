@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Dashboard Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Calendar;
@@ -15,6 +19,9 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -43,16 +50,25 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode apstrādā darbību "meal Logs Ajax" un atgriež atbilstošu rezultātu.
+     */
     public function mealLogsAjax(Request $request)
     {
         return $this->ajaxLogResponse($request, MealLog::class, 'profile.partials.meal_table', 'meals');
     }
 
+    /**
+     * Šī metode apstrādā darbību "sleep Logs Ajax" un atgriež atbilstošu rezultātu.
+     */
     public function sleepLogsAjax(Request $request)
     {
         return $this->ajaxLogResponse($request, Sleep::class, 'profile.partials.sleep_table', 'sleep');
     }
 
+    /**
+     * Šī metode apstrādā darbību "water Logs Ajax" un atgriež atbilstošu rezultātu.
+     */
     public function waterLogsAjax(Request $request)
     {
         return $this->ajaxLogResponse($request, WaterLog::class, 'profile.partials.water_table', 'water');

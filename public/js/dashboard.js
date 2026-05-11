@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "dashboard" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.content;
     const alertContainer = document.querySelector('.alert-container');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "water" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Water Tracker',
     'subtitle' => 'Track your daily hydration',

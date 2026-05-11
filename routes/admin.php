@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šeit definēti administrācijas paneļa maršruti un darbības.
+ */
+
 use App\Http\Controllers\Admin\AdminPanelController;
 use Illuminate\Support\Facades\Route;
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "water" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Ūdens izsekotājs',
     'subtitle' => 'Izsekojaiet ikdienas hidratāciju',

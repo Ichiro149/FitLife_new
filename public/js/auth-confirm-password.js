@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "auth confirm password" publiskās saskarnes interaktivitāti. */
+
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
 

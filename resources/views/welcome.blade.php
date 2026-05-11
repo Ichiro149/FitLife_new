@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "welcome" lapu vai saskarnes sadaļu. --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

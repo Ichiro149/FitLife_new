@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "users edit" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', 'Edit user')

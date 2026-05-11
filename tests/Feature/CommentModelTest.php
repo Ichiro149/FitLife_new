@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Comment Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Post;

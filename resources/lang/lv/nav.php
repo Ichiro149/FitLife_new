@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "nav" tulkojuma tekstus.
+ */
+
 return [
     'dashboard' => 'Vadības panelis',
     'goals' => 'Mērķi',

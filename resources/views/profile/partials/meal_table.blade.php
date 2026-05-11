@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "meal table" lapu vai saskarnes sadaļu. --}}
+
 <div class="history-table-wrap">
 <table class="history-table">
   <thead>

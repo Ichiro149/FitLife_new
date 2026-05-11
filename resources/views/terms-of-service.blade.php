@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "terms of service" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.legal')
 
 @section('title', __('legal.terms.seo_title'))

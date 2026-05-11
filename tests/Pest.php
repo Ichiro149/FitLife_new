@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šeit definēta Pest testu kopējā konfigurācija.
+ */
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

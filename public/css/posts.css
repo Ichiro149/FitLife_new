@@ -1,3 +1,5 @@
+/* Šie stili noformē "posts" publisko saskarnes daļu. */
+
 .community-page {
     display: grid;
     grid-template-columns: 1fr 320px;

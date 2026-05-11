@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "users index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', 'Users')

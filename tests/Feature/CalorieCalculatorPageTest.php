@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Calorie Calculator Page Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\User;
 
 test('authenticated users can open the calorie calculator page', function () {

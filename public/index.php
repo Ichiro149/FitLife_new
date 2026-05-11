@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails apraksta "public index" loģiku un lietotnes uzvedību.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

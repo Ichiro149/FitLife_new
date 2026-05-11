@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Calorie Calculation Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('calories are calculated correctly per 100g', function () {
     $caloriesPer100g = 130;
     $quantity = 200;

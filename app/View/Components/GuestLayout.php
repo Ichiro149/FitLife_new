@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis skata komponents sagatavo "Guest Layout" atkārtoti lietojamu daļu.
+ */
+
 namespace App\View\Components;
 
 use Illuminate\View\Component;

@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "conversations index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 @section('title', __('messages.conversations'))
 

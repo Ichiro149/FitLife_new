@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "events index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', 'Events')

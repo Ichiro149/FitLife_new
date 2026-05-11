@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "login" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.auth')
 
 @section('title', __('auth.login') . ' - FitLife')

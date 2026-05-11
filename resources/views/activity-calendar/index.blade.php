@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "activity calendar index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app', ['title' => __('calendar.page_title')])
 
 @section('hide-mobile-nav', '1')

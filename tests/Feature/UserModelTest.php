@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "User Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Biography;
 use App\Models\Calendar;
 use App\Models\Goal;

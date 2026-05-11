@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "auth session status" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props(['status'])
 
 @if ($status)

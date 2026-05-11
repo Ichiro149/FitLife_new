@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Food Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\MealLog;
@@ -30,6 +34,9 @@ class FoodController extends Controller
         'yogurt' => ['calories' => 59, 'protein' => 10.0, 'fat' => 0.7, 'carbs' => 3.6],
     ];
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index(Request $request)
     {
         $userId = Auth::id();
@@ -44,6 +51,9 @@ class FoodController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode meklē un atgriež datus pēc lietotāja pieprasījuma.
+     */
     public function lookup(Request $request)
     {
         $request->validate([
@@ -61,6 +71,9 @@ class FoodController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode aprēķina rezultātu no saņemtajiem ievades datiem.
+     */
     public function calculate(Request $request)
     {
         $request->validate([
@@ -165,6 +178,9 @@ class FoodController extends Controller
         ]);
     }
 
+    /**
+     * Šī metode ielādē iepriekšējo darbību vai ziņu vēsturi.
+     */
     public function history()
     {
         $logs = $this->mealLogsQuery(Auth::id())
@@ -247,6 +263,9 @@ class FoodController extends Controller
         }
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(MealLog $mealLog)
     {
         if ($mealLog->user_id !== Auth::id()) {

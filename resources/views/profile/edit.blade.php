@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "profile edit" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', __('profile.edit_profile') . ' - FitLife')

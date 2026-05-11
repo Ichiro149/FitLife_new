@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "progress" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Фото прогресса',
     'subtitle' => 'Отслеживайте свою трансформацию',

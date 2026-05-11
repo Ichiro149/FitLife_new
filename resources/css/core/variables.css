@@ -1,3 +1,4 @@
+/* Šie stili noformē "variables" lapas vai komponenta izskatu. */
 
 :root {
 
@@ -211,13 +212,23 @@
     --text-inverse: #16202c;
 }
 
+[data-theme="light"] .site-footer__copy,
+[data-theme="light"] .site-footer__bottom {
+    color: var(--text-secondary);
+}
+
 [data-theme="light"] .site-footer__title {
-    color: var(--text-muted);
+    color: #334155;
+}
+
+[data-theme="light"] .site-footer__links a,
+[data-theme="light"] .site-footer__bottom-links a {
+    color: var(--text-primary);
 }
 
 [data-theme="light"] .site-footer__links a:hover,
 [data-theme="light"] .site-footer__bottom-links a:hover {
-    color: var(--text-primary);
+    color: var(--primary-dark);
 }
 
 [data-theme="light"] .site-footer__bottom {

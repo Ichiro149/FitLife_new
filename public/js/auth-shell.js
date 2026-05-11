@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "auth shell" publiskās saskarnes interaktivitāti. */
+
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
     const button = input?.parentElement?.querySelector('.auth-shell-password-toggle');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis konfigurācijas fails nosaka "queue" iestatījumus.
+ */
+
 return [
 
     'default' => env('QUEUE_CONNECTION', 'database'),

@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "admin comments index" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('comment-search');
     const rows = Array.from(document.querySelectorAll('[data-comment-row]'));

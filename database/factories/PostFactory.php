@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī rūpnīca ģenerē "Post Factory" testdatus.
+ */
+
 namespace Database\Factories;
 
 use App\Models\Post;

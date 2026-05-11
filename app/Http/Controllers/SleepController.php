@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Sleep Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Sleep;
@@ -10,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 class SleepController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $query = Sleep::where('user_id', Auth::id());
@@ -28,6 +35,9 @@ class SleepController extends Controller
         return view('sleep.index', compact('sleeps', 'average', 'todaySleeps', 'todayDuration', 'recommendedHours'));
     }
 
+    /**
+     * Šī metode validē ievadi un saglabā jaunu ierakstu.
+     */
     public function store(Request $request)
     {
         $request->validate([

@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "foods" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     const trackerPage = document.querySelector('.mt-page');
     const config = trackerPage?.dataset.mealTracker ? JSON.parse(trackerPage.dataset.mealTracker) : {};

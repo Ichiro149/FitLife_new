@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Profile Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -12,11 +16,17 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+    /**
+     * Šī metode parāda esoša ieraksta rediģēšanas formu.
+     */
     public function edit()
     {
         return view('profile.edit', ['user' => Auth::user()]);
     }
 
+    /**
+     * Šī metode attēlo detalizētu izvēlētā ieraksta skatu.
+     */
     public function show(User $user)
     {
         $user->loadCount(['followers', 'followings', 'posts']);
@@ -30,6 +40,9 @@ class ProfileController extends Controller
         return view('profile.show', compact('user', 'subscriptionsCount'));
     }
 
+    /**
+     * Šī metode validē ievadi un atjaunina esošo ierakstu.
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -75,6 +88,9 @@ class ProfileController extends Controller
         return redirect('/profile')->with('status', 'profile-updated');
     }
 
+    /**
+     * Šī metode apstrādā darbību "update Password" un atgriež atbilstošu rezultātu.
+     */
     public function updatePassword(Request $request)
     {
 
@@ -102,6 +118,9 @@ class ProfileController extends Controller
         return redirect()->back()->with('status', 'Password updated successfully!');
     }
 
+    /**
+     * Šī metode dzēš izvēlēto ierakstu vai saturu.
+     */
     public function destroy(Request $request)
     {
         $request->validate([

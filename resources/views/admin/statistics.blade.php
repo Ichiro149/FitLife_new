@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "statistics" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', 'Statistics')

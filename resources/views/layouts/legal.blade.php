@@ -1,3 +1,5 @@
+{{-- Šis izkārtojuma skats veido "legal" kopējo lapas struktūru. --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

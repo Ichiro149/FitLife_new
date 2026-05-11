@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis sējējs aizpilda "Database Seeder" sākotnējos datus.
+ */
+
 namespace Database\Seeders;
 
 use App\Models\Goal;

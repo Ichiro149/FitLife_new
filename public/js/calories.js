@@ -1,3 +1,4 @@
+/* Šis skripts nodrošina "calories" publiskās saskarnes interaktivitāti. */
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileToggle = document.getElementById('mobile-toggle');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Goal Progress Test" darbību un sagaidāmo uzvedību.
+ */
+
 test('goal progress percentage calculated correctly', function () {
     $currentValue = 50;
     $targetValue = 100;

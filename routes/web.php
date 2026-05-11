@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šeit definēti galvenie tīmekļa maršruti un lietotāja plūsmas.
+ */
+
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CalorieCalculatorController;
 use App\Http\Controllers\CommentController;

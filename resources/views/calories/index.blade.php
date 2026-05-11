@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "calories index" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('title', __('food.calorie_calc_label'))

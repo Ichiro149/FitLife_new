@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis tests pārbauda "Goal Model Test" darbību un sagaidāmo uzvedību.
+ */
+
 use App\Models\Goal;
 use App\Models\GoalLog;
 use App\Models\User;

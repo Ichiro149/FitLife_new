@@ -1,3 +1,5 @@
+/* Šie stili noformē "auth shell" lapas vai komponenta izskatu. */
+
 body.auth-shell-page {
     background-color: #040506;
     overscroll-behavior-y: none;

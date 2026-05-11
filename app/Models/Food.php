@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis modelis apraksta "Food" datus un saites ar citiem ierakstiem.
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +21,9 @@ class Food extends Model
         'calories',
     ];
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "user".
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

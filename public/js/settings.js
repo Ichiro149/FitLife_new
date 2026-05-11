@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "settings" publiskās saskarnes interaktivitāti. */
+
 function switchSettingsTab(tab, element) {
     document.querySelectorAll('.settings-tab').forEach((panel) => {
         panel.style.display = 'none';

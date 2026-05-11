@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis kontrolieris apstrādā "Calorie Calculator Controller" sadaļas pieprasījumus un lapas plūsmu.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\MealLog;
@@ -9,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 class CalorieCalculatorController extends Controller
 {
 
+    /**
+     * Šī metode sagatavo un attēlo galveno lapas vai saraksta skatu.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -17,6 +24,9 @@ class CalorieCalculatorController extends Controller
         return view('calories.index', compact('user', 'todayCalories'));
     }
 
+    /**
+     * Šī metode aprēķina rezultātu no saņemtajiem ievades datiem.
+     */
     public function calculate(Request $request)
     {
 

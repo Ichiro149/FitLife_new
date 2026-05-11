@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šī rūpnīca ģenerē "Goal Log Factory" testdatus.
+ */
+
 namespace Database\Factories;
 
 use App\Models\Goal;

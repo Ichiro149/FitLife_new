@@ -1,3 +1,5 @@
+{{-- Šis komponents attēlo "dropdown" atkārtoti lietojamu saskarnes bloku. --}}
+
 @props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white'])
 
 @php

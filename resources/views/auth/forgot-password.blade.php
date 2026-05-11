@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "forgot password" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.auth')
 
 @section('title', __('auth.forgot_password') . ' - FitLife')

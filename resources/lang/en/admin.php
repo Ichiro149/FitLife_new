@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "en admin" tulkojuma tekstus.
+ */
+
 return [
     'dashboard' => 'Dashboard',
     'users' => 'Users',

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis modelis apraksta "Subscription" datus un saites ar citiem ierakstiem.
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,11 +23,17 @@ class Subscription extends Model
 
     public $timestamps = true;
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "subscriber".
+     */
     public function subscriber()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Šī metode atgriež vai definē ar modeli saistīto loģiku "subscribed User".
+     */
     public function subscribedUser()
     {
         return $this->belongsTo(User::class, 'subscribed_user_id');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "en auth" tulkojuma tekstus.
+ */
+
 return [
     'login' => 'Login',
     'register' => 'Register',

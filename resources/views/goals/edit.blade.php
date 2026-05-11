@@ -1,3 +1,5 @@
+{{-- Šis skats attēlo "goals edit" lapu vai saskarnes sadaļu. --}}
+
 @extends('layouts.app')
 
 @section('content')

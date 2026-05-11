@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "subscriptions" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Abonementi',
     'my_subscriptions' => 'Mani abonementi',

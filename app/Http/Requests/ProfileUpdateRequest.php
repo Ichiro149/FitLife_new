@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis pieprasījums validē "Profile Update Request" ievades datus.
+ */
+
 namespace App\Http\Requests;
 
 use App\Models\User;

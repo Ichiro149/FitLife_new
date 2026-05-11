@@ -1,3 +1,5 @@
+/* Šis skripts nodrošina "profile" publiskās saskarnes interaktivitāti. */
+
 document.addEventListener('DOMContentLoaded', () => {
     initProfileEditMediaPreview();
     initProfileShowTabs();

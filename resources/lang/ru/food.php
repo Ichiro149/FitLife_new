@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis fails glabā "food" tulkojuma tekstus.
+ */
+
 return [
     'title' => 'Трекер питания',
     'add_meal' => 'Добавить приём пищи',

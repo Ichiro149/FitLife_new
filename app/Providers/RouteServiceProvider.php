@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Šis servisa nodrošinātājs konfigurē "Route Service Provider" lietotnes līmenī.
+ */
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
