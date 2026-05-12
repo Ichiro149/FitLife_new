@@ -224,11 +224,12 @@
 [data-theme="light"] .site-footer__links a,
 [data-theme="light"] .site-footer__bottom-links a {
     color: var(--text-primary);
+    transition: none;
 }
 
 [data-theme="light"] .site-footer__links a:hover,
 [data-theme="light"] .site-footer__bottom-links a:hover {
-    color: var(--primary-dark);
+    color: var(--text-primary);
 }
 
 [data-theme="light"] .site-footer__bottom {
